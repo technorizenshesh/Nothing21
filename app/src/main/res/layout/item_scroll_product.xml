@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+      android:id="@+id/cardMain"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/_400sdp"
+      android:layout_margin="@dimen/_8sdp"
+      app:cardCornerRadius="@dimen/_10sdp"
+      app:cardElevation="@dimen/_5sdp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+<!--
+      <ImageView
+          android:id="@+id/ivImg"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:scaleType="fitXY"
+          android:src="@drawable/img3" />
+
+
+
+-->
+
+
+   <!--  <androidx.viewpager.widget.ViewPager
+         android:id="@+id/viewpager"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProductItm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+        <View
+            android:id="@+id/layoutMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"/>
+
+
+      <RelativeLayout
+          android:id="@+id/layoutHeader"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/_40sdp"
+          android:layout_alignParentTop="true"
+          android:layout_marginTop="@dimen/_8sdp">
+
+
+          <TextView
+              android:id="@+id/tvProductName"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="@dimen/_7sdp"
+              android:background="@drawable/rounded_white15_bg"
+              android:fontFamily="@font/poppins_semibold"
+              android:gravity="center"
+              android:paddingStart="@dimen/_15sdp"
+              android:paddingTop="@dimen/_7sdp"
+              android:paddingEnd="@dimen/_15sdp"
+              android:paddingBottom="@dimen/_7sdp"
+              android:text="ALDO"
+              android:textColor="@color/black"
+              android:textSize="@dimen/_10sdp" />
+
+
+          <TextView
+              android:id="@+id/tvOffer"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:background="@drawable/rounded_white15_bg"
+              android:fontFamily="@font/poppins_semibold"
+              android:gravity="center"
+              android:paddingStart="@dimen/_15sdp"
+              android:paddingTop="@dimen/_7sdp"
+              android:paddingEnd="@dimen/_15sdp"
+              android:paddingBottom="@dimen/_7sdp"
+              android:text="Offer"
+              android:textColor="@color/black"
+              android:textSize="@dimen/_10sdp" />
+
+
+          <ImageView
+              android:id="@+id/ivLike"
+              android:layout_width="@dimen/_30sdp"
+              android:layout_height="@dimen/_30sdp"
+              android:layout_alignParentRight="true"
+              android:layout_centerInParent="true"
+              android:layout_marginEnd="@dimen/_7sdp"
+              android:elevation="@dimen/_2sdp"
+              android:src="@drawable/ic_white_heart" />
+
+
+      </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layoutCenter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_centerInParent="true">
+
+
+            <ImageView
+                android:id="@+id/ivLeft"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:elevation="@dimen/_2sdp"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_left_arrow" />
+
+
+            <ImageView
+                android:id="@+id/ivRight"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/_7sdp"
+                android:elevation="@dimen/_2sdp"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_right_arrow" />
+
+
+        </RelativeLayout>
+
+
+      <RelativeLayout
+          android:id="@+id/layoutBottom"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/_40sdp"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="@dimen/_8sdp">
+
+
+          <ImageView
+              android:id="@+id/ivInfo"
+              android:layout_width="@dimen/_30sdp"
+              android:layout_height="@dimen/_30sdp"
+              android:layout_alignParentLeft="true"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="@dimen/_7sdp"
+              android:elevation="@dimen/_2sdp"
+              android:src="@drawable/ic_blck_info" />
+
+
+          <ImageView
+              android:id="@+id/ivCart"
+              android:layout_width="@dimen/_30sdp"
+              android:layout_height="@dimen/_30sdp"
+              android:layout_centerInParent="true"
+              android:layout_marginStart="@dimen/_10sdp"
+              android:layout_toRightOf="@+id/ivInfo"
+              android:elevation="@dimen/_2sdp"
+              android:src="@drawable/ic_white_cart" />
+
+
+          <TextView
+              android:id="@+id/tvPrice"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerInParent="true"
+              android:background="@drawable/rounded_white15_bg"
+              android:fontFamily="@font/poppins_semibold"
+              android:gravity="center"
+              android:paddingStart="@dimen/_15sdp"
+              android:paddingTop="@dimen/_7sdp"
+              android:paddingEnd="@dimen/_15sdp"
+              android:paddingBottom="@dimen/_7sdp"
+              android:text="AED98.00"
+              android:textColor="@color/black"
+              android:textSize="@dimen/_10sdp" />
+
+
+          <ImageView
+              android:id="@+id/ivIn"
+              android:layout_width="@dimen/_30sdp"
+              android:layout_height="@dimen/_30sdp"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="@dimen/_7sdp"
+              android:layout_marginEnd="@dimen/_10sdp"
+              android:layout_toLeftOf="@+id/ivColor"
+              android:elevation="@dimen/_2sdp"
+              android:src="@drawable/ic_size" />
+
+
+        <ImageView
+            android:id="@+id/ivColor"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:elevation="@dimen/_2sdp"
+            android:src="@drawable/ic_color" />
+
+
+      </RelativeLayout>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+  </androidx.cardview.widget.CardView>
+
+</layout>

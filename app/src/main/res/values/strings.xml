@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Nothing21</string>
+    <string name="signin_and_register">Sign In / Register</string>
+    <string name="existing_customers">Existing Customers</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Your Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="new_customer">New Customer</string>
+    <string name="register_now">register now</string>
+    <string name="create_account">Create Account</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="emirate">Emirate</string>
+    <string name="address">Address</string>
+    <string name="region">Region</string>
+    <string name="telephone_number">Telephone Number</string>
+    <string name="note_info">I WANT TO RECEIVE ALL THE NEWS AND INFORMATION VIA EMAIL</string>
+    <string name="note_privacy_policy">I ACCEPT THE TERMS OF USE</string>
+    <string name="note_read_privacy_policy">I HAVE READ AND UNDERSTAND THE PRIVACY AND COOKIES POLICY</string>
+    <string name="save">Save</string>
+    <string name="are_you_sure_you_want_to_exit_this_app">Are you sure you want to exit this app?</string>
+    <string name="bag">Bag</string>
+    <string name="check_out">checkout</string>
+    <string name="vouchers">Vouchers</string>
+    <string name="points">Points</string>
+    <string name="wallet">Wallet</string>
+    <string name="processing">Processing</string>
+    <string name="shiped">Shiped</string>
+    <string name="returns">Returns</string>
+    <string name="my_orders">My Orders</string>
+    <string name="more_services">More Services</string>
+    <string name="support">Support</string>
+    <string name="panding_support">Panding Support</string>
+    <string name="share_earn"><![CDATA[Share & Earn]]></string>
+    <string name="wishlist">Wishlist</string>
+    <string name="recently_view">Recently Viewed</string>
+    <string name="search_product_name">Search product name</string>
+    <string name="offers">Offers</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="network_failure">Sorry! Not connected to internet</string>
+    <string name="wrong_email">Can\'t enter worng email.</string>
+    <string name="required">Required</string>
+    <string name="please_login">Please Login</string>
+    <string name="not_available">Not available</string>
+    <string name="quentity">Quantity:</string>
+    <string name="size">Size:</string>
+    <string name="are_you_sure_you_want_to_delete_this_cart_item">Are you sure you want to delete this item from cart?</string>
+    <string name="update">Update</string>
+    <string name="logout">Logout</string>
+    <string name="are_you_sure_you_want_to_logout_this_app">Are you sure you want to logout to this app?</string>
+    <string name="add_address">Add Address</string>
+    <string name="add">Add</string>
+
+    <string name="place_api_key">AIzaSyC4Eg_qGdkZrcW-td6QsmJAk2g4nzPaat0</string>
+    <string name="please_select_address">Please select delivery address</string>
+    <string name="pay">Pay</string>
+    <string name="next">Next</string>
+    <string name="card_not_valid">Card Not Valid</string>
+    <string name="please_complete_form">Please complete the form</string>
+    <string name="please_select_payment_method">Please select payment method</string>
+    <string name="order_placed_successfully">Order placed successfully</string>
+    <string name="please_select_delivery_address">please select delivery address</string>
+
+    <!-- key for map-->
+    <string name="google_maps_key">AIzaSyAXTJrvnDTC8AjYzK2dPatsSAMJaTIc-c0</string>
+    <string name="add_to_my_bag">Add to my Bag to</string>
+    <string name="item_added">Item added</string>
+    <string name="color">Color</string>
+    <string name="delivery_two_day">Delivery in two days</string>
+
+
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:id="@+id/tvSearch"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:hint="Search Categories or products"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/color_grey"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:paddingStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:background="@drawable/rounded_white_black_bg"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/tvSearch"
+            android:id="@+id/rvProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_product"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:spanCount="3"/>
+
+
+
+        <TextView
+            android:id="@+id/tvFound"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/_13sdp"
+            android:text="not available"
+            android:visibility="gone"/>
+
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "619712358432",
+    "project_id": "nothing21",
+    "storage_bucket": "nothing21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619712358432:android:538573b132578738a87445",
+        "android_client_info": {
+          "package_name": "com.nothing21"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619712358432-b9f51rvec9gbr9kft32c0i6fnpskiri1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nothing21",
+            "certificate_hash": "4a54a0201b383cca1b8c056aecfb715e2f24fe05"
+          }
+        },
+        {
+          "client_id": "619712358432-n7vojefpcjvjn6ou9d53rd36lo9gv76g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1ae9TaQDFgzvUcxE7bMK4dboR-ZDqxjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619712358432-n7vojefpcjvjn6ou9d53rd36lo9gv76g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_address.xml" value="0.16302083333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_home.xml" value="0.11684782608695653" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_my_order.xml" value="0.10364583333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_payment.xml" value="0.16302083333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_place_order.xml" value="0.16302083333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_product.xml" value="0.11684782608695653" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_product_singal.xml" value="0.11367753623188406" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_account.xml" value="0.11684782608695653" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_cart.xml" value="0.11684782608695653" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_cart_sheet.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_edit_cart_sheet.xml" value="0.18229166666666666" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_home.xml" value="0.11684782608695653" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_size_sheet.xml" value="0.13802083333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_cart.xml" value="0.22" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_my_order.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_product.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_scroll_product.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/toolbar.xml" value="0.1046875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
