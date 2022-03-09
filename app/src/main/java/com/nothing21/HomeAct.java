@@ -18,7 +18,7 @@ import com.nothing21.fragment.HomeFragment;
 
 public class HomeAct extends AppCompatActivity {
     ActivityHomeBinding binding;
-    public static CardView cardTabs;
+    public static CardView cardTabs,cardTabIcons;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +28,7 @@ public class HomeAct extends AppCompatActivity {
 
     private void initViews() {
         cardTabs = findViewById(R.id.cardTabs);
+        cardTabIcons = findViewById(R.id.cardTabIcons);
 
         binding.rlHome.setOnClickListener(v -> tab(1));
 
@@ -60,7 +61,7 @@ public class HomeAct extends AppCompatActivity {
         }
     }
 
-    public void FragTrans(Fragment fragment) {
+    public  void FragTrans(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
         transaction.replace(R.id.container, fragment);

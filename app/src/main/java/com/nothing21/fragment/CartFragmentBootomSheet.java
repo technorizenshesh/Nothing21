@@ -3,6 +3,7 @@ package com.nothing21.fragment;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,10 +36,14 @@ import com.nothing21.utils.DataManager;
 import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,7 +113,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
       }
         priceCal(count);
         binding.BlurImageView.setBlur(2);
-        Glide.with(getActivity()).load(productData.imageDetails.get(0).image)
+        Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                 .into(binding.BlurImageView);
 
@@ -149,7 +154,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
 
         binding.tvAddCart.setOnClickListener(v -> {
-            if (NetworkAvailablity.checkNetworkStatus(getActivity())) AddProductToCart(userId);
+            if (NetworkAvailablity.checkNetworkStatus(getActivity())) AddProductToCart11(userId);
             else
                 Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         });
@@ -172,7 +177,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
           }*/
     }
 
-    public void AddProductToCart(String userIddd){
+    public void AddProductToCart11(String userIddd){
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String,String> map = new HashMap<>();
         map.put("user_id",userIddd);
@@ -180,6 +185,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         map.put("quantity",count+"");
         map.put("color",binding.tvColor.getText().toString());
         map.put("size",binding.tvSize.getText().toString());
+        map.put("image",SessionManager.readString(getActivity(),"selectImage",""));
         map.put("price",priceTol+"");
         Log.e(TAG, "Add to Cart Request :" + map);
 
@@ -213,8 +219,67 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 DataManager.getInstance().hideProgressMessage();
             }
         });
+
     }
 
+
+    /*public void AddProductToCart(String userIddd){
+        DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
+        Uri mImageUri = Uri.parse(SessionManager.readString(getActivity(),"selectImage",""));
+
+        MultipartBody.Part filePart;
+
+        Log.e("=====",SessionManager.readString(getActivity(),"selectImage",""));
+
+        if (!SessionManager.readString(getActivity(),"selectImage","").equalsIgnoreCase("")) {
+            File file = new File(mImageUri.getPath());   //DataManager.getInstance().saveBitmapToFile(new File());
+            filePart = MultipartBody.Part.createFormData("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
+        } else {
+            RequestBody attachmentEmpty = RequestBody.create(MediaType.parse("text/plain"), "");
+            filePart = MultipartBody.Part.createFormData("attachment", "", attachmentEmpty);
+        }
+        RequestBody uId = RequestBody.create(MediaType.parse("text/plain"), userIddd);
+        RequestBody ProId = RequestBody.create(MediaType.parse("text/plain"), productData.id);
+        RequestBody counttt = RequestBody.create(MediaType.parse("text/plain"), count+"");
+        RequestBody colorrr = RequestBody.create(MediaType.parse("text/plain"), binding.tvColor.getText().toString());
+        RequestBody sizeee = RequestBody.create(MediaType.parse("text/plain"), binding.tvSize.getText().toString());
+
+
+        Call<Map<String,String>> editNameCall = apiInterface.addToCart11(uId,ProId,counttt,colorrr,sizeee, filePart);
+        editNameCall.enqueue(new Callback<Map<String,String>>() {
+            @Override
+            public void onResponse(Call<Map<String,String>> call, Response<Map<String,String>> response) {
+                DataManager.getInstance().hideProgressMessage();
+                try {
+                    Map<String,String> data = response.body();
+                    String responseString = new Gson().toJson(response.body());
+                    Log.e(TAG, "Add to Cart Response :" + responseString);
+                    if (data.get("status").equals("1")) {
+                        Toast.makeText(getActivity(), getString(R.string.item_added), Toast.LENGTH_SHORT).show();
+
+                    } else if (data.get("status").equals("0")){
+                        Toast.makeText(getActivity(), data.get("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                    // serviceAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String,String>> call, Throwable t) {
+                call.cancel();
+                DataManager.getInstance().hideProgressMessage();
+            }
+
+        });
+
+
+
+
+    }*/
 
 
     public void LogInAlert(){

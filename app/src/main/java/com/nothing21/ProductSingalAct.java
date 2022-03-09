@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import com.bumptech.glide.Glide;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.nothing21.adapter.OtherProAdapter;
 import com.nothing21.databinding.ActivityProductBinding;
 import com.nothing21.databinding.ActivityProductSingalBinding;
 import com.nothing21.fragment.CartFragmentBootomSheet;
@@ -44,7 +45,10 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
     ActivityProductSingalBinding binding;
     Nothing21Interface apiInterface;
     ArrayList<ProductModelCopy.Result.ImageDetail> imgArrayList;
+    ArrayList<ProductModel.Result> arrayList;
+
     ProductModelCopy data;
+    OtherProAdapter adapter;
     String product_id="";
     String refreshedToken = "",userId="";
     @Override
@@ -57,6 +61,12 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
 
     private void initViews() {
         imgArrayList = new ArrayList<>();
+        arrayList = new ArrayList<>();
+
+        adapter = new OtherProAdapter(ProductSingalAct.this,arrayList);
+        binding.rvProduct.setAdapter(adapter);
+
+
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
             try {
@@ -111,17 +121,27 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
         });
 
         binding.ivCart.setOnClickListener(v -> {
-            if(data.result.colorDetails.size()!=0) new CartFragmentBootomSheet1(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+            if(data.result.colorDetails.size()!=0) {
+                SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+
+                new CartFragmentBootomSheet1(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+            }
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
         binding.ivColor.setOnClickListener(v -> {
-            if(data.result.colorDetails.size()!=0) new ColorSizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).size).callBack(this::info).show(getSupportFragmentManager(),"");
+            if(data.result.colorDetails.size()!=0) {
+                SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+                new ColorSizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).size).callBack(this::info).show(getSupportFragmentManager(),"");
+            }
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
         binding.ivIn.setOnClickListener(v -> {
-            if(data.result.colorDetails.size()!=0) new SizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).color).callBack(this::info).show(getSupportFragmentManager(),"");
+            if(data.result.colorDetails.size()!=0) {
+                SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+                new SizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).color).callBack(this::info).show(getSupportFragmentManager(),"");
+            }
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
@@ -166,7 +186,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
 
 
                         binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
-                        binding.tvProductName.setText(data.result.name);
+                        binding.tvProductName.setText(data.result.brand1);
                         if(!data.result.discount.equals("")) {
                             binding.tvProductName.setVisibility(View.VISIBLE);
                             binding.tvOffer.setText(data.result.discount + "% Off");
@@ -174,8 +194,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
                         else binding.tvProductName.setVisibility(View.GONE);
 
 
-
-
+                    if(NetworkAvailablity.checkNetworkStatus(ProductSingalAct.this))    getProduct(product_id);
+                     else Toast.makeText(ProductSingalAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
                     } else if (data.status.equals("0")){
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
@@ -202,6 +222,10 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
 
     @Override
     public void info(String value,String size) {
+        if(value.equals("color"))
+        Glide.with(ProductSingalAct.this).load(SessionManager.readString(ProductSingalAct.this,"selectImage","")).error(R.drawable.dummy).into(binding.ivProduct);
+        if(value.equals("size"))
+            Glide.with(ProductSingalAct.this).load(SessionManager.readString(ProductSingalAct.this,"selectImage","")).error(R.drawable.dummy).into(binding.ivProduct);
 
     }
 
@@ -243,6 +267,51 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
 
             @Override
             public void onFailure(Call<Map<String,String>> call, Throwable t) {
+                call.cancel();
+                DataManager.getInstance().hideProgressMessage();
+
+            }
+        });
+    }
+
+
+    public void getProduct(String proId){
+        DataManager.getInstance().showProgressMessage(ProductSingalAct.this, getString(R.string.please_wait));
+        Map<String,String> map = new HashMap<>();
+        map.put("user_id",userId);
+        map.put("product_id",proId);
+        Call<ProductModel> loginCall = apiInterface.getOtherProduct(map);
+        loginCall.enqueue(new Callback<ProductModel>() {
+            @Override
+            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+                DataManager.getInstance().hideProgressMessage();
+
+                try {
+                    ProductModel data = response.body();
+                    String responseString = new Gson().toJson(response.body());
+                    Log.e(TAG, "Product List Response :" + responseString);
+                    if (data.status.equals("1")) {
+                       arrayList.clear();
+                       binding.viqq.setVisibility(View.VISIBLE);
+                       arrayList.addAll(data.result);
+                       adapter.notifyDataSetChanged();
+
+
+                    } else if (data.status.equals("0")){
+                        binding.viqq.setVisibility(View.GONE);
+                        arrayList.clear();
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    // serviceAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductModel> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
 

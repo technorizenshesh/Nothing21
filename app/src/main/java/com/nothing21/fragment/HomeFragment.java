@@ -1,5 +1,9 @@
 package com.nothing21.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,14 +19,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.nothing21.HomeAct;
 import com.nothing21.R;
+import com.nothing21.SearchAct;
 import com.nothing21.adapter.CartAdapter;
 import com.nothing21.adapter.ProductAdapter;
 import com.nothing21.databinding.FragmentHomeBinding;
+import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.CategoryModel;
 import com.nothing21.model.ProductModel;
 import com.nothing21.retrofit.ApiClient;
@@ -36,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment  implements onItemClickListener {
     public static String TAG = "HomeFragment";
     FragmentHomeBinding binding;
     static int y;
@@ -44,6 +51,10 @@ public class HomeFragment extends Fragment {
     ArrayList<CategoryModel.Result>arrayList;
     ProductAdapter adapter;
    public static TextView tvFound;
+
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,7 +68,7 @@ public class HomeFragment extends Fragment {
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
         tvFound = binding.tvFound;
         arrayList = new ArrayList<>();
-        adapter = new ProductAdapter(getActivity(),arrayList);
+        adapter = new ProductAdapter(getActivity(),arrayList,HomeFragment.this);
         binding.rvProduct.setAdapter(adapter);
 
         binding.rvProduct.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -89,7 +100,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        binding.tvSearch.addTextChangedListener(new TextWatcher() {
+       /* binding.tvSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -104,8 +115,12 @@ public class HomeFragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
             }
-        });
+        });*/
 
+
+        binding.tvSearch.setOnClickListener(v -> {
+            startActivityForResult(new Intent(getActivity(), SearchAct.class),1);
+        });
 
 
         if (NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllCate();
@@ -182,4 +197,33 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+    public void FragTrans(Fragment fragment) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack("fragment");
+        transaction.commit();
+    }
+
+
+    @Override
+    public void onItem(int position) {
+        FragTrans(new ProductFragment(arrayList.get(position).id+""));
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                FragTrans(new ProductFragment(data.getStringExtra("id")));    ;
+            }
+        }
+
+
+
+    }
 }

@@ -1,10 +1,14 @@
 package com.nothing21.model;
 
-import java.util.List;
+
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetCartModel {
+import java.util.List;
+
+
+public class SearchModel {
 
     @SerializedName("result")
     @Expose
@@ -15,9 +19,6 @@ public class GetCartModel {
     @SerializedName("status")
     @Expose
     public String status;
-    @SerializedName("total_amount")
-    @Expose
-    public Integer totalAmount;
 
     public class Result {
 
@@ -32,7 +33,7 @@ public class GetCartModel {
         public String categoryId;
         @SerializedName("name")
         @Expose
-        public Object name;
+        public String name;
         @SerializedName("description")
         @Expose
         public String description;
@@ -66,24 +67,12 @@ public class GetCartModel {
         @SerializedName("date_time")
         @Expose
         public String dateTime;
-        @SerializedName("color")
+        @SerializedName("brand")
         @Expose
-        public String color;
-        @SerializedName("size")
+        public String brand;
+        @SerializedName("category_name")
         @Expose
-        public String size;
-        @SerializedName("product_id")
-        @Expose
-        public String productId;
-        @SerializedName("quantity")
-        @Expose
-        public String quantity;
-
-        @SerializedName("cart_id")
-        @Expose
-        public String cartId;
-
-
+        public String categoryName;
         @SerializedName("image")
         @Expose
         public String image;
@@ -91,7 +80,10 @@ public class GetCartModel {
 
 
 
+
+
+
+
+
     }
-
 }
-

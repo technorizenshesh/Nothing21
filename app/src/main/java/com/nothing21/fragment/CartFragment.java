@@ -223,7 +223,7 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
             DeleteAlert(arrayList.get(position).cartId);
         }
         else if(type.equals("Edit")) {
-
+            SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).image1);
             if (NetworkAvailablity.checkNetworkStatus(getActivity())) GetProduct(arrayList.get(position).productId,position);
             else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 

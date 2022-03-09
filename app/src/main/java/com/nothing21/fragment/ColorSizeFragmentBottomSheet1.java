@@ -22,6 +22,7 @@ import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
 
@@ -82,6 +83,7 @@ public class ColorSizeFragmentBottomSheet1 extends BottomSheetDialogFragment imp
     @Override
     public void onItem(int position) {
         listener.info(arrayList.get(position).color,size);
+        SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).image);
         dialog.dismiss();
     }
 

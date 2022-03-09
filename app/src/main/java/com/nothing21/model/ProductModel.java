@@ -120,6 +120,11 @@ public class ProductModel {
             public String dateTime;
 
 
+            @SerializedName("image")
+            @Expose
+            public String image;
+
+
         }
 
         public class ImageDetail {

@@ -16,6 +16,7 @@ import com.nothing21.R;
 import com.nothing21.databinding.ItemCartBinding;
 import com.nothing21.databinding.ItemProductBinding;
 import com.nothing21.fragment.HomeFragment;
+import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.CategoryModel;
 import com.nothing21.model.ProductModel;
 
@@ -24,10 +25,12 @@ import java.util.ArrayList;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
     Context context;
     ArrayList<CategoryModel.Result>arrayList;
+    onItemClickListener listener;
 
-    public ProductAdapter(Context context, ArrayList<CategoryModel.Result> arrayList) {
+    public ProductAdapter(Context context, ArrayList<CategoryModel.Result> arrayList,onItemClickListener listener) {
         this.context = context;
         this.arrayList = arrayList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -54,7 +57,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             super(itemView.getRoot());
             binding = itemView;
 
-            binding.layoutMain.setOnClickListener(v -> context.startActivity(new Intent(context, ProductAct.class).putExtra("catId",arrayList.get(getAdapterPosition()).id)));
+            binding.layoutMain.setOnClickListener(v -> {
+                //context.startActivity(new Intent(context, ProductAct.class).putExtra("catId",arrayList.get(getAdapterPosition()).id))
+
+                listener.onItem(getAdapterPosition());
+            });
 
         }
     }

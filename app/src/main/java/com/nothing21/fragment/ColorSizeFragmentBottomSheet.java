@@ -21,6 +21,7 @@ import com.nothing21.databinding.FragmentColorSizeSheetBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
+import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
 
@@ -83,6 +84,7 @@ public class ColorSizeFragmentBottomSheet extends BottomSheetDialogFragment impl
     @Override
     public void onItem(int position) {
         listener.info(arrayList.get(position).color,size);
+        SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).image);
         dialog.dismiss();
     }
 }

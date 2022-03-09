@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuName"
+        android:title="Name" />
+
+    <item
+        android:id="@+id/menuBrand"
+        android:title="Brand" />
+
+    <item
+        android:id="@+id/menuPrice"
+        android:title="Price" />
+
+    <item
+        android:id="@+id/menuColor"
+        android:title="Color" />
+
+    <item
+        android:id="@+id/menuSize"
+        android:title="Size" />
+
+</menu>

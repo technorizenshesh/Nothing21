@@ -54,7 +54,7 @@ public class ProductAct extends AppCompatActivity implements onIconClickListener
     GirdProductAdapter adapterGrid;
     String viewType = "vertical",catId="";
    public static TextView tvFound ;
-    String refreshedToken = "",userId="";
+    String refreshedToken = "",userId="",filterString="name";
     boolean chk = false;
 
     @Override
@@ -140,7 +140,7 @@ public class ProductAct extends AppCompatActivity implements onIconClickListener
 
             @Override
             public void onTextChanged(CharSequence query, int start, int before, int count) {
-                getFilterSearch(query.toString());
+                getFilterSearch(query.toString(),filterString);
             }
 
             @Override
@@ -290,21 +290,73 @@ public class ProductAct extends AppCompatActivity implements onIconClickListener
 
 
 
-    public void getFilterSearch(String query){
+    public void getFilterSearch(String query,String filter){
         try {
             query = query.toLowerCase();
 
             final ArrayList<ProductModel.Result> filteredList = new ArrayList<ProductModel.Result>();
 
             if(arrayList != null) {
-                for (int i = 0; i < arrayList.size(); i++) {
-                    String text = arrayList.get(i).name.toLowerCase();
-                    String brand = arrayList.get(i).brand1.toLowerCase();
-                    if (text.contains(query) || brand.contains(query)) {
-                        filteredList.add(arrayList.get(i));
-                    }
+                if(filter.equals("name")){
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        String text = arrayList.get(i).name.toLowerCase();
+                      //  String brand = arrayList.get(i).brand1.toLowerCase();
+                        if (text.contains(query)) {
+                            filteredList.add(arrayList.get(i));
+                        }
 
+                    }
                 }
+               else  if(filter.equals("brand")) {
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        String brand = arrayList.get(i).brand1.toLowerCase();
+                        if ( brand.contains(query)) {
+                            filteredList.add(arrayList.get(i));
+                        }
+
+                    }
+                }
+
+
+                else  if(filter.equals("price")) {
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        String price = arrayList.get(i).price.toLowerCase();
+                        if ( price.contains(query)) {
+                            filteredList.add(arrayList.get(i));
+                        }
+
+                    }
+                }
+
+
+                else  if(filter.equals("color")) {
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        for (int j = 0; j < arrayList.get(i).colorDetails.size(); j++) {
+
+                            String color = arrayList.get(i).colorDetails.get(j).color.toLowerCase();
+                            if (color.contains(query)) {
+                                filteredList.add(arrayList.get(i));
+                            }
+                        }
+
+                    }
+                }
+
+                else  if(filter.equals("size")) {
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        for (int j = 0; j < arrayList.get(i).colorDetails.size(); j++) {
+
+                            String size = arrayList.get(i).colorDetails.get(j).size.toLowerCase();
+                            if (size.contains(query)) {
+                                filteredList.add(arrayList.get(i));
+                            }
+                        }
+
+                    }
+                }
+
+
+
                if(viewType.equals("vertical"))   adapterScroll.filterList(filteredList);
                else if(viewType.equals("grid"))   adapterGrid.filterList(filteredList);
 

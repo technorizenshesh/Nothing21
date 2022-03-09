@@ -88,6 +88,10 @@ public class ProductModelCopy {
         @Expose
         public String fav_product_status;
 
+        @SerializedName("brand")
+        @Expose
+        public String brand1;
+
         public class ColorDetail {
 
             @SerializedName("id")
@@ -105,6 +109,14 @@ public class ProductModelCopy {
             @SerializedName("date_time")
             @Expose
             public String dateTime;
+
+            @SerializedName("image")
+            @Expose
+            public String image;
+
+
+
+
 
             public String getId() {
                 return id;

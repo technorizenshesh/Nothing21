@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/border_primary.xml" value="0.2046875" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_address.xml" value="0.16302083333333334" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_home.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_login.xml" value="0.1" />
@@ -11,17 +12,23 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_place_order.xml" value="0.16302083333333334" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_product.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_product_singal.xml" value="0.11367753623188406" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_search.xml" value="0.18854166666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_account.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_cart.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_cart_sheet.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_edit_cart_sheet.xml" value="0.18229166666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_home.xml" value="0.11684782608695653" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_product.xml" value="0.1671875" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_size_sheet.xml" value="0.13802083333333334" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_cart.xml" value="0.22" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_gird_product.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_my_order.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_other_product.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_product.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_scroll_product.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_search.xml" value="0.18854166666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/toolbar.xml" value="0.1046875" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/menu/menu_popup.xml" value="0.1390625" />
       </map>
     </option>
   </component>

@@ -14,12 +14,14 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
 import com.nothing21.adapter.EditColorSizeAdapter;
 import com.nothing21.databinding.FragmentColorSizeSheetBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
 
@@ -64,7 +66,7 @@ public class EditColorSizeBottomSheet extends BottomSheetDialogFragment implemen
         arrayList = new ArrayList<>();
         arrayList.clear();
         arrayList.addAll(productData.colorDetails);
-        Glide.with(getActivity()).load(productData.imageDetails.get(0).image)
+        Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                 .into(binding.BlurImageView);
 
@@ -79,6 +81,7 @@ public class EditColorSizeBottomSheet extends BottomSheetDialogFragment implemen
     @Override
     public void onItem(int position) {
         listener.info(arrayList.get(position).color,size);
+        SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).image);
         dialog.dismiss();
     }
 }

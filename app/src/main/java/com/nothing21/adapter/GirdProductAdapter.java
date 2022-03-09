@@ -16,6 +16,7 @@ import com.nothing21.R;
 import com.nothing21.ViewProductAdapter1;
 import com.nothing21.databinding.ItemGirdProductBinding;
 import com.nothing21.databinding.ItemScrollProductBinding;
+import com.nothing21.fragment.ProductFragment;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.ProductModel;
 
@@ -113,9 +114,11 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
     }*/
   public void filterList(ArrayList<ProductModel.Result> filterlist) {
       if(filterlist.size()==0)
-          ProductAct.tvFound.setVisibility(View.VISIBLE);
+         // ProductAct.tvFound.setVisibility(View.VISIBLE);
+          ProductFragment.tvFound.setVisibility(View.VISIBLE);
       else
-          ProductAct.tvFound.setVisibility(View.GONE);
+         // ProductAct.tvFound.setVisibility(View.GONE);
+          ProductFragment.tvFound.setVisibility(View.GONE);
       arrayList = filterlist;
       notifyDataSetChanged();
   }

@@ -17,6 +17,7 @@
             android:hint="Search Categories or products"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="@dimen/_10sdp"
+            android:focusable="false"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/_10sdp"
             android:textColor="@color/color_grey"

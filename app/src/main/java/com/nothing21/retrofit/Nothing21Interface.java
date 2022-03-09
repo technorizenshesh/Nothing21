@@ -12,6 +12,7 @@ import com.nothing21.model.LoginModel;
 import com.nothing21.model.MyOrderModel;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.SearchModel;
 
 import java.util.Map;
 
@@ -72,6 +73,20 @@ public interface Nothing21Interface {
     Call<Map<String,String>> addToCart (@FieldMap Map<String, String> params);
 
 
+
+
+
+    @Multipart
+    @POST("add_to_cart")
+    Call<Map<String,String>> addToCart11(
+            @Part("user_id") RequestBody user_id,
+            @Part("product_id") RequestBody product_id,
+            @Part("quantity") RequestBody quantity,
+            @Part("color") RequestBody color,
+            @Part("size") RequestBody size,
+            @Part MultipartBody.Part file);
+
+
   //  https://www.adspot.ae/nothing21/webservice/add_to_cart?user_id=1&product_id=2&quantity=2
 
     @FormUrlEncoded
@@ -107,6 +122,17 @@ public interface Nothing21Interface {
     @FormUrlEncoded
     @POST("get_order_history")
     Call<MyOrderModel> getMyOrders (@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("get_category_search")
+    Call<SearchModel> searchProduct (@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("get_product_by_product_id")
+    Call<ProductModel> getOtherProduct (@FieldMap Map<String, String> params);
+
 
 
 }
