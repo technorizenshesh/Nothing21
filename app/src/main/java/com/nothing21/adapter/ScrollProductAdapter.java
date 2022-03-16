@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -52,12 +53,13 @@ public class ScrollProductAdapter extends RecyclerView.Adapter<ScrollProductAdap
         holder.binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
         holder.binding.tvProductName.setText(arrayList.get(position).brand1);
         if(!arrayList.get(position).discount.equals("")) {
-            holder.binding.tvProductName.setVisibility(View.VISIBLE);
-            holder.binding.tvOffer.setText(arrayList.get(position).discount + "% Off");
+          //  holder.binding.tvProductName.setVisibility(View.VISIBLE);
+         //   holder.binding.tvOffer.setText(arrayList.get(position).discount + "% Off");
+            holder.binding.tvPrice.setTextColor(context.getResources().getColor(R.color.color_red));
         }
-         else holder.binding.tvProductName.setVisibility(View.GONE);
+         else    holder.binding.tvPrice.setTextColor(context.getResources().getColor(R.color.white));            //holder.binding.tvProductName.setVisibility(View.GONE);
 
-        holder.binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,arrayList.get(position).imageDetails,arrayList.get(position).id));
+        holder.binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,arrayList.get(position).imageDetails,arrayList.get(position).id,arrayList.get(position).isTouchCheck()));
 
 
         if(arrayList.get(position).fav_product_status.equals("false")) holder.binding.ivLike.setImageDrawable(context.getDrawable(R.drawable.ic_white_heart));
@@ -68,11 +70,14 @@ public class ScrollProductAdapter extends RecyclerView.Adapter<ScrollProductAdap
             holder.binding.layoutHeader.setVisibility(View.VISIBLE);
             holder.binding.layoutCenter.setVisibility(View.VISIBLE);
             holder.binding.layoutBottom.setVisibility(View.VISIBLE);
+            holder.binding.layoutMain.setVisibility(View.GONE);
+
         }
         else {
             holder.binding.layoutHeader.setVisibility(View.GONE);
             holder.binding.layoutCenter.setVisibility(View.GONE);
             holder.binding.layoutBottom.setVisibility(View.GONE);
+            holder.binding.layoutMain.setVisibility(View.VISIBLE);
         }
 
     }
@@ -117,7 +122,6 @@ public class ScrollProductAdapter extends RecyclerView.Adapter<ScrollProductAdap
 
 
             binding.layoutMain.setOnClickListener(v -> {
-             if(arrayList.get(getAdapterPosition()).isTouchCheck())  context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
 
              for (int i = 0;i<arrayList.size();i++){
                    arrayList.get(i).setTouchCheck(false);

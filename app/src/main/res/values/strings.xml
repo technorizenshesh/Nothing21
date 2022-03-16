@@ -37,7 +37,7 @@
     <string name="wishlist">Wishlist</string>
     <string name="recently_view">Recently Viewed</string>
     <string name="search_product_name">Search product name</string>
-    <string name="search_product_name1">Search by product name or brand</string>
+    <string name="search_product_name1">Search Categories, products, type ..</string>
     <string name="offers">Offers</string>
     <string name="please_wait">Please wait...</string>
     <string name="network_failure">Sorry! Not connected to internet</string>

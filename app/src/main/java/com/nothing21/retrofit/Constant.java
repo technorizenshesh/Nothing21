@@ -4,7 +4,7 @@ public class Constant {
 
     public static final String BASE_URL = "https://www.adspot.ae/nothing21/webservice/"; // https://www.lamavie.ml/lamavie/webservice/
 
-    public static final String BASE_URL1 = ""; //
+    public static final String BASE_URL1 = ""; //       http://nothing21.com/webservice/
 
 
 

@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.nothing21.LoginAct;
 import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
-import com.nothing21.ViewProductAdapter1;
 import com.nothing21.databinding.ItemProductImagBinding;
 import com.nothing21.model.ProductModel;
 

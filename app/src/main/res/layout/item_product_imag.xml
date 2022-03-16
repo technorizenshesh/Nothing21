@@ -4,10 +4,11 @@
 
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/_400sdp"
+            >
 
 
                   <ImageView
@@ -24,7 +25,7 @@
 
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
 </layout>

@@ -12,21 +12,21 @@
             android:id="@+id/tvSearch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_7sdp"
-            android:hint="Search Categories or products"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:background="@drawable/rounded_white_black_bg"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="@dimen/_10sdp"
             android:focusable="false"
             android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_10sdp"
-            android:textColor="@color/color_grey"
             android:gravity="center_vertical"
-            android:singleLine="true"
+            android:hint="@string/search_product_name1"
             android:paddingStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_7sdp"
-            android:layout_marginBottom="@dimen/_12sdp"
-            android:background="@drawable/rounded_white_black_bg"/>
+            android:singleLine="true"
+            android:textColor="@color/color_grey"
+            android:textSize="@dimen/_10sdp" />
 
 
         <androidx.recyclerview.widget.RecyclerView

@@ -29,13 +29,14 @@ public class ViewProductAdapter1 extends RecyclerView.Adapter<ViewProductAdapter
     ArrayList<ProductModel.Result.ImageDetail> imgArrayList;
     ViewProductAdapter adapter;
     String idss;
+    boolean chk;
 
 
-    public ViewProductAdapter1(Context context, ArrayList<ProductModel.Result.ImageDetail> arrayList, String idss) {
+    public ViewProductAdapter1(Context context, ArrayList<ProductModel.Result.ImageDetail> arrayList, String idss,boolean chk) {
         this.context = context;
         this.imgArrayList = arrayList;
         this.idss = idss;
-
+        this.chk =chk;
 
     }
 
@@ -77,6 +78,11 @@ public class ViewProductAdapter1 extends RecyclerView.Adapter<ViewProductAdapter
          //   else LogInAlert();
 
             // binding.layoutMain.setOnClickListener(v -> context.startActivity(new Intent(context, ProductSingalAct.class)));
+
+                if(chk== true)  context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",idss));
+
+
+
             });
         }
     }

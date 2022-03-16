@@ -187,11 +187,11 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
 
                         binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
                         binding.tvProductName.setText(data.result.brand1);
-                        if(!data.result.discount.equals("")) {
+                       /* if(!data.result.discount.equals("")) {
                             binding.tvProductName.setVisibility(View.VISIBLE);
                             binding.tvOffer.setText(data.result.discount + "% Off");
                         }
-                        else binding.tvProductName.setVisibility(View.GONE);
+                        else binding.tvProductName.setVisibility(View.GONE);*/
 
 
                     if(NetworkAvailablity.checkNetworkStatus(ProductSingalAct.this))    getProduct(product_id);
