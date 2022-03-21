@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/border_primary.xml" value="0.2046875" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/circle_white_bg.xml" value="0.2203125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/rounded_white15_bg.xml" value="0.20364583333333333" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/yellow_bg.xml" value="0.20364583333333333" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_address.xml" value="0.16302083333333334" />
@@ -24,6 +25,7 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_size_sheet.xml" value="0.13802083333333334" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_cart.xml" value="0.22" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_gird_product.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_imag.xml" value="0.18854166666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_my_order.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_other_product.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_product.xml" value="0.1" />

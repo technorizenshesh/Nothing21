@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import com.bumptech.glide.Glide;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.nothing21.adapter.ImageAdapter;
 import com.nothing21.adapter.OtherProAdapter;
 import com.nothing21.databinding.ActivityProductBinding;
 import com.nothing21.databinding.ActivityProductSingalBinding;
@@ -51,6 +52,9 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
     OtherProAdapter adapter;
     String product_id="";
     String refreshedToken = "",userId="";
+    ImageAdapter adapter11;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +157,12 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
 
         });
 
+
+
+        adapter11 = new ImageAdapter(ProductSingalAct.this,imgArrayList);
+        binding.rvItems.setAdapter(adapter11);
+
+
     }
 
 
@@ -175,11 +185,14 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
                     if (data.status.equals("1")) {
                         imgArrayList.clear();
                         imgArrayList.addAll(data.result.imageDetails);
-                        Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.ivProduct);
+                       /* Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.ivProduct);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.icOne);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(1).image).error(R.drawable.dummy).into(binding.icTwo);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(2).image).error(R.drawable.dummy).into(binding.icThree);
-                        Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(3).image).error(R.drawable.dummy).into(binding.icFour);
+                        Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(3).image).error(R.drawable.dummy).into(binding.icFour);*/
+
+                        adapter11.notifyDataSetChanged();
+
 
                         if(data.result.fav_product_status.equals("false")) binding.ivLike.setImageDrawable(ProductSingalAct.this.getDrawable(R.drawable.ic_white_heart));
                         else binding.ivLike.setImageDrawable(ProductSingalAct.this.getDrawable(R.drawable.ic_red_heart));
@@ -199,8 +212,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
 
                     } else if (data.status.equals("0")){
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
-
-
+                        imgArrayList.clear();
+                        adapter11.notifyDataSetChanged();
                     }
 
                     // serviceAdapter.notifyDataSetChanged();

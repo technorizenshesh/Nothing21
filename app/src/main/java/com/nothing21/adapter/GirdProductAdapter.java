@@ -2,6 +2,7 @@ package com.nothing21.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +68,49 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
 
         if(arrayList.get(position).fav_product_status.equals("false")) holder.binding.ivLike.setImageDrawable(context.getDrawable(R.drawable.ic_white_heart));
         else holder.binding.ivLike.setImageDrawable(context.getDrawable(R.drawable.ic_red_heart));
+
+
+        if(arrayList.get(position).colorDetails!=null){
+            if(arrayList.get(position).colorDetails.size()==1){
+                holder.binding.view1.setVisibility(View.VISIBLE);
+                holder.binding.view2.setVisibility(View.GONE);
+                holder.binding.view3.setVisibility(View.GONE);
+                holder.binding.view4.setVisibility(View.GONE);
+                holder.binding.view1.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).color));
+            }
+
+            if(arrayList.get(position).colorDetails.size()==2){
+                holder.binding.view1.setVisibility(View.GONE);
+                holder.binding.view2.setVisibility(View.VISIBLE);
+                holder.binding.view3.setVisibility(View.GONE);
+                holder.binding.view4.setVisibility(View.GONE);
+                holder.binding.view2.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).color));
+            }
+
+
+            if(arrayList.get(position).colorDetails.size()==3){
+                holder.binding.view1.setVisibility(View.GONE);
+                holder.binding.view2.setVisibility(View.GONE);
+                holder.binding.view3.setVisibility(View.VISIBLE);
+                holder.binding.view4.setVisibility(View.GONE);
+                holder.binding.view3.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(2).color));
+
+            }
+
+            if(arrayList.get(position).colorDetails.size()==4){
+                holder.binding.view1.setVisibility(View.GONE);
+                holder.binding.view2.setVisibility(View.GONE);
+                holder.binding.view3.setVisibility(View.GONE);
+                holder.binding.view4.setVisibility(View.VISIBLE);
+                holder.binding.view4.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(3).color));
+
+            }
+
+
+
+
+        }
+
 
 
         // setListData(position,holder.binding);
