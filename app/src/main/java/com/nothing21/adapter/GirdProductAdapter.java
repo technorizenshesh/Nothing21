@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,33 +77,92 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
                 holder.binding.view2.setVisibility(View.GONE);
                 holder.binding.view3.setVisibility(View.GONE);
                 holder.binding.view4.setVisibility(View.GONE);
-                holder.binding.view1.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).color));
+                // holder.binding.view1.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).color));
+                GradientDrawable shape = new GradientDrawable();
+                shape.setCornerRadius(30);
+                shape.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).color));
+                holder.binding.view1.setBackground(shape);
+
             }
 
             if(arrayList.get(position).colorDetails.size()==2){
-                holder.binding.view1.setVisibility(View.GONE);
+                holder.binding.view1.setVisibility(View.VISIBLE);
                 holder.binding.view2.setVisibility(View.VISIBLE);
                 holder.binding.view3.setVisibility(View.GONE);
                 holder.binding.view4.setVisibility(View.GONE);
-                holder.binding.view2.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).color));
+                //  holder.binding.view2.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).color));
+
+                GradientDrawable shape1 = new GradientDrawable();
+                shape1.setCornerRadius(30);
+                shape1.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).color));
+                holder.binding.view1.setBackground(shape1);
+
+
+                GradientDrawable shape2 = new GradientDrawable();
+                shape2.setCornerRadius(30);
+                shape2.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).color));
+                holder.binding.view2.setBackground(shape2);
+
+
+
+
             }
 
 
             if(arrayList.get(position).colorDetails.size()==3){
-                holder.binding.view1.setVisibility(View.GONE);
-                holder.binding.view2.setVisibility(View.GONE);
+                holder.binding.view1.setVisibility(View.VISIBLE);
+                holder.binding.view2.setVisibility(View.VISIBLE);
                 holder.binding.view3.setVisibility(View.VISIBLE);
                 holder.binding.view4.setVisibility(View.GONE);
-                holder.binding.view3.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(2).color));
+                //  holder.binding.view3.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(2).color));
+                GradientDrawable shape1 = new GradientDrawable();
+                shape1.setCornerRadius(30);
+                shape1.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).color));
+                holder.binding.view1.setBackground(shape1);
+
+
+                GradientDrawable shape2 = new GradientDrawable();
+                shape2.setCornerRadius(30);
+                shape2.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).color));
+                holder.binding.view2.setBackground(shape2);
+
+                GradientDrawable shape3 = new GradientDrawable();
+                shape3.setCornerRadius(30);
+                shape3.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(2).color));
+                holder.binding.view3.setBackground(shape3);
+
 
             }
 
             if(arrayList.get(position).colorDetails.size()==4){
-                holder.binding.view1.setVisibility(View.GONE);
-                holder.binding.view2.setVisibility(View.GONE);
-                holder.binding.view3.setVisibility(View.GONE);
+                holder.binding.view1.setVisibility(View.VISIBLE);
+                holder.binding.view2.setVisibility(View.VISIBLE);
+                holder.binding.view3.setVisibility(View.VISIBLE);
                 holder.binding.view4.setVisibility(View.VISIBLE);
-                holder.binding.view4.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(3).color));
+                //    holder.binding.view4.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(3).color));
+
+                GradientDrawable shape1 = new GradientDrawable();
+                shape1.setCornerRadius(30);
+                shape1.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).color));
+                holder.binding.view1.setBackground(shape1);
+
+
+                GradientDrawable shape2 = new GradientDrawable();
+                shape2.setCornerRadius(30);
+                shape2.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).color));
+                holder.binding.view2.setBackground(shape2);
+
+                GradientDrawable shape3 = new GradientDrawable();
+                shape3.setCornerRadius(30);
+                shape3.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(2).color));
+                holder.binding.view3.setBackground(shape3);
+
+
+                GradientDrawable shape4 = new GradientDrawable();
+                shape4.setCornerRadius(30);
+                shape4.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(3).color));
+                holder.binding.view4.setBackground(shape4);
+
 
             }
 

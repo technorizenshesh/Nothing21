@@ -4,10 +4,9 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_250sdp"
+        android:layout_height="@dimen/_270sdp"
         android:layout_margin="@dimen/_8sdp"
-
-        app:cardElevation="@dimen/_5sdp">
+        >
 
 
         <LinearLayout
@@ -272,55 +271,10 @@
                 </RelativeLayout>
 
 
-                <RelativeLayout
-                    android:layout_below="@+id/layoutM"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
 
-                    <LinearLayout
-                        android:id="@+id/layoutColor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
-                        android:orientation="horizontal"
-                        android:layout_marginEnd="@dimen/_7sdp">
 
 
-                        <TextView
-                            android:id="@+id/view1"
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:background="@drawable/circle_white_bg" />
-
-
-                        <TextView
-                            android:id="@+id/view2"
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:background="@drawable/circle_white_bg" />
-
-
-                        <TextView
-                            android:id="@+id/view3"
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:background="@drawable/circle_white_bg" />
-
-
-                        <TextView
-                            android:id="@+id/view4"
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:background="@drawable/circle_white_bg" />
-
-
-                    </LinearLayout>
 
 
                     <TextView
@@ -328,7 +282,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/layoutColor"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="-5dp"
                         android:fontFamily="@font/poppins_regular"
@@ -337,8 +290,50 @@
                         android:textSize="@dimen/_9sdp"
                         android:visibility="visible" />
 
-                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/layoutColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_7sdp">
 
+
+                    <TextView
+                        android:id="@+id/view1"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/circle_white_bg" />
+
+
+                    <TextView
+                        android:id="@+id/view2"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/circle_white_bg" />
+
+
+                    <TextView
+                        android:id="@+id/view3"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/circle_white_bg" />
+
+
+                    <TextView
+                        android:id="@+id/view4"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:background="@drawable/circle_white_bg" />
+
+
+                </LinearLayout>
 
 
 
