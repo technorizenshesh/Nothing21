@@ -54,7 +54,7 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
             holder.binding.tvPrice.setTextColor(context.getResources().getColor(R.color.color_red));
             holder.binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
             holder.binding.tvOldPrice.setPaintFlags(holder.binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.binding.tvDiscount.setText(arrayList.get(position).discount + "% Off");
+            holder.binding.tvDiscount.setText("-"+arrayList.get(position).discount + "% Off");
 
         }
         else {

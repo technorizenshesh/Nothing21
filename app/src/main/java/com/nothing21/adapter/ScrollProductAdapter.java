@@ -57,9 +57,9 @@ public class ScrollProductAdapter extends RecyclerView.Adapter<ScrollProductAdap
         if(!arrayList.get(position).discount.equals("")) {
           //  holder.binding.tvProductName.setVisibility(View.VISIBLE);
             holder.binding.tvDiscountNew.setText("-"+arrayList.get(position).discount + "% Off");
-          //  holder.binding.tvPrice.setTextColor(context.getResources().getColor(R.color.color_red));
+            holder.binding.tvPriceNew.setTextColor(context.getResources().getColor(R.color.color_red));
         }
-        // else    holder.binding.tvPrice.setTextColor(context.getResources().getColor(R.color.white));           //holder.binding.tvProductName.setVisibility(View.GONE);
+         else    holder.binding.tvPriceNew.setTextColor(context.getResources().getColor(R.color.white));           //holder.binding.tvProductName.setVisibility(View.GONE);
 
         holder.binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,arrayList.get(position).imageDetails,arrayList.get(position).id,arrayList.get(position).isTouchCheck()));
 
