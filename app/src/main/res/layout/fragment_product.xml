@@ -93,12 +93,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProducts"
-            android:layout_below="@+id/rlHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_below="@+id/rlHeader"
             android:orientation="vertical"
-            tools:listitem="@layout/item_scroll_product"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_scroll_product_one"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_60sdp"
+            />
 
 
 

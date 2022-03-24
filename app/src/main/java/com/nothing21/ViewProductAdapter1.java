@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.nothing21.adapter.ViewProductAdapter;
 import com.nothing21.databinding.ItemProductImagBinding;
+import com.nothing21.databinding.ItemProductOneBinding;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.retrofit.Constant;
@@ -43,7 +44,7 @@ public class ViewProductAdapter1 extends RecyclerView.Adapter<ViewProductAdapter
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemProductImagBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_product_imag, parent, false);
+        ItemProductOneBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_product_one, parent, false);
         return new MyViewHolder(binding);
     }
 
@@ -61,9 +62,9 @@ public class ViewProductAdapter1 extends RecyclerView.Adapter<ViewProductAdapter
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ItemProductImagBinding binding;
+        ItemProductOneBinding binding;
 
-        public MyViewHolder(@NonNull ItemProductImagBinding itemView) {
+        public MyViewHolder(@NonNull ItemProductOneBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
 
@@ -79,7 +80,7 @@ public class ViewProductAdapter1 extends RecyclerView.Adapter<ViewProductAdapter
 
             // binding.layoutMain.setOnClickListener(v -> context.startActivity(new Intent(context, ProductSingalAct.class)));
 
-                if(chk== true)  context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",idss));
+             //   if(chk== true)  context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",idss));
 
 
 

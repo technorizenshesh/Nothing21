@@ -7,7 +7,7 @@
         <RelativeLayout
             android:id="@+id/layoutMain"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_400sdp"
+            android:layout_height="@dimen/_200sdp"
             >
 
 

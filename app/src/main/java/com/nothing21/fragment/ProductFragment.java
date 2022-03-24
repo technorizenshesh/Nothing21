@@ -27,6 +27,7 @@ import com.nothing21.ProductAct;
 import com.nothing21.R;
 import com.nothing21.adapter.GirdProductAdapter;
 import com.nothing21.adapter.ScrollProductAdapter;
+import com.nothing21.adapter.ScrollProductOneAdapter;
 import com.nothing21.databinding.ActivityProductBinding;
 import com.nothing21.databinding.FragmentProductBinding;
 import com.nothing21.listener.InfoListener;
@@ -52,7 +53,8 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     FragmentProductBinding binding;
     Nothing21Interface apiInterface;
     ArrayList<ProductModel.Result> arrayList;
-    ScrollProductAdapter adapterScroll;
+   // ScrollProductAdapter adapterScroll;
+    ScrollProductOneAdapter adapterScroll;
     GirdProductAdapter adapterGrid;
     String viewType = "vertical",catId="";
     public static TextView tvFound ;
@@ -91,7 +93,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
 
 
         binding.rvProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapterScroll = new ScrollProductAdapter(getActivity(),arrayList,ProductFragment.this);
+        adapterScroll = new ScrollProductOneAdapter(getActivity(),arrayList,ProductFragment.this);
         //  binding.rvProducts.scrollToPosition(0);
         // binding.rvProducts.setLayoutFrozen(true);
         binding.rvProducts.setAdapter(adapterScroll);
@@ -147,7 +149,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             }
             else {
                 viewType = "vertical";
-                binding.rvProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
+                binding.rvProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                 binding.rvProducts.setAdapter(adapterScroll);
                 chk = false;
             }

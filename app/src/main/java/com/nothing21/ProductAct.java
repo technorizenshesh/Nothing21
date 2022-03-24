@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.adapter.GirdProductAdapter;
-import com.nothing21.adapter.ScrollProductAdapter;
+import com.nothing21.adapter.ScrollProductOneAdapter;
 import com.nothing21.databinding.ActivityProductBinding;
 import com.nothing21.fragment.CartFragmentBootomSheet;
 import com.nothing21.fragment.ColorSizeFragmentBottomSheet;
@@ -28,7 +28,6 @@ import com.nothing21.fragment.InfoFragmentBottomSheet;
 import com.nothing21.fragment.SizeFragmentBottomSheet;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
-import com.nothing21.model.CategoryModel;
 import com.nothing21.model.ProductModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
@@ -50,7 +49,8 @@ public class ProductAct extends AppCompatActivity implements onIconClickListener
     ActivityProductBinding binding;
     Nothing21Interface apiInterface;
     ArrayList<ProductModel.Result>arrayList;
-    ScrollProductAdapter adapterScroll;
+   // ScrollProductAdapter adapterScroll;
+    ScrollProductOneAdapter adapterScroll;
     GirdProductAdapter adapterGrid;
     String viewType = "vertical",catId="";
    public static TextView tvFound ;
@@ -73,7 +73,7 @@ public class ProductAct extends AppCompatActivity implements onIconClickListener
 
 
         binding.rvProducts.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapterScroll = new ScrollProductAdapter(ProductAct.this,arrayList,ProductAct.this);
+        adapterScroll = new ScrollProductOneAdapter(ProductAct.this,arrayList,ProductAct.this);
       //  binding.rvProducts.scrollToPosition(0);
        // binding.rvProducts.setLayoutFrozen(true);
         binding.rvProducts.setAdapter(adapterScroll);
