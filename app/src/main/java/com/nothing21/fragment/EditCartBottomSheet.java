@@ -200,7 +200,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
         map.put("quantity",count+"");
         map.put("color",binding.tvColor.getText().toString());
         map.put("size",binding.tvSize.getText().toString());
-        map.put("image",SessionManager.readString(getActivity(),"selectImage","")+"");
+        map.put("image",productData.image1/*SessionManager.readString(getActivity(),"selectImage","")+""*/);
         map.put("price",priceTol+"");
         Log.e(TAG, "Add to Cart Request :" + map);
 

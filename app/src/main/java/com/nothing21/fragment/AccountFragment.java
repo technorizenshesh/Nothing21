@@ -15,18 +15,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.HomeAct;
-import com.nothing21.MyOrderAct;
-import com.nothing21.ProductAct;
+
 import com.nothing21.R;
 import com.nothing21.adapter.MyOrderAdapter;
 import com.nothing21.databinding.FragmentAccountBinding;
-import com.nothing21.databinding.FragmentHomeBinding;
-import com.nothing21.model.MyOrderModel;
+import com.nothing21.model.FavModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -46,7 +43,7 @@ public class AccountFragment extends Fragment {
     public String TAG = "AccountFragment";
     FragmentAccountBinding binding;
     Nothing21Interface apiInterface;
-    ArrayList<MyOrderModel.Result> arrayList;
+    ArrayList<FavModel.Result> arrayList;
     MyOrderAdapter adapter;
     String refreshedToken = "",userId="";
 
@@ -173,7 +170,7 @@ public class AccountFragment extends Fragment {
     }
 
 
-    public void getAllMyOrder(){
+   /* public void getAllMyOrder(){
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
         map.put("user_id", userId);
@@ -222,7 +219,7 @@ public class AccountFragment extends Fragment {
 
             }
         });
-    }
+    }*/
 
     public void tabSelect(int i){
         if(i==1){
@@ -231,7 +228,7 @@ public class AccountFragment extends Fragment {
             binding.tvWishList.setTextColor(getActivity().getResources().getColor(R.color.white));
             binding.tvView.setTextColor(getActivity().getResources().getColor(R.color.black));
             binding.rvFavList.setVisibility(View.VISIBLE);
-            if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllMyOrder();
+            if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
             else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         }
         else if(i==2){
@@ -243,6 +240,60 @@ public class AccountFragment extends Fragment {
             binding.tvFound.setVisibility(View.VISIBLE);
 
         }
+    }
+
+
+
+
+    public void getAllFav(){
+        DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", userId);
+        Log.e(TAG, "get Fav List Request :" + map);
+        Call<FavModel> loginCall = apiInterface.getAllFav(map);
+        loginCall.enqueue(new Callback<FavModel>() {
+            @Override
+            public void onResponse(Call<FavModel> call, Response<FavModel> response) {
+                DataManager.getInstance().hideProgressMessage();
+
+                try {
+                    FavModel  data11 = response.body();
+                    String responseString = new Gson().toJson(response.body());
+                    Log.e(TAG, "get Fav List Response :" + responseString);
+                    if (data11.status.equals("1")) {
+                        arrayList.clear();
+                        binding.tvFound.setVisibility(View.GONE);
+                        binding.layoutHeader.setVisibility(View.VISIBLE);
+                        arrayList.addAll(data11.result);
+
+                        adapter.notifyDataSetChanged();
+                    } else if (data11.status.equals("0")) {
+                        arrayList.clear();
+                        adapter.notifyDataSetChanged();
+                        binding.tvFound.setVisibility(View.VISIBLE);
+                      //  binding.layoutHeader.setVisibility(View.GONE);
+
+
+                    }
+
+                    // serviceAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FavModel> call, Throwable t) {
+                call.cancel();
+                DataManager.getInstance().hideProgressMessage();
+                arrayList.clear();
+                adapter.notifyDataSetChanged();
+                binding.tvFound.setVisibility(View.VISIBLE);
+                binding.layoutHeader.setVisibility(View.GONE);
+
+            }
+        });
     }
 
 }

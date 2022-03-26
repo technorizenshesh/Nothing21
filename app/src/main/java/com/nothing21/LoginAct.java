@@ -66,7 +66,16 @@ public class LoginAct extends AppCompatActivity {
             }
         });
 
-        binding.btnSignUp.setOnClickListener(v -> startActivity(new Intent(LoginAct.this,RegisterAct.class)));
+        binding.btnSignUp.setOnClickListener(v -> {
+          //  startActivity(new Intent(LoginAct.this,RegisterAct.class))
+
+            startActivity(new Intent(LoginAct.this, RegisterAct.class)
+                    .putExtra("product_id",product_id)
+                    .putExtra("cart_id",cart_id)
+                    .putExtra("amount",amount+"").
+                    putExtra("check_out",without_login_cart));
+
+        });
 
         binding.btnSignin.setOnClickListener(v ->{
           validation();

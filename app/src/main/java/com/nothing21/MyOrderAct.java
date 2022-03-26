@@ -1,3 +1,4 @@
+/*
 package com.nothing21;
 
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.nothing21.adapter.CartAdapter;
 import com.nothing21.adapter.MyOrderAdapter;
 import com.nothing21.databinding.ActivityMyOrderBinding;
 import com.nothing21.fragment.CartFragment;
+import com.nothing21.model.FavModel;
 import com.nothing21.model.GetCartModel;
 import com.nothing21.model.MyOrderModel;
 import com.nothing21.retrofit.ApiClient;
@@ -31,15 +33,16 @@ import retrofit2.Response;
 
 public class MyOrderAct extends AppCompatActivity {
     public String TAG = "MyOrderAct";
-     ActivityMyOrderBinding binding;
+    ActivityMyOrderBinding binding;
     Nothing21Interface apiInterface;
-    ArrayList<MyOrderModel.Result> arrayList;
+    ArrayList<FavModel.Result> arrayList;
     MyOrderAdapter adapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
-        binding  = DataBindingUtil.setContentView(this,R.layout.activity_my_order);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_order);
         initViews();
 
     }
@@ -50,16 +53,16 @@ public class MyOrderAct extends AppCompatActivity {
         adapter = new MyOrderAdapter(MyOrderAct.this, arrayList);
         binding.rvMyOrder.setAdapter(adapter);
 
-        if(NetworkAvailablity.checkNetworkStatus(MyOrderAct.this)) getAllMyOrder();
-        else Toast.makeText(MyOrderAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+        if (NetworkAvailablity.checkNetworkStatus(MyOrderAct.this)) getAllMyOrder();
+        else
+            Toast.makeText(MyOrderAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
     }
 
 
-
-    public void getAllMyOrder(){
+    public void getAllMyOrder() {
         DataManager.getInstance().showProgressMessage(MyOrderAct.this, getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
-        map.put("user_id", DataManager.getInstance().getUserData(MyOrderAct.this).result.id+"");
+        map.put("user_id", DataManager.getInstance().getUserData(MyOrderAct.this).result.id + "");
         Log.e(TAG, "get My Order List Request :" + map);
         Call<MyOrderModel> loginCall = apiInterface.getMyOrders(map);
         loginCall.enqueue(new Callback<MyOrderModel>() {
@@ -68,7 +71,7 @@ public class MyOrderAct extends AppCompatActivity {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    MyOrderModel  data11 = response.body();
+                    MyOrderModel data11 = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "get My Order List Response :" + responseString);
                     if (data11.status.equals("1")) {
@@ -107,3 +110,4 @@ public class MyOrderAct extends AppCompatActivity {
         });
     }
 }
+*/

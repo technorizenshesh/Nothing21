@@ -1,6 +1,7 @@
 package com.nothing21.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
 import com.nothing21.ViewProductAdapter1;
 import com.nothing21.databinding.ItemScrollProductBinding;
@@ -194,19 +196,17 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 listener.onIcon(getAdapterPosition(),"Color");
             });
 
-            binding.layoutMain.setOnClickListener(v -> {
 
-                for (int i = 0;i<arrayList.size();i++){
-                    arrayList.get(i).setTouchCheck(false);
-                }
-                arrayList.get(getAdapterPosition()).setTouchCheck(true);
-                notifyDataSetChanged();
+           */
+
+            binding.cardMain.setOnClickListener(v -> {
+                 context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
+
             });
 
-*/
 
 
-            //                 if(chk== true)  context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",idss));
+
 
 
         }

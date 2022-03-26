@@ -180,7 +180,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         map.put("quantity",count+"");
         map.put("color",binding.tvColor.getText().toString());
         map.put("size",binding.tvSize.getText().toString());
-        map.put("image",SessionManager.readString(getActivity(),"selectImage","")+"");
+        map.put("image",productData. image1/*SessionManager.readString(getActivity(),"selectImage","")+""*/);
         map.put("price",priceTol+"");
         Log.e(TAG, "Add to Cart Request :" + map);
         Call<Map<String,String>> loginCall = apiInterface.addToCart(map);
@@ -194,8 +194,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Add to Cart Response :" + responseString);
                     if (data.get("status").equals("1")) {
-
-
+                        Toast.makeText(getActivity(), data.get("message"), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     } else if (data.get("status").equals("0")){
                         Toast.makeText(getActivity(), data.get("message"), Toast.LENGTH_SHORT).show();
                     }

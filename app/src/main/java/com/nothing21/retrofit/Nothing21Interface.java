@@ -7,6 +7,7 @@ package com.nothing21.retrofit;
 
 
 import com.nothing21.model.CategoryModel;
+import com.nothing21.model.FavModel;
 import com.nothing21.model.GetCartModel;
 import com.nothing21.model.LoginModel;
 import com.nothing21.model.MyOrderModel;
@@ -30,8 +31,7 @@ import retrofit2.http.Part;
 public interface Nothing21Interface {
 
 
-
-    @Multipart
+    @FormUrlEncoded
     @POST("signup")
     Call<Map<String,String>> signupUser(@FieldMap Map<String, String> params);
 
@@ -133,7 +133,9 @@ public interface Nothing21Interface {
     @POST("get_product_by_product_id")
     Call<ProductModel> getOtherProduct (@FieldMap Map<String, String> params);
 
-
+    @FormUrlEncoded
+    @POST("get_fav_product")
+    Call<FavModel> getAllFav (@FieldMap Map<String, String> params);
 
 }
 

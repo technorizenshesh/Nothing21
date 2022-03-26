@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.databinding.ActivityRegisterBinding;
 import com.nothing21.model.LoginModel;
@@ -34,6 +35,8 @@ public class RegisterAct extends AppCompatActivity {
     public String TAG  = "RegisterAct";
     ActivityRegisterBinding binding;
     Nothing21Interface apiInterface;
+    String refreshedToken = "";
+    String without_login_cart = "",product_id="",cart_id="",amount = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +47,25 @@ public class RegisterAct extends AppCompatActivity {
     }
 
     private void initViews() {
+
+
+        if(getIntent()!=null){
+            product_id = getIntent().getStringExtra("product_id");
+            cart_id = getIntent().getStringExtra("cart_id");
+            amount = getIntent().getStringExtra("amount");
+            without_login_cart = getIntent().getStringExtra("check_out");
+        }
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+            try {
+                refreshedToken = instanceIdResult.getToken();
+                Log.e("Token===", refreshedToken);
+                // Yay.. we have our new token now.
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
         binding.btnSave.setOnClickListener(v -> {
          validation();
         });
@@ -120,13 +142,13 @@ public class RegisterAct extends AppCompatActivity {
         map.put("first_name",binding.etName.getText().toString());
         map.put("last_name",binding.etSurname.getText().toString());
         map.put("email", binding.etEmail.getText().toString());
-        map.put("password ",binding.etPasswoprd.getText().toString());
+        map.put("password",binding.etPasswoprd.getText().toString());
         map.put("mobile",binding.etNumber.getText().toString());
         map.put("emirate",binding.etEmirate.getText().toString());
         map.put("address",binding.etAddress.getText().toString());
         map.put("lat", "");
         map.put("lon", "");
-        map.put("register_id","13244343");
+        map.put("register_id",refreshedToken);
         Log.e(TAG, "Signup Request " + map);
 
         Call<Map<String,String>> loginCall = apiInterface.signupUser(map);
@@ -141,8 +163,14 @@ public class RegisterAct extends AppCompatActivity {
                     Log.e(TAG, "Signup Response :" + responseString);
                     if (data.get("status").equals("1")) {
                         Toast.makeText(RegisterAct.this, "Register Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegisterAct.this, LoginAct.class).putExtra("home","1").addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        finish();
+                        startActivity(new Intent(RegisterAct.this, LoginAct.class).putExtra("home","1")
+                                .putExtra("product_id",product_id)
+                                .putExtra("cart_id",cart_id)
+                                .putExtra("amount",amount+"")
+                                .putExtra("check_out",without_login_cart)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                finish();
+
                     } else if (data.get("status").equals("0"))
                         Toast.makeText(RegisterAct.this, data.get("message"), Toast.LENGTH_SHORT).show();
 
