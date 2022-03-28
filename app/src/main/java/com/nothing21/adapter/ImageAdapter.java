@@ -26,9 +26,9 @@ import java.util.ArrayList;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder> {
     Context context;
-    ArrayList<ProductModelCopy.Result.ImageDetail> arrayList;
+    ArrayList<ProductModelCopy.Result.ColorDetail> arrayList;
 
-    public ImageAdapter(Context context, ArrayList<ProductModelCopy.Result.ImageDetail> arrayList ) {
+    public ImageAdapter(Context context, ArrayList<ProductModelCopy.Result.ColorDetail> arrayList ) {
         this.context = context;
         this.arrayList = arrayList;
 

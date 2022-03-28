@@ -119,12 +119,26 @@ public class ProductModel {
             @Expose
             public String dateTime;
 
-
             @SerializedName("image")
             @Expose
             public String image;
 
 
+            @SerializedName("color_code")
+            @Expose
+            public String colorCode;
+
+            @SerializedName("chk_color")
+            @Expose
+            public boolean chkColor = false;
+
+            public boolean isChkColor() {
+                return chkColor;
+            }
+
+            public void setChkColor(boolean chkColor) {
+                this.chkColor = chkColor;
+            }
         }
 
         public class ImageDetail {

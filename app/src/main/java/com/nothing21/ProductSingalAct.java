@@ -1,5 +1,6 @@
 package com.nothing21;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,7 +46,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
     public String TAG = "ProductSingalAct";
     ActivityProductSingalBinding binding;
     Nothing21Interface apiInterface;
-    ArrayList<ProductModelCopy.Result.ImageDetail> imgArrayList;
+    ArrayList<ProductModelCopy.Result.ColorDetail> imgArrayList;
     ArrayList<ProductModel.Result> arrayList;
 
     ProductModelCopy data;
@@ -184,7 +185,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.status.equals("1")) {
                         imgArrayList.clear();
-                        imgArrayList.addAll(data.result.imageDetails);
+                        imgArrayList.addAll(data.result.colorDetails);
                        /* Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.ivProduct);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.icOne);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(1).image).error(R.drawable.dummy).into(binding.icTwo);
@@ -198,8 +199,27 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
                         else binding.ivLike.setImageDrawable(ProductSingalAct.this.getDrawable(R.drawable.ic_red_heart));
 
 
-                        binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
+                     //   binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
                         binding.tvProductName.setText(data.result.brand1);
+                        if(!data.result.discount.equals("")) {
+                            binding.tvOldPrice.setVisibility(View.VISIBLE);
+                            //  holder.binding.tvDiscount.setVisibility(View.VISIBLE);
+                            binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price) - Double.parseDouble(data.result.discount )));
+                            binding.tvProductPrice.setTextColor(getResources().getColor(R.color.color_red));
+                            binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
+                            binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                            //  holder.binding.tvDiscount.setText("-"+arrayList.get(position).discount + "% Off");
+
+                        }
+                        else {
+                            binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
+                            binding.tvProductPrice.setTextColor(getResources().getColor(R.color.black));
+                            binding.tvOldPrice.setVisibility(View.GONE);
+                            //  holder.binding.tvDiscount.setVisibility(View.GONE);
+
+                        }
+
+
                        /* if(!data.result.discount.equals("")) {
                             binding.tvProductName.setVisibility(View.VISIBLE);
                             binding.tvOffer.setText(data.result.discount + "% Off");

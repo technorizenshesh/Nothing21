@@ -36,9 +36,9 @@
                         android:id="@+id/rvItems"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_above="@+id/llMain"
                         android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        android:layout_above="@+id/llMain"/>
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
 
@@ -201,6 +201,10 @@
                             android:src="@drawable/ic_white_cart" />
 
 
+
+
+
+
                         <TextView
                             android:id="@+id/tvPrice"
                             android:layout_width="wrap_content"
@@ -215,7 +219,50 @@
                             android:paddingBottom="@dimen/_7sdp"
                             android:text="AED98.00"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_10sdp" />
+                            android:textSize="@dimen/_10sdp"
+                            android:visibility="gone"
+                            />
+
+                        <RelativeLayout
+                            android:id="@+id/layoutM"
+                            android:layout_width="match_parent"
+                            android:layout_toRightOf="@+id/ivCart"
+                            android:layout_toLeftOf="@+id/ivIn"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+
+                            <TextView
+                                android:id="@+id/tvProductPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="ALDO"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10sdp" />
+
+                            <TextView
+                                android:id="@+id/tvOldPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:layout_toRightOf="@+id/tvProductPrice"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:gravity="center"
+                                android:text="AED98.00"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_7sdp"
+                                android:visibility="gone" />
+
+
+                        </RelativeLayout>
+
 
 
                         <ImageView

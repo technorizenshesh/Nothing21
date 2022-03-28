@@ -1,9 +1,11 @@
 package com.nothing21.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,6 +43,8 @@ import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,6 +83,26 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         super.onViewCreated(view, savedInstanceState);
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
         initViews();
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                Log.i(TAG, "keyCode: " + keyCode);
+                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    Log.i(TAG, "onKey Back listener is working!!!");
+                    startActivity(new Intent(getActivity(),HomeAct.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    getActivity().finish();
+                    return true;
+                }
+                return false;
+            }
+
+
+        });
+
     }
 
     private void initViews() {
@@ -250,6 +274,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                 // Toast message on menu item clicked
                 filterString = String.valueOf(menuItem.getTitle());
                 Toast.makeText(getActivity(), "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+
                 return true;
             }
         });
@@ -471,7 +496,9 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
 
 
 
-                if(viewType.equals("vertical"))   adapterScroll.filterList(filteredList);
+                if(viewType.equals("vertical"))   {
+                    adapterScroll.filterList(filteredList);
+                }
                 else if(viewType.equals("grid"))   adapterGrid.filterList(filteredList);
 
             }
@@ -481,6 +508,8 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         }
 
     }
+
+
 
 
 

@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/border_primary.xml" value="0.2046875" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/chk_bg.xml" value="0.17314814814814813" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/chk_dupli_bg.xml" value="0.2203125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/circle_white_bg.xml" value="0.2203125" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/circle_white_gray_border_bg.xml" value="0.17314814814814813" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/rounded_white15_bg.xml" value="0.20364583333333333" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/yellow_bg.xml" value="0.20364583333333333" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_address.xml" value="0.16302083333333334" />
@@ -32,7 +35,7 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_product_imag.xml" value="0.20416666666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_product_one.xml" value="0.18697916666666667" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_scroll_product.xml" value="0.1" />
-        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_scroll_product_one.xml" value="0.20416666666666666" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_scroll_product_one.xml" value="0.25" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_search.xml" value="0.18854166666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/toolbar.xml" value="0.1046875" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/menu/menu_popup.xml" value="0.1390625" />

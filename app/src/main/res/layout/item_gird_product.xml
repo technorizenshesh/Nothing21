@@ -33,7 +33,17 @@
                     android:layout_height="match_parent"
 
                     android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:visibility="gone"/>
+
+
+                <ImageView
+                    android:id="@+id/ivImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img3" />
+
 
 
                 <TextView
@@ -271,24 +281,18 @@
                 </RelativeLayout>
 
 
-
-
-
-
-
-
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginTop="-5dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="AED98.00"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
-                        android:visibility="visible" />
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="-5dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="AED98.00"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_9sdp"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/layoutColor"
@@ -301,36 +305,114 @@
                     android:layout_marginEnd="@dimen/_7sdp">
 
 
-                    <TextView
-                        android:id="@+id/view1"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
+                    <RelativeLayout
+                        android:id="@+id/layoutOne"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
-                        android:background="@drawable/circle_white_bg" />
+                        android:gravity="center">
 
 
-                    <TextView
-                        android:id="@+id/view2"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
+                        <com.nothing21.utils.CircularTextView
+                            android:id="@+id/view1"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_centerInParent="true"
+                            />
+
+
+                        <com.nothing21.utils.CircularTextView
+                            android:id="@+id/view11"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_centerInParent="true"
+                           />
+
+
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/layoutTwo"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
-                        android:background="@drawable/circle_white_bg" />
+                        android:gravity="center">
 
 
-                    <TextView
-                        android:id="@+id/view3"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
+                        <com.nothing21.utils.CircularTextView
+                            android:id="@+id/view2"
+                            android:layout_centerInParent="true"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            />
+
+
+                        <com.nothing21.utils.CircularTextView
+                            android:id="@+id/view22"
+                            android:layout_centerInParent="true"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            />
+
+
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/layoutThree"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
-                        android:background="@drawable/circle_white_bg" />
+                        android:gravity="center">
 
 
-                    <TextView
-                        android:id="@+id/view4"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
+                        <com.nothing21.utils.CircularTextView
+                            android:id="@+id/view3"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            />
+
+
+                        <com.nothing21.utils.CircularTextView
+                            android:layout_centerInParent="true"
+                            android:id="@+id/view33"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                           />
+
+
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/layoutFour"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
-                        android:background="@drawable/circle_white_bg" />
+                        android:gravity="center">
+
+
+                        <com.nothing21.utils.CircularTextView
+                            android:id="@+id/view4"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            />
+
+
+                        <com.nothing21.utils.CircularTextView
+                            android:layout_centerInParent="true"
+                            android:id="@+id/view44"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                           />
+
+
+
+                    </RelativeLayout>
 
 
                 </LinearLayout>
