@@ -80,7 +80,7 @@ public class ProductModel {
         public ArrayList<ImageDetail> imageDetails = null;
         @SerializedName("color_details")
         @Expose
-        public List<ColorDetail> colorDetails = null;
+        public ArrayList<ColorDetail> colorDetails = null;
 
         @SerializedName("touch_check")
         @Expose

@@ -24,12 +24,12 @@ import java.util.ArrayList;
 
 public class ViewProductAdapter2 extends RecyclerView.Adapter<ViewProductAdapter2.MyViewHolder> {
     Context context;
-    ArrayList<ProductModel.Result.ImageDetail> imgArrayList;
+    ArrayList<ProductModel.Result.ColorDetail> imgArrayList;
     ViewProductAdapter adapter;
     String idss;
 
 
-    public ViewProductAdapter2(Context context, ArrayList<ProductModel.Result.ImageDetail> arrayList, String idss) {
+    public ViewProductAdapter2(Context context, ArrayList<ProductModel.Result.ColorDetail> arrayList, String idss) {
         this.context = context;
         this.imgArrayList = arrayList;
         this.idss = idss;

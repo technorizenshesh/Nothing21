@@ -23,10 +23,12 @@ import java.util.ArrayList;
 public class OtherProAdapter extends RecyclerView.Adapter<OtherProAdapter.MyViewHolder> {
     Context context;
     ArrayList<ProductModel.Result> arrayList;
+    onItemClickListener listener;
 
-    public OtherProAdapter(Context context, ArrayList<ProductModel.Result> arrayList) {
+    public OtherProAdapter(Context context, ArrayList<ProductModel.Result> arrayList,onItemClickListener listener) {
         this.context = context;
         this.arrayList = arrayList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -40,6 +42,9 @@ public class OtherProAdapter extends RecyclerView.Adapter<OtherProAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
         holder.binding.tvName.setText(arrayList.get(position).name);
+
+        holder.itemView.setOnClickListener(v -> listener.onItem(position) );
+
     }
 
     @Override

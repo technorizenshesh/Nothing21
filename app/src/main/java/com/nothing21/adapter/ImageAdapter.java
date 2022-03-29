@@ -19,6 +19,7 @@ import com.nothing21.databinding.ItemImagBinding;
 import com.nothing21.databinding.ItemProductImagBinding;
 import com.nothing21.fragment.ProductFragment;
 import com.nothing21.listener.onIconClickListener;
+import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
 
@@ -28,9 +29,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     Context context;
     ArrayList<ProductModelCopy.Result.ColorDetail> arrayList;
 
+
     public ImageAdapter(Context context, ArrayList<ProductModelCopy.Result.ColorDetail> arrayList ) {
         this.context = context;
         this.arrayList = arrayList;
+
 
     }
 
@@ -44,7 +47,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Glide.with(context).load(arrayList.get(position).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
     }
 
     @Override
@@ -57,12 +59,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.MyViewHolder
         public MyViewHolder(@NonNull ItemImagBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
-
-
-
-
-
-
         }
     }
 

@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 tools:listitem="@layout/item_imag"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
@@ -35,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/img3" />
+                android:src="@drawable/img3"
+                android:visibility="gone"/>
 
 
             <TextView
@@ -60,6 +61,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/layoutSecond"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".6"
@@ -225,11 +227,10 @@
 
 
                     <com.nothing21.utils.CircularTextView
-                       android:layout_centerInParent="true"
                         android:id="@+id/view44"
                         android:layout_width="@dimen/_10sdp"
                         android:layout_height="@dimen/_10sdp"
-                         />
+                        android:layout_centerInParent="true" />
 
 
 

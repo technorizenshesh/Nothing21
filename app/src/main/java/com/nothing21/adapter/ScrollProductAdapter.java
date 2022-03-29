@@ -61,7 +61,7 @@ public class ScrollProductAdapter extends RecyclerView.Adapter<ScrollProductAdap
         }
          else    holder.binding.tvPriceNew.setTextColor(context.getResources().getColor(R.color.white));           //holder.binding.tvProductName.setVisibility(View.GONE);
 
-        holder.binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,arrayList.get(position).imageDetails,arrayList.get(position).id,arrayList.get(position).isTouchCheck()));
+        holder.binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,arrayList.get(position).colorDetails,arrayList.get(position).id,arrayList.get(position).isTouchCheck()));
 
 
         if(arrayList.get(position).fav_product_status.equals("false")) holder.binding.ivLike.setImageDrawable(context.getDrawable(R.drawable.ic_white_heart));

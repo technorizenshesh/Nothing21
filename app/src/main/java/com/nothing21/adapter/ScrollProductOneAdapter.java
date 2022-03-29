@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -32,7 +33,8 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
     ArrayList<ProductModel.Result> arrayList;
     ArrayList<String>imgArrayList;
     onIconClickListener listener;
-
+    ViewProductAdapter1 adapter;
+    LinearLayoutManager layoutManager;
 
     public
     ScrollProductOneAdapter(Context context, ArrayList<ProductModel.Result> arrayList,onIconClickListener listener) {
@@ -54,7 +56,11 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
         holder.binding.tvProductName.setText(arrayList.get(position).name);
-       // holder.binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,arrayList.get(position).imageDetails,arrayList.get(position).id,arrayList.get(position).isTouchCheck()));
+
+
+
+
+        holder.binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,arrayList.get(position).colorDetails,arrayList.get(position).id,arrayList.get(position).isTouchCheck()));
         Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
         DataManager.getInstance().hideProgressMessage();
 
@@ -83,6 +89,8 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
 
 
 
+
+
         if(arrayList.get(position).colorDetails!=null){
             if(arrayList.get(position).colorDetails.size()==1){
                 holder.binding.layoutOne.setVisibility(View.VISIBLE);
@@ -90,22 +98,19 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 holder.binding.layoutThree.setVisibility(View.GONE);
                 holder.binding.layoutFour.setVisibility(View.GONE);
 
-                // holder.binding.view1.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).color));
-              //  GradientDrawable shape = new GradientDrawable();
-              //  shape.setCornerRadius(30);
-             //   shape.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).colorCode));
-           //     holder.binding.view1.setBackground(shape);
-
-
                 if(arrayList.get(position).colorDetails.get(0).chkColor== false){
                     holder.binding.view1.setVisibility(View.GONE);
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
+                    holder.binding.ivImg.setVisibility(View.VISIBLE);
+                    holder.binding.rvProductItm.setVisibility(View.GONE);
 
                 }else {
                     holder.binding.view1.setVisibility(View.VISIBLE);
                     holder.binding.view1.setStrokeWidth(1);
                     holder.binding.view1.setStrokeColor(arrayList.get(position).colorDetails.get(0).colorCode);
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
+                    holder.binding.ivImg.setVisibility(View.VISIBLE);
+                    holder.binding.rvProductItm.setVisibility(View.GONE);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -116,22 +121,12 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 holder.binding.layoutTwo.setVisibility(View.VISIBLE);
                 holder.binding.layoutThree.setVisibility(View.GONE);
                 holder.binding.layoutFour.setVisibility(View.GONE);
-                //  holder.binding.view2.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).color));
-
-        /*        GradientDrawable shape1 = new GradientDrawable();
-                shape1.setCornerRadius(30);
-                shape1.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).colorCode));
-                holder.binding.view1.setBackground(shape1);
-
-
-                GradientDrawable shape2 = new GradientDrawable();
-                shape2.setCornerRadius(30);
-                shape2.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).colorCode));
-                holder.binding.view2.setBackground(shape2);*/
 
                 if(arrayList.get(position).colorDetails.get(0).chkColor == false){
                     holder.binding.view1.setVisibility(View.GONE);
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
+                    holder.binding.ivImg.setVisibility(View.VISIBLE);
+                    holder.binding.rvProductItm.setVisibility(View.GONE);
 
                 }else {
                     holder.binding.view1.setVisibility(View.VISIBLE);
@@ -139,14 +134,17 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view1.setStrokeColor(arrayList.get(position).colorDetails.get(0).colorCode);
                     holder.binding.view1.setSolidColor("#FFFFFF");
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
+                    holder.binding.ivImg.setVisibility(View.VISIBLE);
+                    holder.binding.rvProductItm.setVisibility(View.GONE);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
                 }
 
 
                 if(arrayList.get(position).colorDetails.get(1).chkColor == false){
                     holder.binding.view2.setVisibility(View.GONE);
                     holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
+                    holder.binding.ivImg.setVisibility(View.VISIBLE);
+                    holder.binding.rvProductItm.setVisibility(View.GONE);
 
                 }else {
                     holder.binding.view2.setVisibility(View.VISIBLE);
@@ -154,8 +152,9 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view2.setStrokeColor(arrayList.get(position).colorDetails.get(1).colorCode);
                     holder.binding.view2.setSolidColor("#FFFFFF");
                     holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
+                    holder.binding.ivImg.setVisibility(View.VISIBLE);
+                    holder.binding.rvProductItm.setVisibility(View.GONE);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
                 }
 
 
@@ -167,23 +166,6 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 holder.binding.layoutTwo.setVisibility(View.VISIBLE);
                 holder.binding.layoutThree.setVisibility(View.VISIBLE);
                 holder.binding.layoutFour.setVisibility(View.GONE);
-                //  holder.binding.view3.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(2).color));
-            /*    GradientDrawable shape1 = new GradientDrawable();
-                shape1.setCornerRadius(30);
-                shape1.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).colorCode));
-                holder.binding.view1.setBackground(shape1);
-
-
-                GradientDrawable shape2 = new GradientDrawable();
-                shape2.setCornerRadius(30);
-                shape2.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).colorCode));
-                holder.binding.view2.setBackground(shape2);
-
-                GradientDrawable shape3 = new GradientDrawable();
-                shape3.setCornerRadius(30);
-                shape3.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(2).colorCode));
-                holder.binding.view3.setBackground(shape3);*/
-
 
                 if(arrayList.get(position).colorDetails.get(0).chkColor== false){
                     holder.binding.view1.setVisibility(View.GONE);
@@ -239,35 +221,6 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 holder.binding.layoutTwo.setVisibility(View.VISIBLE);
                 holder.binding.layoutThree.setVisibility(View.VISIBLE);
                 holder.binding.layoutFour.setVisibility(View.VISIBLE);
-
-
-
-                //    holder.binding.view4.setBackgroundColor(Color.parseColor(arrayList.get(position).colorDetails.get(3).color));
-
-              /*  GradientDrawable shape1 = new GradientDrawable();
-                shape1.setCornerRadius(30);
-                shape1.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(0).colorCode));
-                holder.binding.view1.setBackground(shape1);
-
-
-                GradientDrawable shape2 = new GradientDrawable();
-                shape2.setCornerRadius(30);
-                shape2.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(1).colorCode));
-                holder.binding.view2.setBackground(shape2);
-
-                GradientDrawable shape3 = new GradientDrawable();
-                shape3.setCornerRadius(30);
-                shape3.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(2).colorCode));
-                holder.binding.view3.setBackground(shape3);
-
-
-                GradientDrawable shape4 = new GradientDrawable();
-                shape4.setCornerRadius(30);
-                shape4.setColor(Color.parseColor(arrayList.get(position).colorDetails.get(3).colorCode));
-                holder.binding.view4.setBackground(shape4);*/
-
-
-
 
                 if(arrayList.get(position).colorDetails.get(0).chkColor== false){
                     holder.binding.view1.setVisibility(View.GONE);
@@ -359,29 +312,21 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 listener.onIcon(getAdapterPosition(),"Fav");
             });
 
-
-          /*  binding.ivInfo.setOnClickListener(v -> {
-                listener.onIcon(getAdapterPosition(),"Info");
-            });
-
-            binding.ivIn.setOnClickListener(v -> {
-                listener.onIcon(getAdapterPosition(),"Size");
-            });
-
-            binding.ivColor.setOnClickListener(v -> {
-                listener.onIcon(getAdapterPosition(),"Color");
-            });
-
-
-           */
-
-            binding.ivImg.setOnClickListener(v -> {
-                 context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
+            binding.layoutSecond.setOnClickListener(v -> { context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
 
             });
 
 
-            binding.layoutOne.setOnClickListener(v -> {
+           binding.ivImg.setOnClickListener(v -> {
+               if(binding.rvProductItm.getVisibility() == View.GONE){
+                   binding.rvProductItm.setVisibility(View.VISIBLE);
+                   binding.ivImg.setVisibility(View.GONE);
+
+               }
+           });
+
+
+           binding.layoutOne.setOnClickListener(v -> {
                 DataManager.getInstance().showProgressMessage((Activity) context,"");
                 for(int i =0; i<arrayList.get(getAdapterPosition()).colorDetails.size();i++){
                     arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
@@ -397,6 +342,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).colorDetails.get(1).setChkColor(true);
+
                 notifyDataSetChanged();
             });
 
@@ -407,6 +353,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).colorDetails.get(2).setChkColor(true);
+
                 notifyDataSetChanged();
             });
 

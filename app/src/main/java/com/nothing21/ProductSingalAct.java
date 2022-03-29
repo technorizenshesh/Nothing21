@@ -1,5 +1,6 @@
 package com.nothing21;
 
+import android.app.Activity;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.nothing21.fragment.InfoFragmentBottomSheet;
 import com.nothing21.fragment.InfoFragmentBottomSheet1;
 import com.nothing21.fragment.SizeFragmentBottomSheet1;
 import com.nothing21.listener.InfoListener;
+import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
 import com.nothing21.retrofit.ApiClient;
@@ -42,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductSingalAct extends AppCompatActivity implements InfoListener {
+public class ProductSingalAct extends AppCompatActivity implements InfoListener, onItemClickListener {
     public String TAG = "ProductSingalAct";
     ActivityProductSingalBinding binding;
     Nothing21Interface apiInterface;
@@ -68,7 +70,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
         imgArrayList = new ArrayList<>();
         arrayList = new ArrayList<>();
 
-        adapter = new OtherProAdapter(ProductSingalAct.this,arrayList);
+        adapter = new OtherProAdapter(ProductSingalAct.this,arrayList,ProductSingalAct.this);
         binding.rvProduct.setAdapter(adapter);
 
 
@@ -85,8 +87,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
 
                 if(getIntent()!=null) {
                     product_id = getIntent().getStringExtra("id");
-                    GetProduct(product_id);
-                }
+                    if(NetworkAvailablity.checkNetworkStatus(ProductSingalAct.this))  GetProduct(product_id);
+                    else Toast.makeText(ProductSingalAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();                }
 
                 Log.e("Token===", userId);
                 // Yay.. we have our new token now.
@@ -95,29 +97,6 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
             }
         });
 
-
-
-
-
-       binding.icOne.setOnClickListener(v -> {
-           Glide.with(ProductSingalAct.this).load(imgArrayList.get(0).image).error(R.drawable.dummy).into(binding.ivProduct);
-
-       });
-
-        binding.icTwo.setOnClickListener(v -> {
-            Glide.with(ProductSingalAct.this).load(imgArrayList.get(1).image).error(R.drawable.dummy).into(binding.ivProduct);
-
-        });
-
-        binding.icThree.setOnClickListener(v -> {
-            Glide.with(ProductSingalAct.this).load(imgArrayList.get(2).image).error(R.drawable.dummy).into(binding.ivProduct);
-
-        });
-
-        binding.icFour.setOnClickListener(v -> {
-            Glide.with(ProductSingalAct.this).load(imgArrayList.get(3).image).error(R.drawable.dummy).into(binding.ivProduct);
-
-        });
 
         binding.ivInfo.setOnClickListener(v -> {
             if(!data.result.description.equals(""))
@@ -164,6 +143,52 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
         binding.rvItems.setAdapter(adapter11);
 
 
+        binding.ivImg.setOnClickListener(v -> {
+            if(binding.rvItems.getVisibility() == View.GONE){
+                binding.rvItems.setVisibility(View.VISIBLE);
+                binding.ivImg.setVisibility(View.GONE);
+
+            }
+        });
+
+
+        binding.layoutOne.setOnClickListener(v -> {
+            for(int i =0; i<data.result.colorDetails.size();i++){
+               data.result.colorDetails.get(i).setChkColor(false);
+            }
+            data.result.colorDetails.get(0).setChkColor(true);
+            setColorData(data);
+        });
+
+
+        binding.layoutTwo.setOnClickListener(v -> {
+            for(int i =0; i< data.result.colorDetails.size();i++){
+                data.result.colorDetails.get(i).setChkColor(false);
+            }
+            data.result.colorDetails.get(1).setChkColor(true);
+            setColorData(data);
+        });
+
+
+        binding.layoutThree.setOnClickListener(v -> {
+            for(int i =0; i< data.result.colorDetails.size();i++){
+                data.result.colorDetails.get(i).setChkColor(false);
+            }
+            data.result.colorDetails.get(2).setChkColor(true);
+            setColorData(data);
+        });
+
+
+        binding.layoutFour.setOnClickListener(v -> {
+            for(int i =0; i< data.result.colorDetails.size();i++){
+                data.result.colorDetails.get(i).setChkColor(false);
+            }
+            data.result.colorDetails.get(3).setChkColor(true);
+            setColorData(data);
+        });
+
+
+
     }
 
 
@@ -193,7 +218,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(3).image).error(R.drawable.dummy).into(binding.icFour);*/
 
                         adapter11.notifyDataSetChanged();
-
+                        setColorData(data);
 
                         if(data.result.fav_product_status.equals("false")) binding.ivLike.setImageDrawable(ProductSingalAct.this.getDrawable(R.drawable.ic_white_heart));
                         else binding.ivLike.setImageDrawable(ProductSingalAct.this.getDrawable(R.drawable.ic_red_heart));
@@ -203,22 +228,23 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
                         binding.tvProductName.setText(data.result.brand1);
                         if(!data.result.discount.equals("")) {
                             binding.tvOldPrice.setVisibility(View.VISIBLE);
-                            //  holder.binding.tvDiscount.setVisibility(View.VISIBLE);
+                            //  binding.tvDiscount.setVisibility(View.VISIBLE);
                             binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price) - Double.parseDouble(data.result.discount )));
                             binding.tvProductPrice.setTextColor(getResources().getColor(R.color.color_red));
                             binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
                             binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                            //  holder.binding.tvDiscount.setText("-"+arrayList.get(position).discount + "% Off");
+                            //  binding.tvDiscount.setText("-"+data.result.discount + "% Off");
 
                         }
                         else {
                             binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
                             binding.tvProductPrice.setTextColor(getResources().getColor(R.color.black));
                             binding.tvOldPrice.setVisibility(View.GONE);
-                            //  holder.binding.tvDiscount.setVisibility(View.GONE);
+                            //  binding.tvDiscount.setVisibility(View.GONE);
 
                         }
 
+                        Glide.with(ProductSingalAct.this).load(data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
 
                        /* if(!data.result.discount.equals("")) {
                             binding.tvProductName.setVisibility(View.VISIBLE);
@@ -252,13 +278,214 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
         });
     }
 
+    private void setColorData(ProductModelCopy data) {
+        if(data.result.colorDetails!=null){
+            if(data.result.colorDetails.size()==1){
+                binding.layoutOne.setVisibility(View.VISIBLE);
+                binding.layoutTwo.setVisibility(View.GONE);
+                binding.layoutThree.setVisibility(View.GONE);
+                binding.layoutFour.setVisibility(View.GONE);
+
+                if(data.result.colorDetails.get(0).chkColor== false){
+                    binding.view1.setVisibility(View.GONE);
+                    binding.view11.setSolidColor(data.result.colorDetails.get(0).colorCode);
+                    binding.ivImg.setVisibility(View.VISIBLE);
+                    binding.rvItems.setVisibility(View.GONE);
+
+                }else {
+                    binding.view1.setVisibility(View.VISIBLE);
+                    binding.view1.setStrokeWidth(1);
+                    binding.view1.setStrokeColor(data.result.colorDetails.get(0).colorCode);
+                    binding.view11.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+                    binding.ivImg.setVisibility(View.VISIBLE);
+                    binding.rvItems.setVisibility(View.GONE);
+                    Glide.with(ProductSingalAct.this).load(data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                }
+            }
+
+            if(data.result.colorDetails.size()==2){
+                binding.layoutOne.setVisibility(View.VISIBLE);
+                binding.layoutTwo.setVisibility(View.VISIBLE);
+                binding.layoutThree.setVisibility(View.GONE);
+                binding.layoutFour.setVisibility(View.GONE);
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(0).chkColor == false){
+                    binding.view1.setVisibility(View.GONE);
+                    binding.view11.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+                    binding.ivImg.setVisibility(View.VISIBLE);
+                    binding.rvItems.setVisibility(View.GONE);
+
+                }else {
+                    binding.view1.setVisibility(View.VISIBLE);
+                    binding.view1.setStrokeWidth(1);
+                    binding.view1.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+                    binding.view1.setSolidColor("#FFFFFF");
+                    binding.view11.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+                    binding.ivImg.setVisibility(View.VISIBLE);
+                    binding.rvItems.setVisibility(View.GONE);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
+                }
+
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(1).chkColor == false){
+                    binding.view2.setVisibility(View.GONE);
+                    binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+                    binding.ivImg.setVisibility(View.VISIBLE);
+                    binding.rvItems.setVisibility(View.GONE);
+
+                }else {
+                    binding.view2.setVisibility(View.VISIBLE);
+                    binding.view2.setStrokeWidth(1);
+                    binding.view2.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+                    binding.view2.setSolidColor("#FFFFFF");
+                    binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+                    binding.ivImg.setVisibility(View.VISIBLE);
+                    binding.rvItems.setVisibility(View.GONE);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
+                }
+
+
+            }
+
+
+            if(ProductSingalAct.this.data.result.colorDetails.size()==3){
+                binding.layoutOne.setVisibility(View.VISIBLE);
+                binding.layoutTwo.setVisibility(View.VISIBLE);
+                binding.layoutThree.setVisibility(View.VISIBLE);
+                binding.layoutFour.setVisibility(View.GONE);
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(0).chkColor== false){
+                    binding.view1.setVisibility(View.GONE);
+                    binding.view11.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+
+                }else {
+                    binding.view1.setVisibility(View.VISIBLE);
+                    binding.view1.setStrokeWidth(1);
+                    binding.view1.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+                    binding.view1.setSolidColor("#FFFFFF");
+                    binding.view11.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                }
+
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(1).chkColor== false){
+                    binding.view2.setVisibility(View.GONE);
+                    binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+
+                }else {
+                    binding.view2.setVisibility(View.VISIBLE);
+                    binding.view2.setStrokeWidth(1);
+                    binding.view2.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+                    binding.view2.setSolidColor("#FFFFFF");
+                    binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                }
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(2).chkColor== false){
+                    binding.view3.setVisibility(View.GONE);
+                    binding.view33.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(2).colorCode);
+
+                }else {
+                    binding.view3.setVisibility(View.VISIBLE);
+                    binding.view3.setStrokeWidth(1);
+                    binding.view3.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(2).colorCode);
+                    binding.view3.setSolidColor("#FFFFFF");
+                    binding.view33.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(2).colorCode);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(2).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                }
+
+
+
+
+
+            }
+
+            if(ProductSingalAct.this.data.result.colorDetails.size()==4){
+                binding.layoutOne.setVisibility(View.VISIBLE);
+                binding.layoutTwo.setVisibility(View.VISIBLE);
+                binding.layoutThree.setVisibility(View.VISIBLE);
+                binding.layoutFour.setVisibility(View.VISIBLE);
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(0).chkColor== false){
+                    binding.view1.setVisibility(View.GONE);
+                    binding.view11.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+
+                }else {
+                    binding.view1.setVisibility(View.VISIBLE);
+                    binding.view1.setStrokeWidth(1);
+                    binding.view1.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+                    binding.view1.setSolidColor("#FFFFFF");
+                    binding.view11.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(0).colorCode);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                }
+
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(1).chkColor== false){
+                    binding.view2.setVisibility(View.GONE);
+                    binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+
+                }else {
+                    binding.view2.setVisibility(View.VISIBLE);
+                    binding.view2.setStrokeWidth(1);
+                    binding.view2.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+                    binding.view2.setSolidColor("#FFFFFF");
+                    binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                }
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(2).chkColor== false){
+                    binding.view3.setVisibility(View.GONE);
+                    binding.view33.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(2).colorCode);
+
+                }else {
+                    binding.view3.setVisibility(View.VISIBLE);
+                    binding.view3.setStrokeWidth(1);
+                    binding.view3.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(2).colorCode);
+                    binding.view3.setSolidColor("#FFFFFF");
+                    binding.view33.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(2).colorCode);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(2).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                }
+
+
+                if(ProductSingalAct.this.data.result.colorDetails.get(3).chkColor== false){
+                    binding.view4.setVisibility(View.GONE);
+                    binding.view44.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(3).colorCode);
+
+                }else {
+                    binding.view4.setVisibility(View.VISIBLE);
+                    binding.view4.setStrokeWidth(1);
+                    binding.view4.setStrokeColor(ProductSingalAct.this.data.result.colorDetails.get(3).colorCode);
+                    binding.view4.setSolidColor("#FFFFFF");
+                    binding.view44.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(3).colorCode);
+                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(3).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                }
+
+
+
+            }
+
+
+
+
+        }
+
+    }
+
 
     @Override
     public void info(String value,String size) {
-        if(value.equals("color"))
-        Glide.with(ProductSingalAct.this).load(SessionManager.readString(ProductSingalAct.this,"selectImage","")).error(R.drawable.dummy).into(binding.ivProduct);
-        if(value.equals("size"))
-            Glide.with(ProductSingalAct.this).load(SessionManager.readString(ProductSingalAct.this,"selectImage","")).error(R.drawable.dummy).into(binding.ivProduct);
+    //    if(value.equals("color"))
+      //  Glide.with(ProductSingalAct.this).load(SessionManager.readString(ProductSingalAct.this,"selectImage","")).error(R.drawable.dummy).into(binding.ivProduct);
+    //    if(value.equals("size"))
+     //       Glide.with(ProductSingalAct.this).load(SessionManager.readString(ProductSingalAct.this,"selectImage","")).error(R.drawable.dummy).into(binding.ivProduct);
 
     }
 
@@ -353,4 +580,10 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener 
     }
 
 
+    @Override
+    public void onItem(int position) {
+        product_id = arrayList.get(position).id;
+      if(NetworkAvailablity.checkNetworkStatus(ProductSingalAct.this))  GetProduct(product_id);
+      else Toast.makeText(ProductSingalAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+    }
 }

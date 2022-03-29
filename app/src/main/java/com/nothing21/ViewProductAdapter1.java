@@ -27,13 +27,13 @@ import java.util.ArrayList;
 
 public class ViewProductAdapter1 extends RecyclerView.Adapter<ViewProductAdapter1.MyViewHolder> {
     Context context;
-    ArrayList<ProductModel.Result.ImageDetail> imgArrayList;
+    ArrayList<ProductModel.Result.ColorDetail> imgArrayList;
     ViewProductAdapter adapter;
     String idss;
     boolean chk;
 
 
-    public ViewProductAdapter1(Context context, ArrayList<ProductModel.Result.ImageDetail> arrayList, String idss,boolean chk) {
+    public ViewProductAdapter1(Context context, ArrayList<ProductModel.Result.ColorDetail> arrayList, String idss,boolean chk) {
         this.context = context;
         this.imgArrayList = arrayList;
         this.idss = idss;
