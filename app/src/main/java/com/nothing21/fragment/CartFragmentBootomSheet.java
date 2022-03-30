@@ -29,6 +29,7 @@ import com.nothing21.databinding.FragmentInfoBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.model.CategoryModel;
 import com.nothing21.model.ProductModel;
+import com.nothing21.model.ProductModelCopy;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -119,6 +120,9 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
         binding.BlurImageView.setBlur(10);
 
+        setColorData(productData);
+
+
         binding.tvMinus.setOnClickListener(v -> {
           //  if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
                 if (count > 1) {
@@ -157,6 +161,43 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
             if (NetworkAvailablity.checkNetworkStatus(getActivity())) AddProductToCart11(userId);
             else
                 Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+        });
+
+
+
+        binding.layoutOne.setOnClickListener(v -> {
+            for(int i =0; i<productData.colorDetails.size();i++){
+                productData.colorDetails.get(i).setChkColor(false);
+            }
+            productData.colorDetails.get(0).setChkColor(true);
+            setColorData(productData);
+        });
+
+
+        binding.layoutTwo.setOnClickListener(v -> {
+            for(int i =0; i< productData.colorDetails.size();i++){
+                productData.colorDetails.get(i).setChkColor(false);
+            }
+            productData.colorDetails.get(1).setChkColor(true);
+            setColorData(productData);
+        });
+
+
+        binding.layoutThree.setOnClickListener(v -> {
+            for(int i =0; i< productData.colorDetails.size();i++){
+                productData.colorDetails.get(i).setChkColor(false);
+            }
+            productData.colorDetails.get(2).setChkColor(true);
+            setColorData(productData);
+        });
+
+
+        binding.layoutFour.setOnClickListener(v -> {
+            for(int i =0; i< productData.colorDetails.size();i++){
+                productData.colorDetails.get(i).setChkColor(false);
+            }
+            productData.colorDetails.get(3).setChkColor(true);
+            setColorData(productData);
         });
 
     }
@@ -324,6 +365,232 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         }
         else binding.tvSize.setText(productData.colorDetails.get(0).size);
     }
+
+
+    private void setColorData(ProductModel.Result data) {
+        if(data.colorDetails!=null){
+            if(data.colorDetails.size()==1){
+                binding.layoutOne.setVisibility(View.VISIBLE);
+                binding.layoutTwo.setVisibility(View.GONE);
+                binding.layoutThree.setVisibility(View.GONE);
+                binding.layoutFour.setVisibility(View.GONE);
+
+                if(data.colorDetails.get(0).chkColor== false){
+                    binding.view1.setVisibility(View.GONE);
+                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+
+
+                }else {
+                    binding.view1.setVisibility(View.VISIBLE);
+                    binding.view1.setStrokeWidth(1);
+                    binding.view1.setStrokeColor(data.colorDetails.get(0).colorCode);
+                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(0).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+                    binding.BlurImageView.setBlur(10);
+
+                }
+            }
+
+            if(data.colorDetails.size()==2){
+                binding.layoutOne.setVisibility(View.VISIBLE);
+                binding.layoutTwo.setVisibility(View.VISIBLE);
+                binding.layoutThree.setVisibility(View.GONE);
+                binding.layoutFour.setVisibility(View.GONE);
+
+                if(data.colorDetails.get(0).chkColor == false){
+                    binding.view1.setVisibility(View.GONE);
+                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+
+
+                }else {
+                    binding.view1.setVisibility(View.VISIBLE);
+                    binding.view1.setStrokeWidth(1);
+                    binding.view1.setStrokeColor(data.colorDetails.get(0).colorCode);
+                    binding.view1.setSolidColor("#FFFFFF");
+                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(0).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+
+                }
+
+
+                if(data.colorDetails.get(1).chkColor == false){
+                    binding.view2.setVisibility(View.GONE);
+                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+
+
+                }else {
+                    binding.view2.setVisibility(View.VISIBLE);
+                    binding.view2.setStrokeWidth(1);
+                    binding.view2.setStrokeColor(data.colorDetails.get(1).colorCode);
+                    binding.view2.setSolidColor("#FFFFFF");
+                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(1).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+
+                }
+
+
+            }
+
+
+            if(data.colorDetails.size()==3){
+                binding.layoutOne.setVisibility(View.VISIBLE);
+                binding.layoutTwo.setVisibility(View.VISIBLE);
+                binding.layoutThree.setVisibility(View.VISIBLE);
+                binding.layoutFour.setVisibility(View.GONE);
+
+                if(data.colorDetails.get(0).chkColor== false){
+                    binding.view1.setVisibility(View.GONE);
+                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+
+                }else {
+                    binding.view1.setVisibility(View.VISIBLE);
+                    binding.view1.setStrokeWidth(1);
+                    binding.view1.setStrokeColor(data.colorDetails.get(0).colorCode);
+                    binding.view1.setSolidColor("#FFFFFF");
+                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(0).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+
+                }
+
+
+                if(data.colorDetails.get(1).chkColor== false){
+                    binding.view2.setVisibility(View.GONE);
+                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+
+                }else {
+                    binding.view2.setVisibility(View.VISIBLE);
+                    binding.view2.setStrokeWidth(1);
+                    binding.view2.setStrokeColor(data.colorDetails.get(1).colorCode);
+                    binding.view2.setSolidColor("#FFFFFF");
+                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(1).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+
+                }
+
+                if(data.colorDetails.get(2).chkColor== false){
+                    binding.view3.setVisibility(View.GONE);
+                    binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
+
+                }else {
+                    binding.view3.setVisibility(View.VISIBLE);
+                    binding.view3.setStrokeWidth(1);
+                    binding.view3.setStrokeColor(data.colorDetails.get(2).colorCode);
+                    binding.view3.setSolidColor("#FFFFFF");
+                    binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(2).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+
+                }
+
+
+
+
+
+            }
+
+            if(data.colorDetails.size()==4){
+                binding.layoutOne.setVisibility(View.VISIBLE);
+                binding.layoutTwo.setVisibility(View.VISIBLE);
+                binding.layoutThree.setVisibility(View.VISIBLE);
+                binding.layoutFour.setVisibility(View.VISIBLE);
+
+                if(data.colorDetails.get(0).chkColor== false){
+                    binding.view1.setVisibility(View.GONE);
+                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+
+                }else {
+                    binding.view1.setVisibility(View.VISIBLE);
+                    binding.view1.setStrokeWidth(1);
+                    binding.view1.setStrokeColor(data.colorDetails.get(0).colorCode);
+                    binding.view1.setSolidColor("#FFFFFF");
+                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+
+                    Glide.with(getActivity()).load(data.colorDetails.get(0).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+                }
+
+
+                if(data.colorDetails.get(1).chkColor== false){
+                    binding.view2.setVisibility(View.GONE);
+                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+
+                }else {
+                    binding.view2.setVisibility(View.VISIBLE);
+                    binding.view2.setStrokeWidth(1);
+                    binding.view2.setStrokeColor(data.colorDetails.get(1).colorCode);
+                    binding.view2.setSolidColor("#FFFFFF");
+                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(1).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+
+                }
+
+                if(data.colorDetails.get(2).chkColor== false){
+                    binding.view3.setVisibility(View.GONE);
+                    binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
+
+                }else {
+                    binding.view3.setVisibility(View.VISIBLE);
+                    binding.view3.setStrokeWidth(1);
+                    binding.view3.setStrokeColor(data.colorDetails.get(2).colorCode);
+                    binding.view3.setSolidColor("#FFFFFF");
+                    binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(2).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+
+                }
+
+
+                if(data.colorDetails.get(3).chkColor== false){
+                    binding.view4.setVisibility(View.GONE);
+                    binding.view44.setSolidColor(data.colorDetails.get(3).colorCode);
+
+                }else {
+                    binding.view4.setVisibility(View.VISIBLE);
+                    binding.view4.setStrokeWidth(1);
+                    binding.view4.setStrokeColor(data.colorDetails.get(3).colorCode);
+                    binding.view4.setSolidColor("#FFFFFF");
+                    binding.view44.setSolidColor(data.colorDetails.get(3).colorCode);
+                    Glide.with(getActivity()).load(data.colorDetails.get(3).image)
+                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                            .into(binding.BlurImageView);
+
+                }
+
+
+
+            }
+
+
+
+
+        }
+
+    }
+
 
 
 }
