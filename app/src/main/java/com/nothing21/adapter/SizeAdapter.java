@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nothing21.R;
 import com.nothing21.databinding.ItemSizeColorBinding;
+import com.nothing21.listener.onIconClickListener;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
 
@@ -18,9 +19,9 @@ import java.util.ArrayList;
 public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> {
     Context context;
     ArrayList<ProductModel.Result.ColorDetail> arrayList;
-    onItemClickListener listener;
+    onIconClickListener listener;
 
-    public SizeAdapter(Context context, ArrayList<ProductModel.Result.ColorDetail>arrayList, onItemClickListener listener) {
+    public SizeAdapter(Context context, ArrayList<ProductModel.Result.ColorDetail>arrayList, onIconClickListener listener) {
         this.context = context;
         this.arrayList = arrayList;
         this.listener = listener;
@@ -36,8 +37,8 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.tvColor.setText(arrayList.get(position).size);
-        // holder.binding.tvSize.setText(arrayList.get(position).size);
-    }
+        if(arrayList.get(position).chkColor == false)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.black));
+        else if(arrayList.get(position).chkColor == true)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.color_red));    }
 
     @Override
     public int getItemCount() {
@@ -52,7 +53,12 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> 
             binding = itemView;
 
             binding.layMain.setOnClickListener(v -> {
-                listener.onItem(getAdapterPosition());
+                for(int i =0;i<arrayList.size();i++){
+                    arrayList.get(i).setChkColor(false);
+                }
+                arrayList.get(getLayoutPosition()).setChkColor(true);
+                listener.onIcon(getAdapterPosition(),"size");
+                notifyDataSetChanged();
             });
 
         }

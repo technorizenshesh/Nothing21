@@ -74,7 +74,7 @@ public class SizeFragmentBottomSheet1 extends BottomSheetDialogFragment implemen
                 .into(binding.BlurImageView);
 
         binding.BlurImageView.setBlur(10);
-        binding.rvColorSize.setAdapter(new SizeAdapter1(getActivity(), arrayList,SizeFragmentBottomSheet1.this));
+     //   binding.rvColorSize.setAdapter(new SizeAdapter1(getActivity(), arrayList,SizeFragmentBottomSheet1.this));
 
         binding.ivColor.setOnClickListener(v -> dialog.dismiss());
 

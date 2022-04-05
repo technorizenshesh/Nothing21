@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <RelativeLayout
@@ -142,23 +143,23 @@
 
                         <RelativeLayout
                             android:id="@+id/layoutOne"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:gravity="center">
 
 
                             <com.nothing21.utils.CircularTextView
                                 android:id="@+id/view1"
-                                android:layout_width="@dimen/_14sdp"
-                                android:layout_height="@dimen/_14sdp"
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
                                 android:layout_centerInParent="true" />
 
 
                             <com.nothing21.utils.CircularTextView
                                 android:id="@+id/view11"
-                                android:layout_width="@dimen/_10sdp"
-                                android:layout_height="@dimen/_10sdp"
+                                android:layout_width="@dimen/_11sdp"
+                                android:layout_height="@dimen/_11sdp"
                                 android:layout_centerInParent="true" />
 
 
@@ -167,23 +168,23 @@
 
                         <RelativeLayout
                             android:id="@+id/layoutTwo"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:gravity="center">
 
 
                             <com.nothing21.utils.CircularTextView
                                 android:id="@+id/view2"
-                                android:layout_width="@dimen/_14sdp"
-                                android:layout_height="@dimen/_14sdp"
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
                                 android:layout_centerInParent="true" />
 
 
                             <com.nothing21.utils.CircularTextView
                                 android:id="@+id/view22"
-                                android:layout_width="@dimen/_10sdp"
-                                android:layout_height="@dimen/_10sdp"
+                                android:layout_width="@dimen/_11sdp"
+                                android:layout_height="@dimen/_11sdp"
                                 android:layout_centerInParent="true" />
 
 
@@ -192,22 +193,22 @@
 
                         <RelativeLayout
                             android:id="@+id/layoutThree"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:gravity="center">
 
 
                             <com.nothing21.utils.CircularTextView
                                 android:id="@+id/view3"
-                                android:layout_width="@dimen/_14sdp"
-                                android:layout_height="@dimen/_14sdp" />
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp" />
 
 
                             <com.nothing21.utils.CircularTextView
                                 android:id="@+id/view33"
-                                android:layout_width="@dimen/_10sdp"
-                                android:layout_height="@dimen/_10sdp"
+                                android:layout_width="@dimen/_11sdp"
+                                android:layout_height="@dimen/_11sdp"
                                 android:layout_centerInParent="true" />
 
 
@@ -216,22 +217,22 @@
 
                         <RelativeLayout
                             android:id="@+id/layoutFour"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
                             android:layout_marginEnd="@dimen/_5sdp"
                             android:gravity="center">
 
 
                             <com.nothing21.utils.CircularTextView
                                 android:id="@+id/view4"
-                                android:layout_width="@dimen/_14sdp"
-                                android:layout_height="@dimen/_14sdp" />
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp" />
 
 
                             <com.nothing21.utils.CircularTextView
                                 android:id="@+id/view44"
-                                android:layout_width="@dimen/_10sdp"
-                                android:layout_height="@dimen/_10sdp"
+                                android:layout_width="@dimen/_11sdp"
+                                android:layout_height="@dimen/_11sdp"
                                 android:layout_centerInParent="true" />
 
 
@@ -248,7 +249,6 @@
                     android:layout_height="@dimen/_35sdp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_35sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
                     android:layout_marginRight="@dimen/_35sdp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -263,7 +263,8 @@
                         android:layout_marginEnd="@dimen/_20sdp"
                         android:layout_toRightOf="@+id/ivInfo"
                         android:elevation="@dimen/_2sdp"
-                        android:src="@drawable/ic_size" />
+                        android:src="@drawable/ic_size"
+                        android:visibility="gone"/>
 
 
                     <TextView
@@ -277,6 +278,16 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13sdp"
                         android:visibility="gone"/>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSize"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_size_color" />
 
                 </LinearLayout>
 

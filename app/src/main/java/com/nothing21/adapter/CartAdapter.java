@@ -37,7 +37,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
        //  Glide.with(context).load(arrayList.get(position).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-        Glide.with(context).load(arrayList.get(position).image1).error(R.drawable.dummy).into(holder.binding.ivImg);
+        Glide.with(context).load(arrayList.get(position).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
          holder.binding.tvProductName.setText(arrayList.get(position).name+"");
          holder.binding.tvSizeColor.setText(context.getString(R.string.size) + arrayList.get(position).size + " , " +

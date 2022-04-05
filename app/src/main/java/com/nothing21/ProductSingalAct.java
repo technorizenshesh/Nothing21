@@ -16,6 +16,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.adapter.ImageAdapter;
 import com.nothing21.adapter.OtherProAdapter;
+import com.nothing21.adapter.SizeAdapter1;
 import com.nothing21.databinding.ActivityProductBinding;
 import com.nothing21.databinding.ActivityProductSingalBinding;
 import com.nothing21.fragment.CartFragmentBootomSheet;
@@ -26,6 +27,7 @@ import com.nothing21.fragment.InfoFragmentBottomSheet;
 import com.nothing21.fragment.InfoFragmentBottomSheet1;
 import com.nothing21.fragment.SizeFragmentBottomSheet1;
 import com.nothing21.listener.InfoListener;
+import com.nothing21.listener.onIconClickListener;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
@@ -44,7 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductSingalAct extends AppCompatActivity implements InfoListener, onItemClickListener {
+public class ProductSingalAct extends AppCompatActivity implements InfoListener, onItemClickListener, onIconClickListener {
     public String TAG = "ProductSingalAct";
     ActivityProductSingalBinding binding;
     Nothing21Interface apiInterface;
@@ -57,6 +59,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
     String refreshedToken = "",userId="";
     ImageAdapter adapter11;
     boolean chk = false;
+    ArrayList<ProductModelCopy.Result.ColorDetail>colorArrayList;
 
 
     @Override
@@ -69,6 +72,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
     private void initViews() {
         imgArrayList = new ArrayList<>();
+        colorArrayList = new ArrayList<>();
         arrayList = new ArrayList<>();
 
         adapter = new OtherProAdapter(ProductSingalAct.this,arrayList,ProductSingalAct.this);
@@ -107,8 +111,6 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
         binding.ivCart.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
-                SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
-
                 new CartFragmentBootomSheet1(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
@@ -116,19 +118,19 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
         binding.ivColor.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
-                SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+               // SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
                 new ColorSizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).size).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
-        binding.ivIn.setOnClickListener(v -> {
+     /*   binding.ivIn.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
                 SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
                 new SizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).color).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        });
+        });*/
 
 
 
@@ -211,6 +213,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.status.equals("1")) {
                         imgArrayList.clear();
+                        colorArrayList.clear();
+                        colorArrayList.addAll(data.result.colorDetails);
                         imgArrayList.addAll(data.result.colorDetails);
                        /* Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.ivProduct);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.icOne);
@@ -226,7 +230,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
 
                      //   binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
-                        binding.tvProductName.setText(data.result.brand1);
+                        binding.tvProName.setText(data.result.name);
                         if(!data.result.discount.equals("")) {
                             binding.tvOldPrice.setVisibility(View.VISIBLE);
                             //  binding.tvDiscount.setVisibility(View.VISIBLE);
@@ -244,6 +248,10 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                             //  binding.tvDiscount.setVisibility(View.GONE);
 
                         }
+
+
+                        binding.rvSize.setAdapter(new SizeAdapter1(ProductSingalAct.this, colorArrayList,ProductSingalAct.this));
+
 
                         Glide.with(ProductSingalAct.this).load(data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
 
@@ -285,13 +293,16 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                 binding.layoutOne.setVisibility(View.VISIBLE);
                 binding.layoutTwo.setVisibility(View.GONE);
                 binding.layoutThree.setVisibility(View.GONE);
-                binding.layoutFour.setVisibility(View.GONE);
+
 
                 if(data.result.colorDetails.get(0).chkColor== false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.result.colorDetails.get(0).colorCode);
                     binding.ivImg.setVisibility(View.GONE);
                     binding.rvItems.setVisibility(View.VISIBLE);
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+
+
 
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
@@ -301,6 +312,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
 
                 }
             }
@@ -317,6 +329,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.GONE);
                     binding.rvItems.setVisibility(View.VISIBLE);
 
+
+
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
                     binding.view1.setStrokeWidth(1);
@@ -326,6 +340,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(0).color);
                 }
 
 
@@ -334,6 +350,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
                     binding.ivImg.setVisibility(View.GONE);
                     binding.rvItems.setVisibility(View.VISIBLE);
+
 
                 }else {
                     binding.view2.setVisibility(View.VISIBLE);
@@ -344,6 +361,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(1).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(1).color);
                 }
 
 
@@ -363,6 +382,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.rvItems.setVisibility(View.VISIBLE);
 
 
+
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
                     binding.view1.setStrokeWidth(1);
@@ -373,6 +393,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.rvItems.setVisibility(View.GONE);
 
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(0).color);
 
                 }
 
@@ -383,6 +405,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.GONE);
                     binding.rvItems.setVisibility(View.VISIBLE);
 
+
                 }else {
                     binding.view2.setVisibility(View.VISIBLE);
                     binding.view2.setStrokeWidth(1);
@@ -392,7 +415,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
-
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(1).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(1).color);
                 }
 
                 if(ProductSingalAct.this.data.result.colorDetails.get(2).chkColor== false){
@@ -400,6 +424,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.view33.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(2).colorCode);
                     binding.ivImg.setVisibility(View.GONE);
                     binding.rvItems.setVisibility(View.VISIBLE);
+
 
 
                 }else {
@@ -411,7 +436,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(2).image).error(R.drawable.dummy).into(binding.ivImg);
-
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(2).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(2).color);
                 }
 
 
@@ -432,6 +458,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.GONE);
                     binding.rvItems.setVisibility(View.VISIBLE);
 
+
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
                     binding.view1.setStrokeWidth(1);
@@ -441,7 +468,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
-
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(0).color);
                 }
 
 
@@ -450,6 +478,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
                     binding.ivImg.setVisibility(View.GONE);
                     binding.rvItems.setVisibility(View.VISIBLE);
+
                 }else {
                     binding.view2.setVisibility(View.VISIBLE);
                     binding.view2.setStrokeWidth(1);
@@ -460,6 +489,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
 
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(1).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(1).color);
                 }
 
                 if(ProductSingalAct.this.data.result.colorDetails.get(2).chkColor== false){
@@ -478,6 +509,8 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(2).image).error(R.drawable.dummy).into(binding.ivImg);
 
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(2).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(2).color);
                 }
 
 
@@ -486,6 +519,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.view44.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(3).colorCode);
                     binding.ivImg.setVisibility(View.GONE);
                     binding.rvItems.setVisibility(View.VISIBLE);
+
 
                 }else {
                     binding.view4.setVisibility(View.VISIBLE);
@@ -496,6 +530,9 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(3).image).error(R.drawable.dummy).into(binding.ivImg);
+
+                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(3).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(3).color);
 
                 }
 
@@ -517,6 +554,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
       //  Glide.with(ProductSingalAct.this).load(SessionManager.readString(ProductSingalAct.this,"selectImage","")).error(R.drawable.dummy).into(binding.ivProduct);
     //    if(value.equals("size"))
      //       Glide.with(ProductSingalAct.this).load(SessionManager.readString(ProductSingalAct.this,"selectImage","")).error(R.drawable.dummy).into(binding.ivProduct);
+    //    SessionManager.writeString(ProductSingalAct.this,"selectSize",colorArrayList.get(position).size);
 
     }
 
@@ -617,4 +655,18 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
       if(NetworkAvailablity.checkNetworkStatus(ProductSingalAct.this))  GetProduct(product_id);
       else Toast.makeText(ProductSingalAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+
+
+    @Override
+    public void onIcon(int position, String type) {
+        if(type.equals("size"))
+          //  SessionManager.writeString(ProductSingalAct.this,"selectImage",colorArrayList.get(position).image);
+        SessionManager.writeString(ProductSingalAct.this,"selectSize",colorArrayList.get(position).size);
+
+    }
+
 }

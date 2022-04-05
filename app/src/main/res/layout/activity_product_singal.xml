@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -184,7 +185,7 @@
                             android:id="@+id/layoutM"
                             android:layout_width="match_parent"
                             android:layout_toRightOf="@+id/ivCart"
-                            android:layout_toLeftOf="@+id/ivIn"
+                            android:layout_toLeftOf="@+id/layoutRatting"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:orientation="horizontal"
@@ -231,7 +232,55 @@
                             android:layout_marginStart="@dimen/_7sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:elevation="@dimen/_2sdp"
-                            android:src="@drawable/ic_size" />
+                            android:src="@drawable/ic_size"
+
+
+                            android:visibility="gone"/>
+
+
+                        <LinearLayout
+                            android:id="@+id/layoutRatting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true">
+
+                            <RatingBar
+                                android:id="@+id/RatingBar"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:progressTint="@color/quantum_yellow"
+                                android:rating="3" />
+
+
+                            <TextView
+                                android:id="@+id/viewRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_6sdp"
+                                android:layout_toRightOf="@+id/RatingBar"
+                                android:fontFamily="@font/poppins_bold"
+                                android:text="(22)"
+
+                                android:textColor="@android:color/darker_gray"
+                                android:textSize="@dimen/_8sdp" />
+
+
+
+                        </LinearLayout>
+
+
+
+
+
+
 
 
                         <ImageView
@@ -249,118 +298,154 @@
                     </RelativeLayout>
 
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/llMain2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/_14sdp"
                         android:layout_marginTop="-12dp"
                         android:layout_marginEnd="@dimen/_7sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:orientation="horizontal">
+                        android:layout_marginBottom="@dimen/_10sdp">
 
 
-                        <RelativeLayout
-                            android:id="@+id/layoutOne"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:gravity="center">
+                        <LinearLayout
+                            android:id="@+id/layoutColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
 
 
-                            <com.nothing21.utils.CircularTextView
-                                android:id="@+id/view1"
-                                android:layout_width="@dimen/_14sdp"
-                                android:layout_height="@dimen/_14sdp"
-                                android:layout_centerInParent="true" />
+                            <RelativeLayout
+                                android:id="@+id/layoutOne"
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:gravity="center">
 
 
-                            <com.nothing21.utils.CircularTextView
-                                android:id="@+id/view11"
-                                android:layout_width="@dimen/_10sdp"
-                                android:layout_height="@dimen/_10sdp"
-                                android:layout_centerInParent="true" />
+                                <com.nothing21.utils.CircularTextView
+                                    android:id="@+id/view1"
+                                    android:layout_width="@dimen/_14sdp"
+                                    android:layout_height="@dimen/_14sdp"
+                                    android:layout_centerInParent="true" />
 
 
-                        </RelativeLayout>
+                                <com.nothing21.utils.CircularTextView
+                                    android:id="@+id/view11"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_centerInParent="true" />
 
 
-                        <RelativeLayout
-                            android:id="@+id/layoutTwo"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:gravity="center">
+                            </RelativeLayout>
 
 
-                            <com.nothing21.utils.CircularTextView
-                                android:id="@+id/view2"
-                                android:layout_width="@dimen/_14sdp"
-                                android:layout_height="@dimen/_14sdp"
-                                android:layout_centerInParent="true" />
+                            <RelativeLayout
+                                android:id="@+id/layoutTwo"
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:gravity="center">
 
 
-                            <com.nothing21.utils.CircularTextView
-                                android:id="@+id/view22"
-                                android:layout_width="@dimen/_10sdp"
-                                android:layout_height="@dimen/_10sdp"
-                                android:layout_centerInParent="true" />
+                                <com.nothing21.utils.CircularTextView
+                                    android:id="@+id/view2"
+                                    android:layout_width="@dimen/_14sdp"
+                                    android:layout_height="@dimen/_14sdp"
+                                    android:layout_centerInParent="true" />
 
 
-                        </RelativeLayout>
+                                <com.nothing21.utils.CircularTextView
+                                    android:id="@+id/view22"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_centerInParent="true" />
 
 
-                        <RelativeLayout
-                            android:id="@+id/layoutThree"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:gravity="center">
+                            </RelativeLayout>
 
 
-                            <com.nothing21.utils.CircularTextView
-                                android:id="@+id/view3"
-                                android:layout_width="@dimen/_14sdp"
-                                android:layout_height="@dimen/_14sdp" />
+                            <RelativeLayout
+                                android:id="@+id/layoutThree"
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:gravity="center">
 
 
-                            <com.nothing21.utils.CircularTextView
-                                android:id="@+id/view33"
-                                android:layout_width="@dimen/_10sdp"
-                                android:layout_height="@dimen/_10sdp"
-                                android:layout_centerInParent="true" />
+                                <com.nothing21.utils.CircularTextView
+                                    android:id="@+id/view3"
+                                    android:layout_width="@dimen/_14sdp"
+                                    android:layout_height="@dimen/_14sdp" />
 
 
-                        </RelativeLayout>
+                                <com.nothing21.utils.CircularTextView
+                                    android:id="@+id/view33"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_centerInParent="true" />
 
 
-                        <RelativeLayout
-                            android:id="@+id/layoutFour"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            android:gravity="center">
+                            </RelativeLayout>
 
 
-                            <com.nothing21.utils.CircularTextView
-                                android:id="@+id/view4"
-                                android:layout_width="@dimen/_14sdp"
-                                android:layout_height="@dimen/_14sdp" />
+                            <RelativeLayout
+                                android:id="@+id/layoutFour"
+                                android:layout_width="@dimen/_15sdp"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:gravity="center">
 
 
-                            <com.nothing21.utils.CircularTextView
-                                android:id="@+id/view44"
-                                android:layout_width="@dimen/_10sdp"
-                                android:layout_height="@dimen/_10sdp"
-                                android:layout_centerInParent="true" />
+                                <com.nothing21.utils.CircularTextView
+                                    android:id="@+id/view4"
+                                    android:layout_width="@dimen/_14sdp"
+                                    android:layout_height="@dimen/_14sdp" />
 
 
-                        </RelativeLayout>
+                                <com.nothing21.utils.CircularTextView
+                                    android:id="@+id/view44"
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_centerInParent="true" />
 
 
-                    </LinearLayout>
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvProName"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            android:gravity="center_horizontal"
+                            android:layout_centerInParent="true"
+                            android:singleLine="true"
+                            android:layout_toRightOf="@+id/layoutColor"
+                            android:layout_toLeftOf="@+id/rvSize"   />
+
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSize"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/item_size_color" />
+                    </RelativeLayout>
+
+
+
 
 
                 </RelativeLayout>

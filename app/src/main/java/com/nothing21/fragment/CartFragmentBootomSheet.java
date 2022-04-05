@@ -23,10 +23,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.LoginAct;
+import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
+import com.nothing21.adapter.SizeAdapter;
 import com.nothing21.databinding.FragmentCartSheetBinding;
 import com.nothing21.databinding.FragmentInfoBinding;
 import com.nothing21.listener.InfoListener;
+import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.CategoryModel;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
@@ -38,6 +41,7 @@ import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +53,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartFragmentBootomSheet extends BottomSheetDialogFragment implements InfoListener{
+public class CartFragmentBootomSheet extends BottomSheetDialogFragment implements InfoListener, onIconClickListener {
 
     public String TAG = "CartFragmentBootomSheet";
     FragmentCartSheetBinding binding;
@@ -62,6 +66,8 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
     Nothing21Interface apiInterface;
     String refreshedToken = "",userId="";
     boolean check =false;
+    ArrayList<ProductModel.Result.ColorDetail> colorArrayList;
+
 
     public CartFragmentBootomSheet(ProductModel.Result productData) {
         this.productData = productData;
@@ -87,7 +93,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
     }
 
     private void initViews() {
-
+        colorArrayList = new ArrayList<>();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
             try {
                 if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
@@ -108,10 +114,10 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
         price = Double.parseDouble(productData.price);
-      if(productData.colorDetails.size()!=0) {
+   /*   if(productData.colorDetails.size()!=0) {
           binding.tvColor.setText(productData.colorDetails.get(0).color);
           binding.tvSize.setText(productData.colorDetails.get(0).size);
-      }
+      }*/
         priceCal(count);
         binding.BlurImageView.setBlur(2);
         Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
@@ -119,6 +125,11 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 .into(binding.BlurImageView);
 
         binding.BlurImageView.setBlur(10);
+        colorArrayList.clear();
+        colorArrayList.addAll(productData.colorDetails);
+
+        binding.rvSize.setAdapter(new SizeAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet.this));
+
 
         setColorData(productData);
 
@@ -152,9 +163,9 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         });
 
 
-        binding.ivSize.setOnClickListener(v -> {
+       /* binding.ivSize.setOnClickListener(v -> {
             new SizeFragmentBottomSheet(productData,binding.tvColor.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
-        });
+        });*/
 
 
         binding.tvAddCart.setOnClickListener(v -> {
@@ -591,6 +602,12 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
     }
 
+
+    @Override
+    public void onIcon(int position, String type) {
+        if(type.equals("size"))
+            SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
+    }
 
 
 }

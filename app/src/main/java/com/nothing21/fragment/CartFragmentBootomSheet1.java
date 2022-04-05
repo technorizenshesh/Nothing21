@@ -24,8 +24,11 @@ import com.google.gson.Gson;
 import com.nothing21.LoginAct;
 import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
+import com.nothing21.adapter.SizeAdapter;
+import com.nothing21.adapter.SizeAdapter1;
 import com.nothing21.databinding.FragmentCartSheetBinding;
 import com.nothing21.listener.InfoListener;
+import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
 import com.nothing21.retrofit.ApiClient;
@@ -36,6 +39,7 @@ import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +51,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implements InfoListener {
+public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implements InfoListener , onIconClickListener {
 
     public String TAG = "CartFragmentBootomSheet";
     FragmentCartSheetBinding binding;
@@ -60,6 +64,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     Nothing21Interface apiInterface;
     String refreshedToken = "",userId="";
     boolean check = false;
+    ArrayList<ProductModelCopy.Result.ColorDetail> colorArrayList;
+
 
     public CartFragmentBootomSheet1(ProductModelCopy.Result productData) {
         this.productData = productData;
@@ -85,6 +91,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     }
 
     private void initViews() {
+        colorArrayList = new ArrayList<>();
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
@@ -114,6 +121,11 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                 .into(binding.BlurImageView);
+
+        colorArrayList.clear();
+        colorArrayList.addAll(productData.colorDetails);
+        binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,CartFragmentBootomSheet1.this));
+
 
         binding.BlurImageView.setBlur(10);
 
@@ -214,14 +226,15 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     }
 
     public void AddProductToCart11(String userIdss){
+        String imgName [] = SessionManager.readString(getActivity(),"selectImage","").split("/");
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String,String> map = new HashMap<>();
         map.put("user_id",userIdss);
         map.put("product_id",productData.id);
         map.put("quantity",count+"");
-        map.put("color",binding.tvColor.getText().toString());
-        map.put("size",binding.tvSize.getText().toString());
-        map.put("image",productData. image1/*SessionManager.readString(getActivity(),"selectImage","")+""*/);
+        map.put("color",SessionManager.readString(getActivity(),"selectColor",""));
+        map.put("size",SessionManager.readString(getActivity(),"selectSize",""));
+        map.put("image", imgName[6]);
         map.put("price",priceTol+"");
         Log.e(TAG, "Add to Cart Request :" + map);
         Call<Map<String,String>> loginCall = apiInterface.addToCart(map);
@@ -365,6 +378,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(0).chkColor== false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+                  //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
 
 
                 }else {
@@ -375,6 +389,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(0).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
 
                     binding.BlurImageView.setBlur(10);
 
@@ -390,6 +406,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(0).chkColor == false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+                 //   SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
 
 
                 }else {
@@ -401,6 +418,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(0).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
 
 
                 }
@@ -409,6 +428,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(1).chkColor == false){
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+                  //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
 
 
                 }else {
@@ -420,6 +440,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(1).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
 
 
                 }
@@ -437,6 +459,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(0).chkColor== false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+                  //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
 
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
@@ -447,6 +470,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(0).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
 
 
                 }
@@ -455,6 +480,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(1).chkColor== false){
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+                 //   SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
 
                 }else {
                     binding.view2.setVisibility(View.VISIBLE);
@@ -465,6 +491,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(1).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
 
 
                 }
@@ -472,6 +500,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(2).chkColor== false){
                     binding.view3.setVisibility(View.GONE);
                     binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
+                //    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
 
                 }else {
                     binding.view3.setVisibility(View.VISIBLE);
@@ -482,6 +511,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(2).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(2).image);
 
 
                 }
@@ -501,6 +532,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(0).chkColor== false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
+               //     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
 
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
@@ -512,6 +544,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(0).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
 
                 }
 
@@ -519,6 +553,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(1).chkColor== false){
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
+              //      SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
 
                 }else {
                     binding.view2.setVisibility(View.VISIBLE);
@@ -529,6 +564,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(1).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
 
 
                 }
@@ -536,6 +573,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(2).chkColor== false){
                     binding.view3.setVisibility(View.GONE);
                     binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
+             //       SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
 
                 }else {
                     binding.view3.setVisibility(View.VISIBLE);
@@ -546,6 +584,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(2).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(2).image);
 
 
                 }
@@ -554,6 +594,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if(data.colorDetails.get(3).chkColor== false){
                     binding.view4.setVisibility(View.GONE);
                     binding.view44.setSolidColor(data.colorDetails.get(3).colorCode);
+             //       SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(3).color);
 
                 }else {
                     binding.view4.setVisibility(View.VISIBLE);
@@ -564,6 +605,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     Glide.with(getActivity()).load(data.colorDetails.get(3).image)
                             .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                             .into(binding.BlurImageView);
+                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(3).color);
+                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(3).image);
 
                 }
 
@@ -578,6 +621,15 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
 
     }
 
+
+    @Override
+    public void onIcon(int position, String type) {
+        if(type.equals("size"))
+           // SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
+        Log.e("selected Image===",colorArrayList.get(position).image);
+            SessionManager.writeString(getActivity(),"selectSize",colorArrayList.get(position).size);
+
+    }
 
 
 
