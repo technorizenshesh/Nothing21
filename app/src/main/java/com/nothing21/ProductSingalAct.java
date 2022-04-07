@@ -25,6 +25,7 @@ import com.nothing21.fragment.ColorSizeFragmentBottomSheet;
 import com.nothing21.fragment.ColorSizeFragmentBottomSheet1;
 import com.nothing21.fragment.InfoFragmentBottomSheet;
 import com.nothing21.fragment.InfoFragmentBottomSheet1;
+import com.nothing21.fragment.RateBottomsheet;
 import com.nothing21.fragment.SizeFragmentBottomSheet1;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
@@ -108,6 +109,14 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                 new InfoFragmentBottomSheet1(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
             else   Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
+
+        binding.layoutRatting.setOnClickListener(v -> {
+            if(!data.result.description.equals(""))
+                new RateBottomsheet(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+            else   Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+        });
+
+
 
         binding.ivCart.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemScrollProductOneBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_scroll_product_one,parent,false);
+       // setChkColor();
         return new MyViewHolder(binding);
     }
 
@@ -91,7 +93,11 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
 
 
 
-        if(arrayList.get(position).colorDetails!=null){
+
+
+
+
+       if(arrayList.get(position).colorDetails!=null){
             if(arrayList.get(position).colorDetails.size()==1){
                 holder.binding.layoutOne.setVisibility(View.VISIBLE);
                 holder.binding.layoutTwo.setVisibility(View.GONE);
@@ -127,6 +133,8 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
                     holder.binding.ivImg.setVisibility(View.GONE);
                     holder.binding.rvProductItm.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
+
                 }else {
                     holder.binding.view1.setVisibility(View.VISIBLE);
                     holder.binding.view1.setStrokeWidth(1);
@@ -144,6 +152,8 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
                     holder.binding.ivImg.setVisibility(View.GONE);
                     holder.binding.rvProductItm.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
+
 
                 }else {
                     holder.binding.view2.setVisibility(View.VISIBLE);
@@ -317,6 +327,29 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
 
 
 
+
+        holder.binding.layoutOne.setOnClickListener(v -> {
+            // DataManager.getInstance().showProgressMessage((Activity) context,"");
+            for(int i =0; i<arrayList.get(position).colorDetails.size();i++){
+                arrayList.get(position).colorDetails.get(i).setChkColor(false);
+            }
+            arrayList.get(position).colorDetails.get(0).setChkColor(true);
+            notifyItemChanged(position);
+        });
+
+
+        holder.binding.layoutTwo.setOnClickListener(v -> {
+            // DataManager.getInstance().showProgressMessage((Activity) context,"");
+            for(int i =0; i<arrayList.get(position).colorDetails.size();i++){
+                arrayList.get(position).colorDetails.get(i).setChkColor(false);
+            }
+            arrayList.get(position).colorDetails.get(1).setChkColor(true);
+
+            notifyItemChanged(position);
+        });
+
+
+
     }
 
     @Override
@@ -347,30 +380,12 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                if(binding.rvProductItm.getVisibility() == View.GONE){
                    binding.rvProductItm.setVisibility(View.VISIBLE);
                    binding.ivImg.setVisibility(View.GONE);
-
                }
+
            });
 
 
-           binding.layoutOne.setOnClickListener(v -> {
-                DataManager.getInstance().showProgressMessage((Activity) context,"");
-                for(int i =0; i<arrayList.get(getAdapterPosition()).colorDetails.size();i++){
-                    arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
-                }
-                arrayList.get(getAdapterPosition()).colorDetails.get(0).setChkColor(true);
-                notifyDataSetChanged();
-            });
 
-
-            binding.layoutTwo.setOnClickListener(v -> {
-                DataManager.getInstance().showProgressMessage((Activity) context,"");
-                for(int i =0; i<arrayList.get(getAdapterPosition()).colorDetails.size();i++){
-                    arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
-                }
-                arrayList.get(getAdapterPosition()).colorDetails.get(1).setChkColor(true);
-
-                notifyDataSetChanged();
-            });
 
 
             binding.layoutThree.setOnClickListener(v -> {
@@ -380,7 +395,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 }
                 arrayList.get(getAdapterPosition()).colorDetails.get(2).setChkColor(true);
 
-                notifyDataSetChanged();
+                notifyItemChanged(getAdapterPosition());
             });
 
 
@@ -390,7 +405,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).colorDetails.get(3).setChkColor(true);
-                notifyDataSetChanged();
+                notifyItemChanged(getAdapterPosition());
             });
 
 
@@ -413,5 +428,14 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
         notifyDataSetChanged();
     }
 
+
+    public void setChkColor (){
+        Log.e("challaaa",arrayList.size()+"=======");
+        for (int i =0 ; i< arrayList.size();i++){
+            Log.e("challaaa",i+"=======");
+            arrayList.get(i).colorDetails.get(0).setChkColor(true);
+            Log.e("Ist Position==", arrayList.get(i).colorDetails.get(0).chkColor+"");
+        }
+    }
 
 }

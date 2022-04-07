@@ -363,7 +363,7 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
                     arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).colorDetails.get(0).setChkColor(true);
-                notifyDataSetChanged();
+                notifyItemChanged(getAdapterPosition());
             });
 
 
@@ -373,7 +373,7 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
                     arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).colorDetails.get(1).setChkColor(true);
-                notifyDataSetChanged();
+                notifyItemChanged(getAdapterPosition());
             });
 
 
@@ -383,7 +383,7 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
                     arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).colorDetails.get(2).setChkColor(true);
-                notifyDataSetChanged();
+                notifyItemChanged(getAdapterPosition());
             });
 
 
@@ -393,7 +393,7 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
                     arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).colorDetails.get(3).setChkColor(true);
-                notifyDataSetChanged();
+                notifyItemChanged(getAdapterPosition());
             });
 
 
