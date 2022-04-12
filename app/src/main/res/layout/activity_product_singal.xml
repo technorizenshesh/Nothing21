@@ -145,15 +145,26 @@
                             android:elevation="@dimen/_2sdp"
                             android:src="@drawable/ic_blck_info" />
 
+<RelativeLayout
+    android:id="@+id/layCart"
+    android:layout_width="@dimen/_30sdp"
+    android:layout_height="@dimen/_30sdp"
+    android:layout_toRightOf="@+id/ivInfo"
+    android:layout_marginTop="@dimen/_3sdp"
+    >
 
-                        <ImageView
-                            android:id="@+id/ivCart"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_centerInParent="true"
-                            android:layout_toRightOf="@+id/ivInfo"
-                            android:elevation="@dimen/_2sdp"
-                            android:src="@drawable/ic_white_cart" />
+    <ImageView
+        android:id="@+id/ivCart"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_centerInParent="true"
+        android:elevation="@dimen/_2sdp"
+        android:src="@drawable/ic_white_cart" />
+
+
+</RelativeLayout>
+
+
 
 
                         <TextView
@@ -180,7 +191,7 @@
                             android:layout_centerInParent="true"
                             android:layout_marginStart="@dimen/_3sdp"
                             android:layout_toLeftOf="@+id/layoutRatting"
-                            android:layout_toRightOf="@+id/ivCart"
+                            android:layout_toRightOf="@+id/layCart"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -191,6 +202,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:fontFamily="@font/poppins_semibold"
+                                android:paddingTop="@dimen/_2sdp"
                                 android:text="ALDO"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_10sdp" />
@@ -202,7 +214,8 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="@dimen/_5sdp"
-                                android:layout_marginTop="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+
                                 android:layout_toRightOf="@+id/tvProductPrice"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:gravity="center"
@@ -245,9 +258,10 @@
                                 android:id="@+id/RatingBar"
                                 style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:layout_width="wrap_content"
+                                android:layout_marginTop="@dimen/_3sdp"
                                 android:layout_height="wrap_content"
                                 android:progressTint="@color/quantum_yellow"
-                                android:rating="3" />
+                                android:rating="4" />
 
 
                             <TextView
@@ -257,6 +271,7 @@
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerInParent="true"
                                 android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginTop="@dimen/_3sdp"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:layout_marginBottom="@dimen/_6sdp"
                                 android:layout_toRightOf="@+id/RatingBar"

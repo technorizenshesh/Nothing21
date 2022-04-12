@@ -3,6 +3,7 @@ package com.nothing21.fragment;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,7 +66,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
     double price =0.00,priceTol=0.00;
     Nothing21Interface apiInterface;
     String refreshedToken = "",userId="";
-    boolean check =false;
+    boolean check =false,chkColor = false,chkSize=false;
     ArrayList<ProductModel.Result.ColorDetail> colorArrayList;
 
 
@@ -169,9 +170,15 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
 
         binding.tvAddCart.setOnClickListener(v -> {
-            if (NetworkAvailablity.checkNetworkStatus(getActivity())) AddProductToCart11(userId);
-            else
-                Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+            if(chkColor==false) Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
+            if(chkSize==false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
+
+            else {
+                if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                    AddProductToCart11(userId);
+                else
+                    Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+            }
         });
 
 
@@ -219,14 +226,23 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         priceTol = price * i ;
       //  binding.tvPri.setText("AED" + String.format("%.2f", priceTol));
         binding.tvPri.setText("AED" + String.format("%.2f", price));
-      /* if (!SessionManager.readString(getActivity(),Constant.USER_INFO,"").equals("")){
-        if(NetworkAvailablity.checkNetworkStatus(getActivity())) AddProductToCart();
-      else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();}*/
-          /*if(check== true) {
-              if (NetworkAvailablity.checkNetworkStatus(getActivity())) AddProductToCart(userId);
-              else
-                  Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
-          }*/
+        if(!productData.discount.equals("")) {
+            binding.tvOldPrice.setVisibility(View.VISIBLE);
+            //  binding.tvDiscount.setVisibility(View.VISIBLE);
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discount )));
+            binding.tvPri.setTextColor(getResources().getColor(R.color.color_red));
+            binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
+            binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            //  binding.tvDiscount.setText("-"+data.result.discount + "% Off");
+
+        }
+        else {
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
+            binding.tvPri.setTextColor(getResources().getColor(R.color.black));
+            binding.tvOldPrice.setVisibility(View.GONE);
+            //  binding.tvDiscount.setVisibility(View.GONE);
+
+        }
     }
 
     public void AddProductToCart11(String userIddd){
@@ -393,7 +409,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
                     //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-
+                    chkColor = false;
 
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
@@ -407,7 +423,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
 
                     binding.BlurImageView.setBlur(10);
-
+                    chkColor = true;
                 }
             }
 
@@ -421,7 +437,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
                     //   SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-
+                    chkColor = false;
 
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
@@ -434,7 +450,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
-
+                    chkColor = true;
 
                 }
 
@@ -443,7 +459,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
                     //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-
+                    chkColor = false;
 
                 }else {
                     binding.view2.setVisibility(View.VISIBLE);
@@ -456,7 +472,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
-
+                    chkColor = true;
 
                 }
 
@@ -474,7 +490,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
                     //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-
+                    chkColor = false;
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
                     binding.view1.setStrokeWidth(1);
@@ -486,7 +502,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
-
+                    chkColor = true;
 
                 }
 
@@ -495,7 +511,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
                     //   SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-
+                    chkColor = false;
                 }else {
                     binding.view2.setVisibility(View.VISIBLE);
                     binding.view2.setStrokeWidth(1);
@@ -507,7 +523,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
-
+                    chkColor = true;
 
                 }
 
@@ -515,7 +531,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view3.setVisibility(View.GONE);
                     binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
                     //    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
-
+                    chkColor = false;
                 }else {
                     binding.view3.setVisibility(View.VISIBLE);
                     binding.view3.setStrokeWidth(1);
@@ -527,7 +543,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(2).image);
-
+                    chkColor = true;
 
                 }
 
@@ -547,7 +563,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
                     //     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-
+                    chkColor = false;
                 }else {
                     binding.view1.setVisibility(View.VISIBLE);
                     binding.view1.setStrokeWidth(1);
@@ -560,7 +576,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
-
+                    chkColor = true;
                 }
 
 
@@ -568,7 +584,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
                     //      SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-
+                    chkColor = false;
                 }else {
                     binding.view2.setVisibility(View.VISIBLE);
                     binding.view2.setStrokeWidth(1);
@@ -580,7 +596,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
-
+                    chkColor = true;
 
                 }
 
@@ -588,7 +604,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view3.setVisibility(View.GONE);
                     binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
                     //       SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
-
+                    chkColor = false;
                 }else {
                     binding.view3.setVisibility(View.VISIBLE);
                     binding.view3.setStrokeWidth(1);
@@ -600,7 +616,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(2).image);
-
+                    chkColor = true;
 
                 }
 
@@ -609,7 +625,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                     binding.view4.setVisibility(View.GONE);
                     binding.view44.setSolidColor(data.colorDetails.get(3).colorCode);
                     //       SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(3).color);
-
+                    chkColor = false;
                 }else {
                     binding.view4.setVisibility(View.VISIBLE);
                     binding.view4.setStrokeWidth(1);
@@ -621,7 +637,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                             .into(binding.BlurImageView);
                     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(3).color);
                     SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(3).image);
-
+                    chkColor = true;
                 }
 
 
@@ -641,7 +657,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         if(type.equals("size"))
          //   SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
         SessionManager.writeString(getActivity(),"selectSize",colorArrayList.get(position).size);
-
+        chkSize = true;
     }
 
 

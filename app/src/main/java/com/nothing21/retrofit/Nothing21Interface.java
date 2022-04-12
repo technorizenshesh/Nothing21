@@ -13,6 +13,7 @@ import com.nothing21.model.LoginModel;
 import com.nothing21.model.MyOrderModel;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.RateModel;
 import com.nothing21.model.SearchModel;
 
 import java.util.Map;
@@ -136,6 +137,14 @@ public interface Nothing21Interface {
     @FormUrlEncoded
     @POST("get_fav_product")
     Call<FavModel> getAllFav (@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("get_review")
+    Call<RateModel> getAllRatesss (@FieldMap Map<String, String> params);
+
+
+
 
 }
 

@@ -261,6 +261,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
                         binding.rvSize.setAdapter(new SizeAdapter1(ProductSingalAct.this, colorArrayList,ProductSingalAct.this));
 
+                        SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
 
                         Glide.with(ProductSingalAct.this).load(data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
 

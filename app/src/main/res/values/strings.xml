@@ -71,6 +71,9 @@
     <string name="color">Color</string>
     <string name="delivery_two_day">Delivery in two days</string>
     <string name="other_product">Other products</string>
+    <string name="please_select_color">Please selcet color</string>
+    <string name="please_select_size">Please select size</string>
+    <string name="rating_review">Ratings and reviews</string>
 
 
 </resources>
