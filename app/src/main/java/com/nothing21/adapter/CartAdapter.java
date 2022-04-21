@@ -1,7 +1,9 @@
 package com.nothing21.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -49,6 +51,28 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
    //     holder.binding.tvProductSize.setText(context.getString(R.string.size) + " " + arrayList.get(position).size);
          holder.binding.tvProductPrice.setText("AED "+ String.format("%.2f",Double.parseDouble(arrayList.get(position).price) * Integer.parseInt(arrayList.get(position).quantity)));
          holder.binding.tvProductDelivery.setText(context.getString(R.string.delivery_two_day));
+
+
+        if(!arrayList.get(position).discount.equals("")) {
+            holder.binding.tvOldPrice.setVisibility(View.VISIBLE);
+          //  holder.binding.tvDiscount.setVisibility(View.VISIBLE);
+            holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price) - Double.parseDouble(arrayList.get(position).discount )));
+            holder.binding.tvProductPrice.setTextColor(context.getResources().getColor(R.color.color_red));
+            holder.binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
+            holder.binding.tvOldPrice.setPaintFlags(holder.binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+          //  holder.binding.tvDiscount.setText("-"+arrayList.get(position).discount + "% Off");
+
+        }
+        else {
+            holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
+            holder.binding.tvProductPrice.setTextColor(context.getResources().getColor(R.color.black));
+            holder.binding.tvOldPrice.setVisibility(View.GONE);
+         //   holder.binding.tvDiscount.setVisibility(View.GONE);
+
+        }
+
+
+
     }
 
     @Override

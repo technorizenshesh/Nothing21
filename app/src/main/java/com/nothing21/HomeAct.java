@@ -44,18 +44,18 @@ public class HomeAct extends AppCompatActivity {
     public void tab(int i){
         if (i == 1) {
             binding.ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home_active));
-            binding.ivCart.setImageDrawable(getResources().getDrawable(R.drawable.cart_inactive));
+            binding.ivCart.setImageDrawable(getResources().getDrawable(R.drawable.ic_logo));
             binding.ivAccount.setImageDrawable(getResources().getDrawable(R.drawable.account_inactive));
             FragTrans(new HomeFragment());
         } else if (i == 2) {
             binding.ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home_inactive));
-            binding.ivCart.setImageDrawable(getResources().getDrawable(R.drawable.cart_active));
+            binding.ivCart.setImageDrawable(getResources().getDrawable(R.drawable.ic_logo));
             binding.ivAccount.setImageDrawable(getResources().getDrawable(R.drawable.account_inactive));
             FragTrans(new CartFragment());
 
         } else if (i == 3) {
             binding.ivHome.setImageDrawable(getResources().getDrawable(R.drawable.home_inactive));
-            binding.ivCart.setImageDrawable(getResources().getDrawable(R.drawable.cart_inactive));
+            binding.ivCart.setImageDrawable(getResources().getDrawable(R.drawable.ic_logo));
             binding.ivAccount.setImageDrawable(getResources().getDrawable(R.drawable.account_active));
             FragTrans(new AccountFragment());
         }

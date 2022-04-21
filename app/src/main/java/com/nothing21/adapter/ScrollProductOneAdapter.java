@@ -26,6 +26,7 @@ import com.nothing21.fragment.ProductFragment;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.utils.DataManager;
+import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
 
@@ -117,6 +118,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(0).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -143,6 +145,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(0).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
                 }
 
@@ -163,6 +166,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(1).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
                 }
 
@@ -190,6 +194,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(0).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -209,6 +214,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(1).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -226,6 +232,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view33.setSolidColor(arrayList.get(position).colorDetails.get(2).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(2).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(2).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -256,6 +263,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(0).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -275,6 +283,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(1).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -293,6 +302,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view33.setSolidColor(arrayList.get(position).colorDetails.get(2).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(2).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(2).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -312,6 +322,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                     holder.binding.view44.setSolidColor(arrayList.get(position).colorDetails.get(3).colorCode);
                     holder.binding.ivImg.setVisibility(View.VISIBLE);
                     holder.binding.rvProductItm.setVisibility(View.GONE);
+                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(3).image);
                     Glide.with(context).load(arrayList.get(position).colorDetails.get(3).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
                 }
@@ -364,6 +375,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
             binding = itemView;
 
             binding.ivCart.setOnClickListener(v -> {
+                SessionManager.writeString(context,"selectImage",arrayList.get(getAdapterPosition()).colorDetails.get(0).image);
                 listener.onIcon(getAdapterPosition(),"Cart");
             });
 

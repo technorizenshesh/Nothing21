@@ -151,6 +151,7 @@
     android:layout_height="@dimen/_30sdp"
     android:layout_toRightOf="@+id/ivInfo"
     android:layout_marginTop="@dimen/_3sdp"
+    android:layout_marginStart="@dimen/_3sdp"
     >
 
     <ImageView
@@ -159,7 +160,7 @@
         android:layout_height="@dimen/_30sdp"
         android:layout_centerInParent="true"
         android:elevation="@dimen/_2sdp"
-        android:src="@drawable/ic_white_cart" />
+        android:src="@drawable/ic_logo" />
 
 
 </RelativeLayout>

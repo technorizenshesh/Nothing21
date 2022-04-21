@@ -342,7 +342,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         else if(type.equals("Cart")){
 
             if(arrayList.get(position).colorDetails.size()!=0) {
-                SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).imageDetails.get(0).image);
+               // SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).imageDetails.get(0).image);
                 new CartFragmentBootomSheet(arrayList.get(position)).callBack(this::info).show(getChildFragmentManager(),"");
             }
             else Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();

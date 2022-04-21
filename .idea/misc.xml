@@ -19,6 +19,7 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_product.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_product_singal.xml" value="0.11367753623188406" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_search.xml" value="0.18854166666666666" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_splash.xml" value="0.1286231884057971" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_account.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_cart.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_cart_sheet.xml" value="0.1" />
@@ -44,6 +45,7 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_size_color.xml" value="0.20416666666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/toolbar.xml" value="0.1046875" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/menu/menu_popup.xml" value="0.1390625" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/mipmap-anydpi-v26/ic_main_logo.xml" value="0.2203125" />
       </map>
     </option>
   </component>

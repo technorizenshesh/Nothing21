@@ -87,6 +87,7 @@ public class RateBottomsheet extends BottomSheetDialogFragment {
 
         binding.BlurImageView.setBlur(10);
 
+
         adapter = new RateAdapter(getActivity(),arrayList);
         binding.rvRating.setAdapter(adapter);
 

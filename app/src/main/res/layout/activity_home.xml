@@ -72,7 +72,7 @@
                             android:id="@+id/ivCart"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/cart_inactive" />
+                            android:src="@drawable/ic_logo" />
 
 
                     </RelativeLayout>

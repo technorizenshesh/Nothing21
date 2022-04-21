@@ -58,7 +58,7 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
     String refreshedToken = "",userId="";
     ArrayList<String> stringArrayList = new ArrayList<>();
     ArrayList<String> stringArrayListCartId = new ArrayList<>();
-    double totalAmt =0.0;
+    double totalAmt =0.0,totalCountAmt=0.0;
 
     static int y;
 
@@ -175,19 +175,25 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
                         arrayList.clear();
                         stringArrayList.clear();
                         stringArrayListCartId.clear();
-
                         binding.tvFound.setVisibility(View.GONE);
-                        totalAmt = Double.parseDouble(String.valueOf(data11.totalAmount));
                         binding.layoutHeader.setVisibility(View.VISIBLE);
-                        binding.tvPrice.setText("AED " + data11.totalAmount + "");
                         arrayList.addAll(data11.result);
                         for (int i=0;i<arrayList.size();i++){
                             stringArrayList.add(arrayList.get(i).productId);
                             stringArrayListCartId.add(arrayList.get(i).cartId);
-                            //count = count + Double.parseDouble(arrayList.get(position).extraOptions.get(i).price);
+                            if(!arrayList.get(i).discount.equals("")){
+                                totalCountAmt =   totalCountAmt +  Double.parseDouble(arrayList.get(i).price) - Double.parseDouble(arrayList.get(i).discount );
+                            }else {
+                                totalCountAmt = totalCountAmt + Double.parseDouble(arrayList.get(i).price);
+                            }
+
                         }
                         Log.e("prolist_size===",stringArrayList.size()+"");
                         adapter.notifyDataSetChanged();
+                        totalAmt = totalCountAmt;
+                        binding.tvPrice.setText("AED " + String.format("%.2f",totalAmt ));
+
+
                     } else if (data11.status.equals("0")) {
                         arrayList.clear();
                         adapter.notifyDataSetChanged();
