@@ -160,7 +160,7 @@
         android:layout_height="@dimen/_30sdp"
         android:layout_centerInParent="true"
         android:elevation="@dimen/_2sdp"
-        android:src="@drawable/ic_logo" />
+        android:src="@drawable/ic_white_cart" />
 
 
 </RelativeLayout>

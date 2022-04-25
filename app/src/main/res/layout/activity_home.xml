@@ -40,7 +40,7 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:padding="@dimen/_6sdp">
+                        android:padding="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/ivHome"
@@ -66,7 +66,7 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:padding="@dimen/_5sdp">
+                        android:padding="@dimen/_2sdp">
 
                         <ImageView
                             android:id="@+id/ivCart"
@@ -92,7 +92,7 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:padding="@dimen/_6sdp">
+                        android:padding="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/ivAccount"
