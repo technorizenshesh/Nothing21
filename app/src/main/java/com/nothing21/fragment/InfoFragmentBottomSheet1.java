@@ -19,6 +19,7 @@ import com.nothing21.databinding.FragmentInfoBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.utils.SessionManager;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -56,7 +57,7 @@ public class InfoFragmentBottomSheet1 extends BottomSheetDialogFragment {
     private void initViews() {
         // binding.BlurImageView.setImageBitmap(BitmapFactory.decodeFile(productData.image1));
 
-        Glide.with(getActivity()).load(productData.imageDetails.get(0).image)
+        Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                 .into(binding.BlurImageView);
 
