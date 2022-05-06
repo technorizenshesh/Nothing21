@@ -69,7 +69,7 @@ public class ViewProductAdapter2 extends RecyclerView.Adapter<ViewProductAdapter
                 //  if(!SessionManager.readString(context, Constant.USER_INFO,"").equals("")){
 
                 //  if(chk== true) {
-                     context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",idss));
+                   //  context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",idss));
                 //  }
                 //   }
                 //   else LogInAlert();

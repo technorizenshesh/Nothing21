@@ -322,7 +322,15 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
-                    SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+
+
+
+                   SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+                    SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(0).color);
+
+
+
+
 
                 }
             }
@@ -404,6 +412,9 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
                     SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+
+
+
                     SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(0).color);
 
                 }
@@ -426,6 +437,10 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
                     SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(1).image);
+
+
+
+
                     SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(1).color);
                 }
 
@@ -447,6 +462,10 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(2).image).error(R.drawable.dummy).into(binding.ivImg);
                     SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(2).image);
+
+
+
+
                     SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(2).color);
                 }
 
@@ -479,6 +498,9 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.rvItems.setVisibility(View.GONE);
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
                     SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
+
+
+
                     SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(0).color);
                 }
 
@@ -500,6 +522,9 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
 
                     SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(1).image);
+
+
+
                     SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(1).color);
                 }
 
@@ -674,7 +699,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
     @Override
     public void onIcon(int position, String type) {
         if(type.equals("size"))
-          //  SessionManager.writeString(ProductSingalAct.this,"selectImage",colorArrayList.get(position).image);
+            //SessionManager.writeString(ProductSingalAct.this,"selectImage",colorArrayList.get(position).image);
         SessionManager.writeString(ProductSingalAct.this,"selectSize",colorArrayList.get(position).size);
 
     }

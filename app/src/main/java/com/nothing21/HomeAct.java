@@ -15,6 +15,7 @@ import com.nothing21.databinding.ActivityHomeBinding;
 import com.nothing21.fragment.AccountFragment;
 import com.nothing21.fragment.CartFragment;
 import com.nothing21.fragment.HomeFragment;
+import com.nothing21.utils.SessionManager;
 
 public class HomeAct extends AppCompatActivity {
     ActivityHomeBinding binding;
@@ -37,6 +38,9 @@ public class HomeAct extends AppCompatActivity {
         binding.rlAccount.setOnClickListener(v -> tab(3));
 
         tab(1);
+
+        SessionManager.writeString(HomeAct.this,"selectImage","");
+        SessionManager.writeString(HomeAct.this,"selectColor","");
 
     }
 

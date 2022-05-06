@@ -40,8 +40,8 @@ public class SizeAdapter1 extends RecyclerView.Adapter<SizeAdapter1.MyViewHolder
         holder.binding.tvColor.setText(arrayList.get(position).size);
         // holder.binding.tvSize.setText(arrayList.get(position).size);
 
-        if(arrayList.get(position).chkColor == false)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.black));
-       else if(arrayList.get(position).chkColor == true)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.color_red));
+        if(arrayList.get(position).selectColor == false)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.black));
+       else if(arrayList.get(position).selectColor == true)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.color_red));
 
     }
 
@@ -59,9 +59,9 @@ public class SizeAdapter1 extends RecyclerView.Adapter<SizeAdapter1.MyViewHolder
 
             binding.layMain.setOnClickListener(v -> {
                 for(int i =0;i<arrayList.size();i++){
-                    arrayList.get(i).setChkColor(false);
+                    arrayList.get(i).setSelectColor(false);
                 }
-                arrayList.get(getLayoutPosition()).setChkColor(true);
+                arrayList.get(getLayoutPosition()).setSelectColor(true);
                 listener.onIcon(getAdapterPosition(),"size");
                 notifyDataSetChanged();
             });

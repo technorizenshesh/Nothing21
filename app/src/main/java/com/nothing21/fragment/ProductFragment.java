@@ -385,6 +385,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         Map<String,String> map = new HashMap<>();
         map.put("user_id",userId);
         map.put("product_id",proId);
+        Log.e(TAG,"Add Fav Req===" + map.toString());
         Call<Map<String,String>> loginCall = apiInterface.addFav(map);
         loginCall.enqueue(new Callback<Map<String,String>>() {
             @Override

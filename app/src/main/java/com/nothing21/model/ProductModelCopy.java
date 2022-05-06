@@ -1,7 +1,11 @@
 package com.nothing21.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.nothing21.ProductSingalAct;
+import com.nothing21.utils.SessionManager;
 
 
 ;import java.util.List;
@@ -131,7 +135,18 @@ public class ProductModelCopy {
                 this.chkColor = chkColor;
             }
 
+            @SerializedName("select_color")
+            @Expose
+            public boolean selectColor = false;
 
+
+            public boolean isSelectColor() {
+                return selectColor;
+            }
+
+            public void setSelectColor(boolean selectColor) {
+                this.selectColor = selectColor;
+            }
 
             public String getId() {
                 return id;

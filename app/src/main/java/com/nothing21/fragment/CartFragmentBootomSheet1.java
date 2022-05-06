@@ -118,6 +118,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         priceCal(count);
         binding.BlurImageView.setBlur(2);
         //productData.imageDetails.get(0).image
+        Log.e("Image Cart =====",SessionManager.readString(getActivity(),"selectImage",""));
 
         Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))

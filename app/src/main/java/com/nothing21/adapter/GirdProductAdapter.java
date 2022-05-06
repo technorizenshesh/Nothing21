@@ -317,7 +317,7 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
             binding = itemView;
 
             binding.layoutMain.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
+               // context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
             });
 
 
