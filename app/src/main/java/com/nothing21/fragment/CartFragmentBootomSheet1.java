@@ -89,6 +89,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         initViews();
         return  dialog;
+
     }
 
     private void initViews() {

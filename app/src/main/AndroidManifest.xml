@@ -67,6 +67,11 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
 
+        <activity android:name=".OrderStatusAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+
       <!--  <activity android:name=".MyOrderAct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>-->

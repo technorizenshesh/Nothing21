@@ -166,71 +166,56 @@
                     android:singleLine="false"/>
 
 
-                <RelativeLayout
-                    android:id="@+id/layoutDelete"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:id="@+id/btnDelete"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_delete"
-                        android:padding="@dimen/_3sdp"/>
-
-                </RelativeLayout>
 
 
             </LinearLayout>
 
-<!--
-            <RelativeLayout
-                android:id="@+id/rlRight"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_90sdp"
-                android:layout_alignParentRight="true"
-                android:visibility="gone">
+            <!--
+                        <RelativeLayout
+                            android:id="@+id/rlRight"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_90sdp"
+                            android:layout_alignParentRight="true"
+                            android:visibility="gone">
 
 
-                <ImageView
-                    android:id="@+id/ivEdit"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_alignParentRight="true"
-                    android:padding="@dimen/_2sdp"
-                    android:src="@drawable/ic_edit"
-                    android:visibility="gone"/>
+                            <ImageView
+                                android:id="@+id/ivEdit"
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
+                                android:layout_alignParentRight="true"
+                                android:padding="@dimen/_2sdp"
+                                android:src="@drawable/ic_edit"
+                                android:visibility="gone"/>
 
 
-                <ImageView
-                    android:id="@+id/ivDelete"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_below="@+id/ivEdit"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:padding="@dimen/_2sdp"
-                    android:src="@drawable/ic_delete"
-                    android:visibility="gone"/>
+                            <ImageView
+                                android:id="@+id/ivDelete"
+                                android:layout_width="@dimen/_18sdp"
+                                android:layout_height="@dimen/_18sdp"
+                                android:layout_below="@+id/ivEdit"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:padding="@dimen/_2sdp"
+                                android:src="@drawable/ic_delete"
+                                android:visibility="gone"/>
 
 
-                <TextView
-                    android:id="@+id/tvProductPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:singleLine="true"
-                    android:text="AED 121"
-                    android:textColor="@color/black"
+                            <TextView
+                                android:id="@+id/tvProductPrice"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:fontFamily="@font/poppinsmedium"
+                                android:singleLine="true"
+                                android:text="AED 121"
+                                android:textColor="@color/black"
 
-                    android:textSize="@dimen/_10sdp" />
+                                android:textSize="@dimen/_10sdp" />
 
 
-            </RelativeLayout>
--->
+                        </RelativeLayout>
+            -->
 
 
 

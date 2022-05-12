@@ -20,6 +20,7 @@ import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -143,7 +144,18 @@ public interface Nothing21Interface {
     @POST("get_review")
     Call<RateModel> getAllRatesss (@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("get_recent_product_by_category")
+    Call<ProductModel> getRecentView (@FieldMap Map<String, String> params);
 
+
+    @FormUrlEncoded
+    @POST("delete_wish_list")
+    Call<Map<String,String>> deleteWishList (@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("get_order_history")
+    Call<ResponseBody> getOrderStatus(@FieldMap Map<String, String> params);
 
 
 }

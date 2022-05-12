@@ -14,6 +14,7 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_home.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_my_order.xml" value="0.10364583333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_order_status.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_payment.xml" value="0.16302083333333334" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_place_order.xml" value="0.16302083333333334" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_product.xml" value="0.11684782608695653" />
@@ -34,6 +35,8 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_gird_product.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_imag.xml" value="0.18854166666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_my_order.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_my_order_two.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_order_status.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_other_product.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_product.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_product_imag.xml" value="0.20416666666666666" />

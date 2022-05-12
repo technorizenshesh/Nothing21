@@ -14,45 +14,41 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
-import com.nothing21.databinding.ItemCartBinding;
 import com.nothing21.databinding.ItemMyOrderBinding;
-import com.nothing21.listener.onIconClickListener;
+import com.nothing21.databinding.ItemMyOrderTwoBinding;
 import com.nothing21.model.FavModel;
-import com.nothing21.model.GetCartModel;
-import com.nothing21.model.MyOrderModel;
+import com.nothing21.model.ProductModel;
 
 import java.util.ArrayList;
 
-public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHolder> {
+public class MyOrderAdapterTwo extends RecyclerView.Adapter<MyOrderAdapterTwo.MyViewHolder> {
     Context context;
-    ArrayList<FavModel.Result> arrayList;
-    onIconClickListener listener;
+    ArrayList<ProductModel.Result> arrayList;
 
-    public MyOrderAdapter(Context context, ArrayList<FavModel.Result>arrayList,onIconClickListener listener) {
+    public MyOrderAdapterTwo(Context context, ArrayList<ProductModel.Result>arrayList) {
         this.context = context;
         this.arrayList = arrayList;
-        this.listener = listener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemMyOrderBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_my_order,parent,false);
+        ItemMyOrderTwoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_my_order_two,parent,false);
         return new MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-         // "https://www.adspot.ae/nothing21//uploads/images/" +
+        // "https://www.adspot.ae/nothing21//uploads/images/" +
         Glide.with(context).load( arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-      //  holder.binding.tvProductQnty.setText(context.getString(R.string.quentity) + " " + arrayList.get(position).quantity);
-       // holder.binding.tvProductSize.setText(context.getString(R.string.size) + " " + arrayList.get(position).size);
+        //  holder.binding.tvProductQnty.setText(context.getString(R.string.quentity) + " " + arrayList.get(position).quantity);
+        // holder.binding.tvProductSize.setText(context.getString(R.string.size) + " " + arrayList.get(position).size);
         holder.binding.tvProductName.setText(arrayList.get(position).name);
-       // holder.binding.tvTotal.setText("AED "+arrayList.get(position).price);
-       // holder.binding.tvStatus.setText(arrayList.get(position).description);
-       // holder.binding.tvAddress.setText("Delivery address  : "+arrayList.get(position).address);
+        // holder.binding.tvTotal.setText("AED "+arrayList.get(position).price);
+        // holder.binding.tvStatus.setText(arrayList.get(position).description);
+        // holder.binding.tvAddress.setText("Delivery address  : "+arrayList.get(position).address);
         holder.binding.tvStatus.setVisibility(View.GONE);
-        holder.binding.layoutDelete.setVisibility(View.VISIBLE);
+
 
         if(!arrayList.get(position).discount.equals("")) {
             holder.binding.tvOldPrice.setVisibility(View.VISIBLE);
@@ -77,16 +73,14 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ItemMyOrderBinding binding;
-        public MyViewHolder(@NonNull ItemMyOrderBinding itemView) {
+        ItemMyOrderTwoBinding binding;
+        public MyViewHolder(@NonNull ItemMyOrderTwoBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
 
-            binding.layoutDelete.setOnClickListener(v -> listener.onIcon(getAdapterPosition(),"delete"));
-
             binding.layoutMain.setOnClickListener(v -> {
                 context.startActivity(new Intent(context, ProductSingalAct.class)
-                .putExtra("id",arrayList.get(getAdapterPosition()).id));
+                        .putExtra("id",arrayList.get(getAdapterPosition()).id));
             });
 
 

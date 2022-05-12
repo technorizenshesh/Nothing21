@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
                     android:src="@drawable/img3"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
 
 
 

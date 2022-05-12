@@ -9,7 +9,6 @@
         app:cardCornerRadius="@dimen/_5sdp">
 
         <RelativeLayout
-            android:id="@+id/layoutMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_8sdp">
@@ -23,12 +22,13 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ImageView
                         android:id="@+id/ivImg"
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_90sdp"
-                        android:src="@drawable/img_one"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_one" />
 
 
                 </RelativeLayout>
@@ -56,16 +56,15 @@
 
 
                 <TextView
-                    android:id="@+id/tvProductYears"
+                    android:id="@+id/tvSizeColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppinsmedium"
+                    android:fontFamily="@font/poppins_regular"
                     android:text="(3 months-7 years)"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_9sdp"
                     android:textColor="@color/black"
                     android:layout_marginTop="-3dp"
-                    android:singleLine="true"
-                    android:visibility="gone"/>
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/tvProductSize"
@@ -87,33 +86,31 @@
                     android:text="Quantity: 1"
                     android:textSize="@dimen/_9sdp"
                     android:textColor="@color/black"
-                    android:singleLine="true"
-                    android:visibility="gone"/>
+                    android:singleLine="true"/>
 
 
                 <TextView
-                    android:id="@+id/tvAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="@dimen/_9sdp"
-                    android:textColor="@color/black"
-                    android:maxLines="2"
-                    android:visibility="gone"
-                    />
-
-
-                <TextView
-                    android:id="@+id/tvTotal"
+                    android:id="@+id/tvProductDelivery"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="SOLD OUT"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_9sdp"
                     android:textColor="@color/black"
-                    android:singleLine="true"
-                    android:visibility="gone"/>
 
+                    android:singleLine="true"/>
+
+                <!-- <TextView
+                     android:id="@+id/tvProductPrice"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_alignParentBottom="true"
+                     android:fontFamily="@font/poppinsmedium"
+                     android:singleLine="true"
+                     android:text="AED 121000"
+                     android:textColor="@color/black"
+
+                     android:textSize="@dimen/_9sdp" />-->
 
 
                 <RelativeLayout
@@ -128,10 +125,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:text="ALDO"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_9sdp" />
 
                     <TextView
                         android:id="@+id/tvOldPrice"
@@ -142,95 +139,20 @@
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_2sdp"
                         android:layout_toRightOf="@+id/tvProductPrice"
-                        android:fontFamily="@font/poppins_semibold"
+                        android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:text="AED98.00"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
-                        android:visibility="gone" />
+                        android:textSize="@dimen/_7sdp"
+                        android:visibility="visible" />
 
 
                 </RelativeLayout>
 
-
-
-                <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:text="SOLD OUT"
-                    android:textSize="@dimen/_10sdp"
-                    android:textColor="@color/color_red"
-                    android:maxLines="2"
-                    android:singleLine="false"/>
-
-
-                <RelativeLayout
-                    android:id="@+id/layoutDelete"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:id="@+id/btnDelete"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_delete"
-                        android:padding="@dimen/_3sdp"/>
-
-                </RelativeLayout>
 
 
             </LinearLayout>
 
-<!--
-            <RelativeLayout
-                android:id="@+id/rlRight"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_90sdp"
-                android:layout_alignParentRight="true"
-                android:visibility="gone">
-
-
-                <ImageView
-                    android:id="@+id/ivEdit"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_alignParentRight="true"
-                    android:padding="@dimen/_2sdp"
-                    android:src="@drawable/ic_edit"
-                    android:visibility="gone"/>
-
-
-                <ImageView
-                    android:id="@+id/ivDelete"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
-                    android:layout_below="@+id/ivEdit"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:padding="@dimen/_2sdp"
-                    android:src="@drawable/ic_delete"
-                    android:visibility="gone"/>
-
-
-                <TextView
-                    android:id="@+id/tvProductPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:singleLine="true"
-                    android:text="AED 121"
-                    android:textColor="@color/black"
-
-                    android:textSize="@dimen/_10sdp" />
-
-
-            </RelativeLayout>
--->
 
 
 

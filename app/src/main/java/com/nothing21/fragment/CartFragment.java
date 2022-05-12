@@ -81,25 +81,6 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
 
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-            try {
-                if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
-                    userId = DataManager.getInstance().getUserData(getActivity()).result.id;
-                }
-                else   userId = instanceIdResult.getToken();     //LogInAlert();
-
-                refreshedToken = instanceIdResult.getToken();
-
-                if (NetworkAvailablity.checkNetworkStatus(getActivity())) getCartLists();
-                else
-                    Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
-
-                Log.e("Token===", userId);
-                // Yay.. we have our new token now.
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
 
 
 
@@ -444,4 +425,29 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
         return commaseparatedlist;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+            try {
+                if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
+                    userId = DataManager.getInstance().getUserData(getActivity()).result.id;
+                }
+                else   userId = instanceIdResult.getToken();     //LogInAlert();
+
+                refreshedToken = instanceIdResult.getToken();
+
+                if (NetworkAvailablity.checkNetworkStatus(getActivity())) getCartLists();
+                else
+                    Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+
+                Log.e("Token===", userId);
+                // Yay.. we have our new token now.
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
 }

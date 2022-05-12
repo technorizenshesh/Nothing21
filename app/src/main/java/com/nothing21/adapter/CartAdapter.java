@@ -1,6 +1,7 @@
 package com.nothing21.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
 import com.nothing21.databinding.ItemCartBinding;
 import com.nothing21.listener.onIconClickListener;
@@ -90,7 +92,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
             binding.ivEdit.setOnClickListener(v -> listener.onIcon(getAdapterPosition(),"Edit"));
 
-
+            binding.ivImg.setOnClickListener(v -> {
+                context.startActivity(new Intent(context, ProductSingalAct.class)
+                .putExtra("id",arrayList.get(getAdapterPosition()).id));
+            });
         }
     }
 }
