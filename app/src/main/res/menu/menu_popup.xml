@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/menuName"
-        android:title="Name" />
-
-    <item
-        android:id="@+id/menuBrand"
-        android:title="Brand" />
 
     <item
         android:id="@+id/menuPrice"
-        android:title="Price" />
+        android:title="Category"
+        android:checkable="true"
+         />
 
     <item
         android:id="@+id/menuColor"
-        android:title="Color" />
+        android:title="Color"
+    android:checkable="true"
+    />
 
     <item
         android:id="@+id/menuSize"
-        android:title="Size" />
+        android:title="Size"
+        android:checkable="true"
+        />
 
 </menu>

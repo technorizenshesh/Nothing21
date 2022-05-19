@@ -292,6 +292,13 @@ public class OrderStatusModel {
             @Expose
             private String productName;
 
+            @SerializedName("order_status")
+            @Expose
+            private String orderStatus;
+
+
+
+
 
             public String getProductName() {
                 return productName;
@@ -381,6 +388,14 @@ public class OrderStatusModel {
                 this.dateTime = dateTime;
             }
 
+
+            public String getOrderStatus() {
+                return orderStatus;
+            }
+
+            public void setOrderStatus(String orderStatus) {
+                this.orderStatus = orderStatus;
+            }
         }
 
         public class ProductsDatum {

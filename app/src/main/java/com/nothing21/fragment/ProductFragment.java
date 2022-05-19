@@ -32,6 +32,7 @@ import com.nothing21.adapter.ScrollProductAdapter;
 import com.nothing21.adapter.ScrollProductOneAdapter;
 import com.nothing21.databinding.ActivityProductBinding;
 import com.nothing21.databinding.FragmentProductBinding;
+import com.nothing21.listener.FilterListener;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.ProductModel;
@@ -52,17 +53,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductFragment extends Fragment implements onIconClickListener, InfoListener {
+public class ProductFragment extends Fragment implements onIconClickListener, InfoListener, FilterListener {
     public String TAG = "ProductFragment";
     FragmentProductBinding binding;
     Nothing21Interface apiInterface;
     ArrayList<ProductModel.Result> arrayList;
-   // ScrollProductAdapter adapterScroll;
+    // ScrollProductAdapter adapterScroll;
     ScrollProductOneAdapter adapterScroll;
     GirdProductAdapter adapterGrid;
-    String viewType = "vertical",catId="";
-    public static TextView tvFound ;
-    String refreshedToken = "",userId="",sortData = "DESC",filterString="Name";
+    String viewType = "vertical", catId = "";
+    public static TextView tvFound;
+    String refreshedToken = "", userId = "", sortData = "DESC", filterString = "Name";
     boolean chk = false;
     static int y = 0;
 
@@ -91,9 +92,9 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 Log.i(TAG, "keyCode: " + keyCode);
-                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
                     Log.i(TAG, "onKey Back listener is working!!!");
-                    startActivity(new Intent(getActivity(),HomeAct.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                    startActivity(new Intent(getActivity(), HomeAct.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     getActivity().finish();
                     return true;
                 }
@@ -117,43 +118,44 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
 
 
         binding.rvProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapterScroll = new ScrollProductOneAdapter(getActivity(),arrayList,ProductFragment.this);
+        adapterScroll = new ScrollProductOneAdapter(getActivity(), arrayList, ProductFragment.this);
         //  binding.rvProducts.scrollToPosition(0);
         // binding.rvProducts.setLayoutFrozen(true);
         binding.rvProducts.setAdapter(adapterScroll);
 
 
-
-        adapterGrid =  new GirdProductAdapter(getActivity(),arrayList,ProductFragment.this);
+        adapterGrid = new GirdProductAdapter(getActivity(), arrayList, ProductFragment.this);
 
         binding.ivDisplay.setOnClickListener(v -> {
-            if(sortData.equals("DESC")) sortData = "ASC";
-            else if(sortData.equals("ASC")) sortData = "DESC";
-            if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllProduct(catId,sortData);
-            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+            if (sortData.equals("DESC")) sortData = "ASC";
+            else if (sortData.equals("ASC")) sortData = "DESC";
+            if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                GetAllProduct(catId, sortData);
+            else
+                Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         });
 
 
         binding.ivFilter.setOnClickListener(v -> {
-             popupMenuDialog();
+            popupMenuDialog();
         });
-
 
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
             try {
-                if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
+                if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
                     userId = DataManager.getInstance().getUserData(getActivity()).result.id;
-                }
-                else   userId = instanceIdResult.getToken();     //LogInAlert();
+                } else userId = instanceIdResult.getToken();     //LogInAlert();
 
                 refreshedToken = instanceIdResult.getToken();
 
-              //  if(getIntent()!=null){
-                  //  catId = getIntent().getStringExtra("catId");
-                    if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllProduct(catId,sortData);
-                    else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
-             //   }
+                //  if(getIntent()!=null){
+                //  catId = getIntent().getStringExtra("catId");
+                if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                    GetAllProduct(catId, sortData);
+                else
+                    Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                //   }
 
                 Log.e("Token===", userId);
                 // Yay.. we have our new token now.
@@ -163,15 +165,13 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         });
 
 
-
         binding.ivDesign.setOnClickListener(v -> {
-            if(chk == false){
+            if (chk == false) {
                 viewType = "grid";
-                binding.rvProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                binding.rvProducts.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                 binding.rvProducts.setAdapter(adapterGrid);
                 chk = true;
-            }
-            else {
+            } else {
                 viewType = "vertical";
                 binding.rvProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                 binding.rvProducts.setAdapter(adapterScroll);
@@ -182,7 +182,6 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         });
 
 
-
         binding.tvSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -191,7 +190,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
 
             @Override
             public void onTextChanged(CharSequence query, int start, int before, int count) {
-                getFilterSearch(query.toString(),filterString);
+                getFilterSearch(query.toString(), filterString);
             }
 
             @Override
@@ -256,11 +255,6 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         });
 
 
-
-
-
-
-
     }
 
     private void popupMenuDialog() {
@@ -270,25 +264,71 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         popupMenu.getMenuInflater().inflate(R.menu.menu_popup, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
+            public boolean onMenuItemClick(MenuItem item) {
                 // Toast message on menu item clicked
-                filterString = String.valueOf(menuItem.getTitle());
-                Toast.makeText(getActivity(), "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+                filterString = String.valueOf(item.getTitle());
+                //  Toast.makeText(getActivity(), "You Clicked " + item.getTitle(), Toast.LENGTH_SHORT).show();
 
+
+                switch (item.getItemId()) {
+                    case R.id.menuPrice:
+                        if (!item.isChecked()) {
+                            item.setChecked(true);
+                            callCategory();
+                            Toast.makeText(getActivity(), "Price", Toast.LENGTH_SHORT).show();
+                        } else {
+                            item.setChecked(false);
+                        }
+                        break;
+                    case R.id.menuColor:
+                        if (!item.isChecked()) {
+                            item.setChecked(true);
+                            Toast.makeText(getActivity(), "Color", Toast.LENGTH_SHORT).show();
+                            callColor();
+                        } else {
+                            item.setChecked(false);
+                        }
+                        break;
+                    case R.id.menuSize:
+                        if (!item.isChecked()) {
+                            item.setChecked(true);
+                            Toast.makeText(getActivity(), "Size", Toast.LENGTH_SHORT).show();
+                            callSize();
+                        } else {
+
+                            item.setChecked(false);
+                        }
+                        break;
+                }
                 return true;
             }
+
         });
+
+
         // Showing the popup menu
         popupMenu.show();
     }
 
+    private void callColor() {
+        new ColorFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
+    }
 
-    public void GetAllProduct(String catId,String sortData){
+    private void callSize() {
+        new SizeFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
+    }
+
+    private void callCategory(){
+        new CategoryFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
+    }
+
+
+    public void GetAllProduct(String catId, String sortData) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Map<String,String> map = new HashMap<>();
-        map.put("category_id",catId);
-        map.put("user_id",userId);
-        map.put("order_by",sortData);
+        Map<String, String> map = new HashMap<>();
+        map.put("category_id", catId);
+        map.put("user_id", userId);
+        map.put("order_by", sortData);
         Call<ProductModel> loginCall = apiInterface.getAllProduct(map);
         loginCall.enqueue(new Callback<ProductModel>() {
             @Override
@@ -305,7 +345,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                         arrayList.addAll(data.result);
                         adapterGrid.notifyDataSetChanged();
                         adapterScroll.notifyDataSetChanged();
-                    } else if (data.status.equals("0")){
+                    } else if (data.status.equals("0")) {
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
                         arrayList.clear();
                         adapterScroll.notifyDataSetChanged();
@@ -334,78 +374,78 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
 
     @Override
     public void onIcon(int position, String type) {
-        if(type.equals("Info")){
-            if(!arrayList.get(position).description.equals(""))
-                new InfoFragmentBottomSheet(arrayList.get(position)).callBack(this::info).show(getChildFragmentManager(),"");
-            else   Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        }
-        else if(type.equals("Cart")){
+        if (type.equals("Info")) {
+            if (!arrayList.get(position).description.equals(""))
+                new InfoFragmentBottomSheet(arrayList.get(position)).callBack(this::info).show(getChildFragmentManager(), "");
+            else
+                Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+        } else if (type.equals("Cart")) {
 
-            if(arrayList.get(position).colorDetails.size()!=0) {
-               // SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).imageDetails.get(0).image);
-                new CartFragmentBootomSheet(arrayList.get(position)).callBack(this::info).show(getChildFragmentManager(),"");
-            }
-            else Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+            if (arrayList.get(position).colorDetails.size() != 0) {
+                // SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).imageDetails.get(0).image);
+                new CartFragmentBootomSheet(arrayList.get(position)).callBack(this::info).show(getChildFragmentManager(), "");
+            } else
+                Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
 
-        }
-        else if(type.equals("Color")){
-            if(arrayList.get(position).colorDetails.size()!=0){
-                SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).colorDetails.get(0).image);
-                new ColorSizeFragmentBottomSheet(arrayList.get(position),arrayList.get(position).colorDetails.get(0).size).callBack(this::info).show(getChildFragmentManager(),"");
-            }
-            else Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        }
-        else if(type.equals("Size")){
-            if(arrayList.get(position).colorDetails.size()!=0) {
-                SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).colorDetails.get(0).image);
-                new SizeFragmentBottomSheet(arrayList.get(position),arrayList.get(position).colorDetails.get(0).color).callBack(this::info).show(getChildFragmentManager(),"");
-            }
-            else Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+        } else if (type.equals("Color")) {
+            if (arrayList.get(position).colorDetails.size() != 0) {
+                SessionManager.writeString(getActivity(), "selectImage", arrayList.get(position).colorDetails.get(0).image);
+                new ColorSizeFragmentBottomSheet(arrayList.get(position), arrayList.get(position).colorDetails.get(0).size).callBack(this::info).show(getChildFragmentManager(), "");
+            } else
+                Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
+        } else if (type.equals("Size")) {
+            if (arrayList.get(position).colorDetails.size() != 0) {
+                SessionManager.writeString(getActivity(), "selectImage", arrayList.get(position).colorDetails.get(0).image);
+                new SizeFragmentBottomSheet(arrayList.get(position), arrayList.get(position).colorDetails.get(0).color).callBack(this::info).show(getChildFragmentManager(), "");
+            } else
+                Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
 
-        }
-
-
-        else if(type.equals("Fav")){
-            if(NetworkAvailablity.checkNetworkStatus(getActivity()))addFavrirr(arrayList.get(position).id+"");
-            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+        } else if (type.equals("Fav")) {
+            if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                addFavrirr(arrayList.get(position).id + "");
+            else
+                Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
     @Override
-    public void info(String value,String size) {
+    public void info(String value, String size) {
 
     }
 
 
-
-    public void addFavrirr(String proId){
+    public void addFavrirr(String proId) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Map<String,String> map = new HashMap<>();
-        map.put("user_id",userId);
-        map.put("product_id",proId);
-        Log.e(TAG,"Add Fav Req===" + map.toString());
-        Call<Map<String,String>> loginCall = apiInterface.addFav(map);
-        loginCall.enqueue(new Callback<Map<String,String>>() {
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", userId);
+        map.put("product_id", proId);
+        Log.e(TAG, "Add Fav Req===" + map.toString());
+        Call<Map<String, String>> loginCall = apiInterface.addFav(map);
+        loginCall.enqueue(new Callback<Map<String, String>>() {
             @Override
-            public void onResponse(Call<Map<String,String>> call, Response<Map<String,String>> response) {
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    Map<String,String> data = response.body();
+                    Map<String, String> data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.get("status").equals("1")) {
 
-                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllProduct(catId,sortData);
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                        if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                            GetAllProduct(catId, sortData);
+                        else
+                            Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
 
-                    } else if (data.get("status").equals("0")){
+                    } else if (data.get("status").equals("0")) {
 
-                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllProduct(catId,sortData);
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                        if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                            GetAllProduct(catId, sortData);
+                        else
+                            Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                     }
 
                     // serviceAdapter.notifyDataSetChanged();
@@ -416,7 +456,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             }
 
             @Override
-            public void onFailure(Call<Map<String,String>> call, Throwable t) {
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
 
@@ -428,16 +468,14 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     /// user_id=41&product_id=1
 
 
-
-
-    public void getFilterSearch(String query,String filter){
+    public void getFilterSearch(String query, String filter) {
         try {
             query = query.toLowerCase();
 
             final ArrayList<ProductModel.Result> filteredList = new ArrayList<ProductModel.Result>();
 
-            if(arrayList != null) {
-                if(filter.equals("Name")){
+            if (arrayList != null) {
+                if (filter.equals("Name")) {
                     for (int i = 0; i < arrayList.size(); i++) {
                         String text = arrayList.get(i).name.toLowerCase();
                         //  String brand = arrayList.get(i).brand1.toLowerCase();
@@ -446,30 +484,23 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                         }
 
                     }
-                }
-                else  if(filter.equals("Brand")) {
+                } else if (filter.equals("Brand")) {
                     for (int i = 0; i < arrayList.size(); i++) {
                         String brand = arrayList.get(i).brand1.toLowerCase();
-                        if ( brand.contains(query)) {
+                        if (brand.contains(query)) {
                             filteredList.add(arrayList.get(i));
                         }
 
                     }
-                }
-
-
-                else  if(filter.equals("Price")) {
+                } else if (filter.equals("Price")) {
                     for (int i = 0; i < arrayList.size(); i++) {
                         String price = arrayList.get(i).price.toLowerCase();
-                        if ( price.contains(query)) {
+                        if (price.contains(query)) {
                             filteredList.add(arrayList.get(i));
                         }
 
                     }
-                }
-
-
-                else  if(filter.equals("Color")) {
+                } else if (filter.equals("Color")) {
                     for (int i = 0; i < arrayList.size(); i++) {
                         for (int j = 0; j < arrayList.get(i).colorDetails.size(); j++) {
 
@@ -480,9 +511,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                         }
 
                     }
-                }
-
-                else  if(filter.equals("Size")) {
+                } else if (filter.equals("Size")) {
                     for (int i = 0; i < arrayList.size(); i++) {
                         for (int j = 0; j < arrayList.get(i).colorDetails.size(); j++) {
 
@@ -496,22 +525,72 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                 }
 
 
-
-                if(viewType.equals("vertical"))   {
+                if (viewType.equals("vertical")) {
                     adapterScroll.filterList(filteredList);
-                }
-                else if(viewType.equals("grid"))   adapterGrid.filterList(filteredList);
+                } else if (viewType.equals("grid")) adapterGrid.filterList(filteredList);
 
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
 
+    @Override
+    public void onFilter(String type, String value) {
+           if(NetworkAvailablity.checkNetworkStatus(getActivity())) ApplyFilter(type,value);
 
+        }
+
+
+    public void ApplyFilter(String type, String value) {
+        DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
+        Map<String, String> map = new HashMap<>();
+        if (type.equals("color")) map.put("color", value);
+        else if (type.equals("size")) map.put("size", value);
+        else if (type.equals("category")) map.put("category_id", value);
+
+        Call<ProductModel> loginCall = apiInterface.getApplyFilter(map);
+        loginCall.enqueue(new Callback<ProductModel>() {
+            @Override
+            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+                DataManager.getInstance().hideProgressMessage();
+
+                try {
+                    ProductModel data = response.body();
+                    String responseString = new Gson().toJson(response.body());
+                    Log.e(TAG, "Apply Filter List Response :" + responseString);
+                    if (data.status.equals("1")) {
+                        arrayList.clear();
+                        binding.tvFound.setVisibility(View.GONE);
+                        arrayList.addAll(data.result);
+                        adapterGrid.notifyDataSetChanged();
+                        adapterScroll.notifyDataSetChanged();
+                    } else if (data.status.equals("0")) {
+                        // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
+                        arrayList.clear();
+                        adapterScroll.notifyDataSetChanged();
+                        adapterGrid.notifyDataSetChanged();
+                        binding.tvFound.setVisibility(View.VISIBLE);
+
+                    }
+
+                    // serviceAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductModel> call, Throwable t) {
+                call.cancel();
+                DataManager.getInstance().hideProgressMessage();
+            }
+        });
+    }
 
 
 }

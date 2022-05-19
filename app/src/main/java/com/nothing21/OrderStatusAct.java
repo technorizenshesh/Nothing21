@@ -1,5 +1,9 @@
 package com.nothing21;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -38,6 +42,18 @@ public class OrderStatusAct extends AppCompatActivity {
     ArrayList<OrderStatusModel.Result.CartDatum> arrayList;
     OrderStatusAdapter adapter;
     Nothing21Interface apiInterface;
+
+
+    BroadcastReceiver OrderReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if(NetworkAvailablity.checkNetworkStatus(OrderStatusAct.this)) getAllTransactionsApi();
+                else Toast.makeText(OrderStatusAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +95,7 @@ public class OrderStatusAct extends AppCompatActivity {
                         Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
 
                         if (jsonObject.getString("status").equals("1")) {
-                            Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
+                          //  Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
                             OrderStatusModel modelTransactions = new Gson().fromJson(stringResponse, OrderStatusModel.class);
                              arrayList.clear();
                              for (int i = 0;i< modelTransactions.getResult().size();i++){
@@ -118,5 +134,17 @@ public class OrderStatusAct extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(OrderReceiver, new IntentFilter("Order_Status_Action"));
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(OrderReceiver);
+
+    }
 }

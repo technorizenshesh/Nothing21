@@ -259,7 +259,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="@dimen/_7sdp"
                     android:progressTint="@color/quantum_yellow"
-                    android:rating="3" />
+                    android:rating="4" />
 
 
                 <TextView

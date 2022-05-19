@@ -1,6 +1,7 @@
 package com.nothing21;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
@@ -704,4 +705,11 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
     }
 
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+        startActivity(new Intent(ProductSingalAct.this,HomeAct.class)
+        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        finish();
+    }
 }

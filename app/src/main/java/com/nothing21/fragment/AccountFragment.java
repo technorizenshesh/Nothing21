@@ -336,6 +336,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                         arrayList.clear();
                         binding.tvFound.setVisibility(View.VISIBLE);
                         binding.rvFavList.setVisibility(View.GONE);
+                        adapterTwo.notifyDataSetChanged();
 
                     }
 
@@ -350,9 +351,6 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             public void onFailure(Call<ProductModel> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
-                arrayList.clear();
-                adapterTwo.notifyDataSetChanged();
-                binding.tvFound.setVisibility(View.VISIBLE);
             }
         });
     }

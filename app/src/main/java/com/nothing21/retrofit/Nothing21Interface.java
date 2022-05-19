@@ -6,7 +6,9 @@ package com.nothing21.retrofit;
 
 
 
+import com.nothing21.model.CategoryListModel;
 import com.nothing21.model.CategoryModel;
+import com.nothing21.model.ColorListModel;
 import com.nothing21.model.FavModel;
 import com.nothing21.model.GetCartModel;
 import com.nothing21.model.LoginModel;
@@ -15,6 +17,7 @@ import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
 import com.nothing21.model.RateModel;
 import com.nothing21.model.SearchModel;
+import com.nothing21.model.SizeListModel;
 
 import java.util.Map;
 
@@ -156,6 +159,24 @@ public interface Nothing21Interface {
     @FormUrlEncoded
     @POST("get_order_history")
     Call<ResponseBody> getOrderStatus(@FieldMap Map<String, String> params);
+
+
+    @GET("get_color_list")
+    Call<ColorListModel> getColors();
+
+
+    @GET("get_size_list")
+    Call<SizeListModel> getSize();
+
+    @GET("get_category")
+    Call<CategoryListModel> getAllCategory11();
+
+
+    @FormUrlEncoded
+    @POST("filter_product")
+    Call<ProductModel> getApplyFilter (@FieldMap Map<String, String> params);
+
+
 
 
 }
