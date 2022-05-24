@@ -436,12 +436,10 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                     binding.view22.setSolidColor(ProductSingalAct.this.data.result.colorDetails.get(1).colorCode);
                     binding.ivImg.setVisibility(View.VISIBLE);
                     binding.rvItems.setVisibility(View.GONE);
-                    Glide.with(ProductSingalAct.this).load(ProductSingalAct.this.data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
+                    Glide.with(ProductSingalAct.this).load(data.result.colorDetails.get(1).image).error(R.drawable.dummy).into(binding.ivImg);
                     SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(1).image);
-
-
-
-
+                    Log.e("sesion2222",SessionManager.readString(ProductSingalAct.this,"selectImage",""));
+                    Log.e("data2222",data.result.colorDetails.get(1).image);
                     SessionManager.writeString(ProductSingalAct.this,"selectColor",data.result.colorDetails.get(1).color);
                 }
 

@@ -81,6 +81,7 @@
     <string name="please_select_category">Please select category</string>
     <string name="no_category_available">no category_available</string>
     <string name="category">Category</string>
+    <string name="bag_is_empty">bag is empty</string>
 
 
 </resources>

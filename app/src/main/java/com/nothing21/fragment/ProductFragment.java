@@ -130,7 +130,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             if (sortData.equals("DESC")) sortData = "ASC";
             else if (sortData.equals("ASC")) sortData = "DESC";
             if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                GetAllProduct(catId, sortData);
+                GetAllProduct(catId, sortData,"",0);
             else
                 Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         });
@@ -141,28 +141,6 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         });
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-            try {
-                if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
-                    userId = DataManager.getInstance().getUserData(getActivity()).result.id;
-                } else userId = instanceIdResult.getToken();     //LogInAlert();
-
-                refreshedToken = instanceIdResult.getToken();
-
-                //  if(getIntent()!=null){
-                //  catId = getIntent().getStringExtra("catId");
-                if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                    GetAllProduct(catId, sortData);
-                else
-                    Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
-                //   }
-
-                Log.e("Token===", userId);
-                // Yay.. we have our new token now.
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
 
 
         binding.ivDesign.setOnClickListener(v -> {
@@ -323,7 +301,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     }
 
 
-    public void GetAllProduct(String catId, String sortData) {
+    public void GetAllProduct(String catId, String sortData,String ChkFav,int pos) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
         map.put("category_id", catId);
@@ -343,13 +321,30 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                         arrayList.clear();
                         binding.tvFound.setVisibility(View.GONE);
                         arrayList.addAll(data.result);
-                        adapterGrid.notifyDataSetChanged();
-                        adapterScroll.notifyDataSetChanged();
+                        if(ChkFav.equals("fav")){
+                            adapterGrid.notifyItemChanged(pos);
+                            adapterScroll.notifyItemChanged(pos);
+
+                        }
+                        else {
+                            adapterGrid.notifyDataSetChanged();
+                            adapterScroll.notifyDataSetChanged();
+                        }
+
+
+
                     } else if (data.status.equals("0")) {
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
                         arrayList.clear();
-                        adapterScroll.notifyDataSetChanged();
-                        adapterGrid.notifyDataSetChanged();
+                        if(ChkFav.equals("fav")){
+                            adapterGrid.notifyItemChanged(pos);
+                            adapterScroll.notifyItemChanged(pos);
+
+                        }
+                        else {
+                            adapterGrid.notifyDataSetChanged();
+                            adapterScroll.notifyDataSetChanged();
+                        }
                         binding.tvFound.setVisibility(View.VISIBLE);
 
                     }
@@ -402,7 +397,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
 
         } else if (type.equals("Fav")) {
             if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                addFavrirr(arrayList.get(position).id + "");
+                addFavrirr(arrayList.get(position).id + "",position);
             else
                 Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         }
@@ -416,7 +411,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     }
 
 
-    public void addFavrirr(String proId) {
+    public void addFavrirr(String proId,int pos) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
         map.put("user_id", userId);
@@ -435,7 +430,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     if (data.get("status").equals("1")) {
 
                         if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                            GetAllProduct(catId, sortData);
+                            GetAllProduct(catId, sortData,"fav",pos);
                         else
                             Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
@@ -443,7 +438,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     } else if (data.get("status").equals("0")) {
 
                         if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                            GetAllProduct(catId, sortData);
+                            GetAllProduct(catId, sortData,"fav",pos);
                         else
                             Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                     }
@@ -551,6 +546,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         if (type.equals("color")) map.put("color", value);
         else if (type.equals("size")) map.put("size", value);
         else if (type.equals("category")) map.put("category_id", value);
+        Log.e(TAG, "Apply Filter Request :" + type +"  " + map);
 
         Call<ProductModel> loginCall = apiInterface.getApplyFilter(map);
         loginCall.enqueue(new Callback<ProductModel>() {
@@ -593,4 +589,31 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+            try {
+                if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
+                    userId = DataManager.getInstance().getUserData(getActivity()).result.id;
+                } else userId = instanceIdResult.getToken();     //LogInAlert();
+
+                refreshedToken = instanceIdResult.getToken();
+
+                //  if(getIntent()!=null){
+                //  catId = getIntent().getStringExtra("catId");
+                if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                    GetAllProduct(catId, sortData,"",0);
+                else
+                    Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                //   }
+
+                Log.e("Token===", userId);
+                // Yay.. we have our new token now.
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
 }

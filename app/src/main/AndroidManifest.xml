@@ -17,6 +17,8 @@
         android:roundIcon="@mipmap/ic_main_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nothing21">
+
+
         <activity android:name=".SplashAct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -78,6 +80,11 @@
 
 
         <activity android:name=".SearchAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+
+        <activity android:name=".ProductSingalCopyAct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 

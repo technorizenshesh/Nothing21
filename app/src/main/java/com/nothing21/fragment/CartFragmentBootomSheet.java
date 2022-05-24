@@ -171,7 +171,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
         binding.tvAddCart.setOnClickListener(v -> {
             if(chkColor==false) Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
-            if(chkSize==false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
+           else if(chkSize==false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
 
             else {
                 if (NetworkAvailablity.checkNetworkStatus(getActivity()))
@@ -405,7 +405,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 binding.layoutThree.setVisibility(View.GONE);
                 binding.layoutFour.setVisibility(View.GONE);
 
-                if(data.colorDetails.get(0).chkColor== false){
+                if(data.colorDetails.get(0).isChkColor()== false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
                     //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
@@ -433,7 +433,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 binding.layoutThree.setVisibility(View.GONE);
                 binding.layoutFour.setVisibility(View.GONE);
 
-                if(data.colorDetails.get(0).chkColor == false){
+                if(data.colorDetails.get(0).isChkColor() == false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
                     //   SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
@@ -455,7 +455,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 }
 
 
-                if(data.colorDetails.get(1).chkColor == false){
+                if(data.colorDetails.get(1).isChkColor() == false){
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
                     //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
@@ -486,7 +486,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 binding.layoutThree.setVisibility(View.VISIBLE);
                 binding.layoutFour.setVisibility(View.GONE);
 
-                if(data.colorDetails.get(0).chkColor== false){
+                if(data.colorDetails.get(0).isChkColor()== false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
                     //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
@@ -507,7 +507,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 }
 
 
-                if(data.colorDetails.get(1).chkColor== false){
+                if(data.colorDetails.get(1).isChkColor()== false){
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
                     //   SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
@@ -527,7 +527,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
                 }
 
-                if(data.colorDetails.get(2).chkColor== false){
+                if(data.colorDetails.get(2).isChkColor()== false){
                     binding.view3.setVisibility(View.GONE);
                     binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
                     //    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
@@ -559,7 +559,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 binding.layoutThree.setVisibility(View.VISIBLE);
                 binding.layoutFour.setVisibility(View.VISIBLE);
 
-                if(data.colorDetails.get(0).chkColor== false){
+                if(data.colorDetails.get(0).isChkColor()== false){
                     binding.view1.setVisibility(View.GONE);
                     binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
                     //     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
@@ -580,7 +580,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 }
 
 
-                if(data.colorDetails.get(1).chkColor== false){
+                if(data.colorDetails.get(1).isChkColor()== false){
                     binding.view2.setVisibility(View.GONE);
                     binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
                     //      SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
@@ -600,7 +600,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
                 }
 
-                if(data.colorDetails.get(2).chkColor== false){
+                if(data.colorDetails.get(2).isChkColor()== false){
                     binding.view3.setVisibility(View.GONE);
                     binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
                     //       SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
@@ -621,7 +621,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                 }
 
 
-                if(data.colorDetails.get(3).chkColor== false){
+                if(data.colorDetails.get(3).isChkColor()== false){
                     binding.view4.setVisibility(View.GONE);
                     binding.view44.setSolidColor(data.colorDetails.get(3).colorCode);
                     //       SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(3).color);

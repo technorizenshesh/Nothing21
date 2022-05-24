@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!--<androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
                      android:src="@drawable/img3" />-->
 
 
-                <androidx.recyclerview.widget.RecyclerView
+               <!-- <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvProductItm"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -43,9 +44,14 @@
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
                     android:src="@drawable/img3"
-                    android:visibility="visible" />
+                    android:visibility="visible" />-->
 
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
+                    />
 
                 <TextView
                     android:id="@+id/tvDiscount"
@@ -306,114 +312,14 @@
                     android:layout_marginEnd="@dimen/_7sdp">
 
 
-                    <RelativeLayout
-                        android:id="@+id/layoutOne"
-                        android:layout_width="@dimen/_15sdp"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvColor"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/_15sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:gravity="center">
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_color" />
 
-
-                        <com.nothing21.utils.CircularTextView
-                            android:id="@+id/view1"
-                            android:layout_width="@dimen/_14sdp"
-                            android:layout_height="@dimen/_14sdp"
-                            android:layout_centerInParent="true"
-                            />
-
-
-                        <com.nothing21.utils.CircularTextView
-                            android:id="@+id/view11"
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_centerInParent="true"
-                           />
-
-
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:id="@+id/layoutTwo"
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:gravity="center">
-
-
-                        <com.nothing21.utils.CircularTextView
-                            android:id="@+id/view2"
-                            android:layout_centerInParent="true"
-                            android:layout_width="@dimen/_14sdp"
-                            android:layout_height="@dimen/_14sdp"
-                            />
-
-
-                        <com.nothing21.utils.CircularTextView
-                            android:id="@+id/view22"
-                            android:layout_centerInParent="true"
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            />
-
-
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:id="@+id/layoutThree"
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:gravity="center">
-
-
-                        <com.nothing21.utils.CircularTextView
-                            android:id="@+id/view3"
-                            android:layout_width="@dimen/_14sdp"
-                            android:layout_height="@dimen/_14sdp"
-                            />
-
-
-                        <com.nothing21.utils.CircularTextView
-                            android:layout_centerInParent="true"
-                            android:id="@+id/view33"
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                           />
-
-
-
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:id="@+id/layoutFour"
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:gravity="center">
-
-
-                        <com.nothing21.utils.CircularTextView
-                            android:id="@+id/view4"
-                            android:layout_width="@dimen/_14sdp"
-                            android:layout_height="@dimen/_14sdp"
-                            />
-
-
-                        <com.nothing21.utils.CircularTextView
-                            android:layout_centerInParent="true"
-                            android:id="@+id/view44"
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                           />
-
-
-
-                    </RelativeLayout>
 
 
                 </LinearLayout>

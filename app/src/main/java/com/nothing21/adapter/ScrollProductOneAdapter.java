@@ -15,29 +15,31 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.nothing21.ProductSingalAct;
+import com.nothing21.ProductSingalCopyAct;
 import com.nothing21.R;
 import com.nothing21.ViewProductAdapter1;
 import com.nothing21.databinding.ItemScrollProductBinding;
 import com.nothing21.databinding.ItemScrollProductOneBinding;
 import com.nothing21.fragment.ProductFragment;
 import com.nothing21.listener.onIconClickListener;
+import com.nothing21.listener.onIconClickProductListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.utils.DataManager;
 import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
 
-public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductOneAdapter.MyViewHolder> {
+public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductOneAdapter.MyViewHolder> implements onIconClickProductListener {
     Context context;
     ArrayList<ProductModel.Result> arrayList;
     ArrayList<String>imgArrayList;
     onIconClickListener listener;
     ViewProductAdapter1 adapter;
-    LinearLayoutManager layoutManager;
-
+    ItemScrollProductOneBinding bindingMain;
     public
     ScrollProductOneAdapter(Context context, ArrayList<ProductModel.Result> arrayList,onIconClickListener listener) {
         this.context = context;
@@ -60,12 +62,8 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
         holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
         holder.binding.tvProductName.setText(arrayList.get(position).name);
 
-
-
-
-        holder.binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,arrayList.get(position).colorDetails,arrayList.get(position).id,arrayList.get(position).isTouchCheck()));
-        Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-        DataManager.getInstance().hideProgressMessage();
+        holder.binding.viewPager.setAdapter(new MyViewPagerProductAdapter(context,arrayList.get(position).colorDetails));
+        holder.binding.rvColor.setAdapter(new ColorProductAdapter(context, arrayList.get(position).colorDetails,ScrollProductOneAdapter.this,holder.binding.viewPager));
 
 
         if(!arrayList.get(position).discount.equals("")) {
@@ -92,275 +90,6 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
 
 
 
-
-
-
-
-
-
-       if(arrayList.get(position).colorDetails!=null){
-            if(arrayList.get(position).colorDetails.size()==1){
-                holder.binding.layoutOne.setVisibility(View.VISIBLE);
-                holder.binding.layoutTwo.setVisibility(View.GONE);
-                holder.binding.layoutThree.setVisibility(View.GONE);
-                holder.binding.layoutFour.setVisibility(View.GONE);
-
-                if(arrayList.get(position).colorDetails.get(0).chkColor== false){
-                    holder.binding.view1.setVisibility(View.GONE);
-                    holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-
-                }else {
-                    holder.binding.view1.setVisibility(View.VISIBLE);
-                    holder.binding.view1.setStrokeWidth(1);
-                    holder.binding.view1.setStrokeColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(0).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }
-            }
-
-            if(arrayList.get(position).colorDetails.size()==2){
-                holder.binding.layoutOne.setVisibility(View.VISIBLE);
-                holder.binding.layoutTwo.setVisibility(View.VISIBLE);
-                holder.binding.layoutThree.setVisibility(View.GONE);
-                holder.binding.layoutFour.setVisibility(View.GONE);
-
-                if(arrayList.get(position).colorDetails.get(0).chkColor == false){
-                    holder.binding.view1.setVisibility(View.GONE);
-                    holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }else {
-                    holder.binding.view1.setVisibility(View.VISIBLE);
-                    holder.binding.view1.setStrokeWidth(1);
-                    holder.binding.view1.setStrokeColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.view1.setSolidColor("#FFFFFF");
-                    holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(0).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-                }
-
-
-                if(arrayList.get(position).colorDetails.get(1).chkColor == false){
-                    holder.binding.view2.setVisibility(View.GONE);
-                    holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-
-                }else {
-                    holder.binding.view2.setVisibility(View.VISIBLE);
-                    holder.binding.view2.setStrokeWidth(1);
-                    holder.binding.view2.setStrokeColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.view2.setSolidColor("#FFFFFF");
-                    holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(1).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-                }
-
-
-            }
-
-
-            if(arrayList.get(position).colorDetails.size()==3){
-                holder.binding.layoutOne.setVisibility(View.VISIBLE);
-                holder.binding.layoutTwo.setVisibility(View.VISIBLE);
-                holder.binding.layoutThree.setVisibility(View.VISIBLE);
-                holder.binding.layoutFour.setVisibility(View.GONE);
-
-                if(arrayList.get(position).colorDetails.get(0).chkColor== false){
-                    holder.binding.view1.setVisibility(View.GONE);
-                    holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-
-                }else {
-                    holder.binding.view1.setVisibility(View.VISIBLE);
-                    holder.binding.view1.setStrokeWidth(1);
-                    holder.binding.view1.setStrokeColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.view1.setSolidColor("#FFFFFF");
-                    holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(0).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }
-
-
-                if(arrayList.get(position).colorDetails.get(1).chkColor== false){
-                    holder.binding.view2.setVisibility(View.GONE);
-                    holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-
-                }else {
-                    holder.binding.view2.setVisibility(View.VISIBLE);
-                    holder.binding.view2.setStrokeWidth(1);
-                    holder.binding.view2.setStrokeColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.view2.setSolidColor("#FFFFFF");
-                    holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(1).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }
-
-                if(arrayList.get(position).colorDetails.get(2).chkColor== false){
-                    holder.binding.view3.setVisibility(View.GONE);
-                    holder.binding.view33.setSolidColor(arrayList.get(position).colorDetails.get(2).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-                }else {
-                    holder.binding.view3.setVisibility(View.VISIBLE);
-                    holder.binding.view3.setStrokeWidth(1);
-                    holder.binding.view3.setStrokeColor(arrayList.get(position).colorDetails.get(2).colorCode);
-                    holder.binding.view3.setSolidColor("#FFFFFF");
-                    holder.binding.view33.setSolidColor(arrayList.get(position).colorDetails.get(2).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(2).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(2).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }
-
-
-
-
-
-            }
-
-            if(arrayList.get(position).colorDetails.size()==4){
-                holder.binding.layoutOne.setVisibility(View.VISIBLE);
-                holder.binding.layoutTwo.setVisibility(View.VISIBLE);
-                holder.binding.layoutThree.setVisibility(View.VISIBLE);
-                holder.binding.layoutFour.setVisibility(View.VISIBLE);
-
-                if(arrayList.get(position).colorDetails.get(0).chkColor== false){
-                    holder.binding.view1.setVisibility(View.GONE);
-                    holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-
-                }else {
-                    holder.binding.view1.setVisibility(View.VISIBLE);
-                    holder.binding.view1.setStrokeWidth(1);
-                    holder.binding.view1.setStrokeColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.view1.setSolidColor("#FFFFFF");
-                    holder.binding.view11.setSolidColor(arrayList.get(position).colorDetails.get(0).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(0).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }
-
-
-                if(arrayList.get(position).colorDetails.get(1).chkColor== false){
-                    holder.binding.view2.setVisibility(View.GONE);
-                    holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-
-                }else {
-                    holder.binding.view2.setVisibility(View.VISIBLE);
-                    holder.binding.view2.setStrokeWidth(1);
-                    holder.binding.view2.setStrokeColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.view2.setSolidColor("#FFFFFF");
-                    holder.binding.view22.setSolidColor(arrayList.get(position).colorDetails.get(1).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(1).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(1).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }
-
-                if(arrayList.get(position).colorDetails.get(2).chkColor== false){
-                    holder.binding.view3.setVisibility(View.GONE);
-                    holder.binding.view33.setSolidColor(arrayList.get(position).colorDetails.get(2).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-
-                }else {
-                    holder.binding.view3.setVisibility(View.VISIBLE);
-                    holder.binding.view3.setStrokeWidth(1);
-                    holder.binding.view3.setStrokeColor(arrayList.get(position).colorDetails.get(2).colorCode);
-                    holder.binding.view3.setSolidColor("#FFFFFF");
-                    holder.binding.view33.setSolidColor(arrayList.get(position).colorDetails.get(2).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(2).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(2).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }
-
-
-                if(arrayList.get(position).colorDetails.get(3).chkColor== false){
-                    holder.binding.view4.setVisibility(View.GONE);
-                    holder.binding.view44.setSolidColor(arrayList.get(position).colorDetails.get(3).colorCode);
-                    holder.binding.ivImg.setVisibility(View.GONE);
-                    holder.binding.rvProductItm.setVisibility(View.VISIBLE);
-
-                }else {
-                    holder.binding.view4.setVisibility(View.VISIBLE);
-                    holder.binding.view4.setStrokeWidth(1);
-                    holder.binding.view4.setStrokeColor(arrayList.get(position).colorDetails.get(3).colorCode);
-                    holder.binding.view4.setSolidColor("#FFFFFF");
-                    holder.binding.view44.setSolidColor(arrayList.get(position).colorDetails.get(3).colorCode);
-                    holder.binding.ivImg.setVisibility(View.VISIBLE);
-                    holder.binding.rvProductItm.setVisibility(View.GONE);
-                    SessionManager.writeString(context,"selectImage",arrayList.get(position).colorDetails.get(3).image);
-                    Glide.with(context).load(arrayList.get(position).colorDetails.get(3).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-
-                }
-
-
-
-            }
-
-
-
-
-        }
-
-
-
-
-        holder.binding.layoutOne.setOnClickListener(v -> {
-            // DataManager.getInstance().showProgressMessage((Activity) context,"");
-            for(int i =0; i<arrayList.get(position).colorDetails.size();i++){
-                arrayList.get(position).colorDetails.get(i).setChkColor(false);
-            }
-            arrayList.get(position).colorDetails.get(0).setChkColor(true);
-            notifyItemChanged(position);
-        });
-
-
-        holder.binding.layoutTwo.setOnClickListener(v -> {
-            // DataManager.getInstance().showProgressMessage((Activity) context,"");
-            for(int i =0; i<arrayList.get(position).colorDetails.size();i++){
-                arrayList.get(position).colorDetails.get(i).setChkColor(false);
-            }
-            arrayList.get(position).colorDetails.get(1).setChkColor(true);
-
-            notifyItemChanged(position);
-        });
-
-
-
     }
 
     @Override
@@ -368,12 +97,20 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
         return arrayList.size();
     }
 
+    @Override
+    public void onIcon(int position, String type, ViewPager viewPager) {
+        if(type.equals("color")) {
+            next(position,viewPager);
+        }
+    }
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ItemScrollProductOneBinding binding;
         public MyViewHolder(@NonNull ItemScrollProductOneBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
-
+            bindingMain = itemView;
             binding.ivCart.setOnClickListener(v -> {
                 SessionManager.writeString(context,"selectImage",arrayList.get(getAdapterPosition()).colorDetails.get(0).image);
                 listener.onIcon(getAdapterPosition(),"Cart");
@@ -383,41 +120,8 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 listener.onIcon(getAdapterPosition(),"Fav");
             });
 
-            binding.layoutSecond.setOnClickListener(v -> { context.startActivity(new Intent(context, ProductSingalAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
+            binding.layoutSecond.setOnClickListener(v -> { context.startActivity(new Intent(context, ProductSingalCopyAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
 
-            });
-
-
-           binding.ivImg.setOnClickListener(v -> {
-               if(binding.rvProductItm.getVisibility() == View.GONE){
-                   binding.rvProductItm.setVisibility(View.VISIBLE);
-                   binding.ivImg.setVisibility(View.GONE);
-               }
-
-           });
-
-
-
-
-
-            binding.layoutThree.setOnClickListener(v -> {
-                DataManager.getInstance().showProgressMessage((Activity) context,"");
-                for(int i =0; i<arrayList.get(getAdapterPosition()).colorDetails.size();i++){
-                    arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
-                }
-                arrayList.get(getAdapterPosition()).colorDetails.get(2).setChkColor(true);
-
-                notifyItemChanged(getAdapterPosition());
-            });
-
-
-            binding.layoutFour.setOnClickListener(v -> {
-                DataManager.getInstance().showProgressMessage((Activity) context,"");
-                for(int i =0; i<arrayList.get(getAdapterPosition()).colorDetails.size();i++){
-                    arrayList.get(getAdapterPosition()).colorDetails.get(i).setChkColor(false);
-                }
-                arrayList.get(getAdapterPosition()).colorDetails.get(3).setChkColor(true);
-                notifyItemChanged(getAdapterPosition());
             });
 
 
@@ -448,6 +152,13 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
             arrayList.get(i).colorDetails.get(0).setChkColor(true);
             Log.e("Ist Position==", arrayList.get(i).colorDetails.get(0).chkColor+"");
         }
+    }
+
+
+    public void next(int ii, ViewPager vp) {
+        vp.setCurrentItem(ii);
+        Log.e("slideCurrentAdapter=="+ ii,bindingMain.viewPager.getCurrentItem()+"");
+
     }
 
 }

@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textSize="@dimen/_13sdp"
-            android:text="not available"
+            android:text="@string/bag_is_empty"
             android:visibility="gone"/>
 
     </RelativeLayout>
