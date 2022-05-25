@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.nothing21.ProductSingalAct;
+import com.nothing21.ProductSingalCopyAct;
 import com.nothing21.R;
 import com.nothing21.databinding.ItemCartBinding;
 import com.nothing21.listener.onIconClickListener;
@@ -93,7 +94,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             binding.ivEdit.setOnClickListener(v -> listener.onIcon(getAdapterPosition(),"Edit"));
 
             binding.ivImg.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, ProductSingalAct.class)
+                context.startActivity(new Intent(context, ProductSingalCopyAct.class)
                 .putExtra("id",arrayList.get(getAdapterPosition()).id));
             });
         }

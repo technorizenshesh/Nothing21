@@ -36,6 +36,7 @@ public class AdapterFilterColor extends RecyclerView.Adapter<AdapterFilterColor.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.tvColorName.setText(arrayList.get(position).getColorName());
+        holder.binding.rvColorShade.setAdapter(new ShadeColorAdapter(context,arrayList.get(position).getColorDetails()));
         if(arrayList.get(position).isChk()==true){
             holder.binding.LlMain.setBackground(context.getDrawable(R.drawable.rounded_select_yellow_bg));
         } else  holder.binding.LlMain.setBackground(context.getDrawable(R.drawable.rounded_unselect_white_bg));
@@ -56,16 +57,29 @@ public class AdapterFilterColor extends RecyclerView.Adapter<AdapterFilterColor.
             binding = itemView;
 
             binding.LlMain.setOnClickListener(v -> {
+/*
                 if(arrayList.get(getAdapterPosition()).isChk()==false){
                     arrayList.get(getAdapterPosition()).setChk(true);
                     listener.onPosition(getAdapterPosition(),"true");
-                    notifyDataSetChanged();
+                    notifyItemChanged(getAdapterPosition());
                 }
+*/
+/*
                 else if(arrayList.get(getAdapterPosition()).isChk()==true){
                     arrayList.get(getAdapterPosition()).setChk(false);
                     listener.onPosition(getAdapterPosition(),"false");
-                    notifyDataSetChanged();
+                    notifyItemChanged(getAdapterPosition());
                 }
+*/
+
+                for (int i =0;i<arrayList.size();i++){
+                    arrayList.get(i).setChk(false);
+
+                }
+                arrayList.get(getAdapterPosition()).setChk(true);
+                listener.onPosition(getAdapterPosition(),"true");
+               notifyDataSetChanged();
+
             });
         }
     }

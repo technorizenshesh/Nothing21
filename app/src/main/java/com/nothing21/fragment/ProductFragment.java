@@ -116,6 +116,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         HomeAct.cardTabIcons.animate().alpha(1.0f);
         HomeAct.cardTabIcons.setVisibility(View.VISIBLE);
 
+        SessionManager.writeString(getActivity(),"selectImage","");
 
         binding.rvProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         adapterScroll = new ScrollProductOneAdapter(getActivity(), arrayList, ProductFragment.this);
@@ -253,7 +254,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                         if (!item.isChecked()) {
                             item.setChecked(true);
                             callCategory();
-                            Toast.makeText(getActivity(), "Price", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getActivity(), "Price", Toast.LENGTH_SHORT).show();
                         } else {
                             item.setChecked(false);
                         }
@@ -261,7 +262,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     case R.id.menuColor:
                         if (!item.isChecked()) {
                             item.setChecked(true);
-                            Toast.makeText(getActivity(), "Color", Toast.LENGTH_SHORT).show();
+                        //    Toast.makeText(getActivity(), "Color", Toast.LENGTH_SHORT).show();
                             callColor();
                         } else {
                             item.setChecked(false);
@@ -270,7 +271,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     case R.id.menuSize:
                         if (!item.isChecked()) {
                             item.setChecked(true);
-                            Toast.makeText(getActivity(), "Size", Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getActivity(), "Size", Toast.LENGTH_SHORT).show();
                             callSize();
                         } else {
 
@@ -307,6 +308,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         map.put("category_id", catId);
         map.put("user_id", userId);
         map.put("order_by", sortData);
+        Log.e("product Request===",map.toString());
         Call<ProductModel> loginCall = apiInterface.getAllProduct(map);
         loginCall.enqueue(new Callback<ProductModel>() {
             @Override
@@ -377,20 +379,17 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         } else if (type.equals("Cart")) {
 
             if (arrayList.get(position).colorDetails.size() != 0) {
-                // SessionManager.writeString(getActivity(),"selectImage",arrayList.get(position).imageDetails.get(0).image);
                 new CartFragmentBootomSheet(arrayList.get(position)).callBack(this::info).show(getChildFragmentManager(), "");
             } else
                 Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
 
         } else if (type.equals("Color")) {
             if (arrayList.get(position).colorDetails.size() != 0) {
-                SessionManager.writeString(getActivity(), "selectImage", arrayList.get(position).colorDetails.get(0).image);
                 new ColorSizeFragmentBottomSheet(arrayList.get(position), arrayList.get(position).colorDetails.get(0).size).callBack(this::info).show(getChildFragmentManager(), "");
             } else
                 Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         } else if (type.equals("Size")) {
             if (arrayList.get(position).colorDetails.size() != 0) {
-                SessionManager.writeString(getActivity(), "selectImage", arrayList.get(position).colorDetails.get(0).image);
                 new SizeFragmentBottomSheet(arrayList.get(position), arrayList.get(position).colorDetails.get(0).color).callBack(this::info).show(getChildFragmentManager(), "");
             } else
                 Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
@@ -543,8 +542,14 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     public void ApplyFilter(String type, String value) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
-        if (type.equals("color")) map.put("color", value);
-        else if (type.equals("size")) map.put("size", value);
+        if (type.equals("color")) {
+            map.put("color", value);
+          //  map.put("category_id", value);
+        }
+        else if (type.equals("size")) {
+            map.put("size", value);
+          //  map.put("category_id", value);
+        }
         else if (type.equals("category")) map.put("category_id", value);
         Log.e(TAG, "Apply Filter Request :" + type +"  " + map);
 
@@ -592,6 +597,8 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     @Override
     public void onResume() {
         super.onResume();
+
+
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
             try {
                 if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {

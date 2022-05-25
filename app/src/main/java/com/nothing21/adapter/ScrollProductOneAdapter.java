@@ -112,7 +112,6 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
             binding = itemView;
             bindingMain = itemView;
             binding.ivCart.setOnClickListener(v -> {
-                SessionManager.writeString(context,"selectImage",arrayList.get(getAdapterPosition()).colorDetails.get(0).image);
                 listener.onIcon(getAdapterPosition(),"Cart");
             });
 

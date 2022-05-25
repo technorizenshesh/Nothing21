@@ -356,7 +356,7 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
                         .putExtra("product_id",AddCommaValues())
                         .putExtra("cart_id",AddCommaValues11())
                                 .putExtra("amount",totalAmt+""));
-                        getActivity().finish();
+                      //  getActivity().finish();
                     }
                 });
 

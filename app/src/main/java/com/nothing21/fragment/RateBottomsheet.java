@@ -52,9 +52,12 @@ public class RateBottomsheet extends BottomSheetDialogFragment {
     Nothing21Interface apiInterface;
     RateAdapter adapter;
     ArrayList<RateModel.Result>arrayList;
+    String imgg="";
 
-    public RateBottomsheet(ProductModelCopy.Result productData) {
+
+    public RateBottomsheet(ProductModelCopy.Result productData,String imgg) {
         this.productData = productData;
+        this.imgg = imgg;
     }
 
 
@@ -81,7 +84,7 @@ public class RateBottomsheet extends BottomSheetDialogFragment {
         arrayList = new ArrayList<>();
 
 
-        Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
+        Glide.with(getActivity()).load(imgg)
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                 .into(binding.BlurImageView);
 

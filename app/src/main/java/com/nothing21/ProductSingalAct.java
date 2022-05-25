@@ -1,6 +1,5 @@
 package com.nothing21;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -18,16 +17,11 @@ import com.google.gson.Gson;
 import com.nothing21.adapter.ImageAdapter;
 import com.nothing21.adapter.OtherProAdapter;
 import com.nothing21.adapter.SizeAdapter1;
-import com.nothing21.databinding.ActivityProductBinding;
 import com.nothing21.databinding.ActivityProductSingalBinding;
-import com.nothing21.fragment.CartFragmentBootomSheet;
 import com.nothing21.fragment.CartFragmentBootomSheet1;
-import com.nothing21.fragment.ColorSizeFragmentBottomSheet;
 import com.nothing21.fragment.ColorSizeFragmentBottomSheet1;
-import com.nothing21.fragment.InfoFragmentBottomSheet;
 import com.nothing21.fragment.InfoFragmentBottomSheet1;
 import com.nothing21.fragment.RateBottomsheet;
-import com.nothing21.fragment.SizeFragmentBottomSheet1;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.listener.onItemClickListener;
@@ -107,13 +101,13 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
         binding.ivInfo.setOnClickListener(v -> {
             if(!data.result.description.equals(""))
-                new InfoFragmentBottomSheet1(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+                new InfoFragmentBottomSheet1(data.result,"").callBack(this::info).show(getSupportFragmentManager(),"");
             else   Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
         binding.layoutRatting.setOnClickListener(v -> {
             if(!data.result.description.equals(""))
-                new RateBottomsheet(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+                new RateBottomsheet(data.result,"").callBack(this::info).show(getSupportFragmentManager(),"");
             else   Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
@@ -121,7 +115,7 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
         binding.ivCart.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
-                new CartFragmentBootomSheet1(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+                new CartFragmentBootomSheet1(data.result,SessionManager.readString(ProductSingalAct.this,"selectImage","")).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });

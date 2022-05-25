@@ -1,5 +1,6 @@
 package com.nothing21.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -52,6 +53,11 @@ public class ColorListModel {
         @Expose
         private String dateTime;
 
+        @SerializedName("color_details")
+        @Expose
+        private ArrayList<colorDetails> colorDetails = null;
+
+
         @SerializedName("chk")
         @Expose
         private boolean chk;
@@ -88,8 +94,54 @@ public class ColorListModel {
         public void setChk(boolean chk) {
             this.chk = chk;
         }
+
+
+        public class colorDetails {
+
+            @SerializedName("color")
+            @Expose
+            private String color;
+            @SerializedName("color_code")
+            @Expose
+            private String color_code;
+            @SerializedName("color_id")
+            @Expose
+            private String color_id;
+
+
+            public String getColor() {
+                return color;
+            }
+
+            public void setColor(String color) {
+                this.color = color;
+            }
+
+            public String getColor_code() {
+                return color_code;
+            }
+
+            public void setColor_code(String color_code) {
+                this.color_code = color_code;
+            }
+
+            public String getColor_id() {
+                return color_id;
+            }
+
+            public void setColor_id(String color_id) {
+                this.color_id = color_id;
+            }
+        }
+
+
+        public ArrayList<Result.colorDetails> getColorDetails() {
+            return colorDetails;
+        }
+
+        public void setColorDetails(ArrayList<Result.colorDetails> colorDetails) {
+            this.colorDetails = colorDetails;
+        }
     }
 
 }
-
-

@@ -44,6 +44,7 @@ public class ColorFilterBottomSheet extends BottomSheetDialogFragment implements
     ColorListModel.Result colorListModel;
     double total = 0.00;
     ArrayList<String> addItemList;
+    String colorFilter ="";
 
 
     public ColorFilterBottomSheet() {
@@ -81,10 +82,10 @@ public class ColorFilterBottomSheet extends BottomSheetDialogFragment implements
             Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
         binding.btnApply.setOnClickListener(v -> {
-            if (addItemList.size() == 0)
-                Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
+         //   if (addItemList.size() == 0)
+           if (colorFilter.equals(""))    Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
             else {
-                listener.onFilter("color", AddCommaValues());
+                listener.onFilter("color",colorFilter );  //AddCommaValues()
                 dismiss();
             }
         });
@@ -138,9 +139,11 @@ public class ColorFilterBottomSheet extends BottomSheetDialogFragment implements
         if (status.equals("true")) {
             addItemList.add(arrayList.get(position).getColorName());
         } else if (status.equals("false")) {
-                if (addItemList.size() > 0) addItemList.remove(position);
+              //  if (addItemList.size() >= 1) addItemList.remove(position);
 
             }
+
+        colorFilter = arrayList.get(position).getColorName();
 
         String val = AddCommaValues();
 

@@ -57,7 +57,7 @@ public class AdapterFilterSize extends RecyclerView.Adapter<AdapterFilterSize.My
             binding = itemView;
 
             binding.LlMain.setOnClickListener(v -> {
-                if(arrayList.get(getAdapterPosition()).isChk()==false){
+               /* if(arrayList.get(getAdapterPosition()).isChk()==false){
                     arrayList.get(getAdapterPosition()).setChk(true);
                     listener.onPosition(getAdapterPosition(),"true");
                     notifyDataSetChanged();
@@ -66,7 +66,17 @@ public class AdapterFilterSize extends RecyclerView.Adapter<AdapterFilterSize.My
                     arrayList.get(getAdapterPosition()).setChk(false);
                     listener.onPosition(getAdapterPosition(),"false");
                     notifyDataSetChanged();
+                }*/
+
+                for (int i =0;i<arrayList.size();i++){
+                    arrayList.get(i).setChk(false);
+
                 }
+                arrayList.get(getAdapterPosition()).setChk(true);
+                listener.onPosition(getAdapterPosition(),"true");
+                notifyDataSetChanged();
+
+
             });
         }
     }

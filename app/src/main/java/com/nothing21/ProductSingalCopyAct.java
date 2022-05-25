@@ -55,7 +55,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
     ProductModelCopy data;
     OtherProAdapter adapter;
     String product_id="";
-    String refreshedToken = "",userId="";
+    String refreshedToken = "",userId="",imgg="";
     ImageAdapter adapter11;
     boolean chk = false;
     ArrayList<ProductModelCopy.Result.ColorDetail>colorArrayList;
@@ -105,13 +105,13 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
         binding.ivInfo.setOnClickListener(v -> {
             if(!data.result.description.equals(""))
-                new InfoFragmentBottomSheet1(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+                new InfoFragmentBottomSheet1(data.result,imgg).callBack(this::info).show(getSupportFragmentManager(),"");
             else   Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
         binding.layoutRatting.setOnClickListener(v -> {
             if(!data.result.description.equals(""))
-                new RateBottomsheet(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+                new RateBottomsheet(data.result,imgg).callBack(this::info).show(getSupportFragmentManager(),"");
             else   Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
@@ -119,7 +119,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
         binding.ivCart.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
-                new CartFragmentBootomSheet1(data.result).callBack(this::info).show(getSupportFragmentManager(),"");
+                new CartFragmentBootomSheet1(data.result,imgg).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
@@ -346,7 +346,6 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
         }
         else if(type.equals("color")) {
             next(position);
-            SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",colorArrayList.get(position).image);
 
         }
     }
@@ -361,8 +360,11 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
     public void next(int ii) {
             Log.e("slideCurrent==" + ii,binding.viewPager.getCurrentItem()+"");
-            binding.viewPager.setCurrentItem(ii);
-            Log.e("slideCurrent=="+ ii,binding.viewPager.getCurrentItem()+"");
+          SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",colorArrayList.get(ii).image);
+        imgg = colorArrayList.get(ii).image;
+        binding.viewPager.setCurrentItem(ii);
+            Log.e("slideCurrentImage=="+ ii,SessionManager.readString(ProductSingalCopyAct.this,"selectImage",""));
+        Log.e("slideCurrentImage=="+ ii,imgg);
 
     }
 

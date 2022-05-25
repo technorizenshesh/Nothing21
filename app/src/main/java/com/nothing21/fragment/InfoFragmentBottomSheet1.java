@@ -30,9 +30,11 @@ public class InfoFragmentBottomSheet1 extends BottomSheetDialogFragment {
     private BottomSheetBehavior<View> mBehavior;
     InfoListener listener;
     ProductModelCopy.Result productData;
+    String imgg="";
 
-    public InfoFragmentBottomSheet1(ProductModelCopy.Result productData) {
+    public InfoFragmentBottomSheet1(ProductModelCopy.Result productData,String imgg) {
         this.productData = productData;
+        this.imgg = imgg;
     }
 
 
@@ -57,7 +59,7 @@ public class InfoFragmentBottomSheet1 extends BottomSheetDialogFragment {
     private void initViews() {
         // binding.BlurImageView.setImageBitmap(BitmapFactory.decodeFile(productData.image1));
 
-        Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
+        Glide.with(getActivity()).load(imgg)
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                 .into(binding.BlurImageView);
 

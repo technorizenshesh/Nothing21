@@ -48,7 +48,7 @@ public class SizeFilterBottomSheet  extends BottomSheetDialogFragment implements
     SizeListModel.Result colorListModel;
     double total = 0.00;
     ArrayList<String> addItemList;
-
+    String sizeFilter="";
 
     public SizeFilterBottomSheet() {
     }
@@ -85,10 +85,10 @@ public class SizeFilterBottomSheet  extends BottomSheetDialogFragment implements
             Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
         binding.btnApply.setOnClickListener(v -> {
-            if (addItemList.size() == 0)
-                Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
+           // if (addItemList.size() == 0)
+             if (sizeFilter.equals(""))   Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
             else {
-                listener.onFilter("size", AddCommaValues());
+                listener.onFilter("size",sizeFilter );  // AddCommaValues()
                 dismiss();
             }
         });
@@ -139,12 +139,15 @@ public class SizeFilterBottomSheet  extends BottomSheetDialogFragment implements
     @Override
     public void onPosition(int position, String status) {
         colorListModel = arrayList.get(position);
-        if (status.equals("true")) {
+      /*  if (status.equals("true")) {
             addItemList.add(arrayList.get(position).getSizeName());
         } else if (status.equals("false")) {
             if (addItemList.size() > 0) addItemList.remove(position);
 
-        }
+        }*/
+
+
+        sizeFilter = arrayList.get(position).getSizeName();
 
         String val = AddCommaValues();
 

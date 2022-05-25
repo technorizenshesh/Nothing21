@@ -25,7 +25,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.LoginAct;
 import com.nothing21.ProductSingalAct;
+import com.nothing21.ProductSingalCopyAct;
 import com.nothing21.R;
+import com.nothing21.adapter.ColorAdapter;
+import com.nothing21.adapter.ColorCartAdapter;
 import com.nothing21.adapter.SizeAdapter;
 import com.nothing21.databinding.FragmentCartSheetBinding;
 import com.nothing21.databinding.FragmentInfoBinding;
@@ -66,7 +69,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
     double price =0.00,priceTol=0.00;
     Nothing21Interface apiInterface;
     String refreshedToken = "",userId="";
-    boolean check =false,chkColor = false,chkSize=false;
+    boolean check =false,chkColor = true,chkSize=false;
     ArrayList<ProductModel.Result.ColorDetail> colorArrayList;
 
 
@@ -115,45 +118,39 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
         price = Double.parseDouble(productData.price);
-   /*   if(productData.colorDetails.size()!=0) {
-          binding.tvColor.setText(productData.colorDetails.get(0).color);
-          binding.tvSize.setText(productData.colorDetails.get(0).size);
-      }*/
         priceCal(count);
-        binding.BlurImageView.setBlur(2);
-        Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
-                .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                .into(binding.BlurImageView);
 
-        binding.BlurImageView.setBlur(10);
+        for (int i=0;i<productData.colorDetails.size();i++){
+            if(productData.colorDetails.get(i).isChkColor() == true){
+                SessionManager.writeString(getActivity(),"selectImage",productData.colorDetails.get(i).image);
+                binding.BlurImageView.setBlur(10);
+                Glide.with(getActivity()).load(productData.colorDetails.get(i).image)
+                        .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                        .into(binding.BlurImageView);
+            }
+        }
+
+
+
         colorArrayList.clear();
         colorArrayList.addAll(productData.colorDetails);
 
         binding.rvSize.setAdapter(new SizeAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet.this));
-
-
-        setColorData(productData);
-
+        binding.rvColor.setAdapter(new ColorCartAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet.this));
 
         binding.tvMinus.setOnClickListener(v -> {
-          //  if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
                 if (count > 1) {
                     count = count - 1;
                     check = true;
                     priceCal(count);
-             //   }
             }
-          //  else LogInAlert();
         });
 
         binding.tvPlus.setOnClickListener(v -> {
-           // if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
                 count = count + 1;
                 check = true;
                 priceCal(count);
-         //   }
 
-         //   else LogInAlert();
 
         });
 
@@ -162,11 +159,6 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         binding.ivColor1.setOnClickListener(v -> {
             new ColorSizeFragmentBottomSheet(productData,binding.tvSize.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
         });
-
-
-       /* binding.ivSize.setOnClickListener(v -> {
-            new SizeFragmentBottomSheet(productData,binding.tvColor.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
-        });*/
 
 
         binding.tvAddCart.setOnClickListener(v -> {
@@ -183,40 +175,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
 
 
-        binding.layoutOne.setOnClickListener(v -> {
-            for(int i =0; i<productData.colorDetails.size();i++){
-                productData.colorDetails.get(i).setChkColor(false);
-            }
-            productData.colorDetails.get(0).setChkColor(true);
-            setColorData(productData);
-        });
 
-
-        binding.layoutTwo.setOnClickListener(v -> {
-            for(int i =0; i< productData.colorDetails.size();i++){
-                productData.colorDetails.get(i).setChkColor(false);
-            }
-            productData.colorDetails.get(1).setChkColor(true);
-            setColorData(productData);
-        });
-
-
-        binding.layoutThree.setOnClickListener(v -> {
-            for(int i =0; i< productData.colorDetails.size();i++){
-                productData.colorDetails.get(i).setChkColor(false);
-            }
-            productData.colorDetails.get(2).setChkColor(true);
-            setColorData(productData);
-        });
-
-
-        binding.layoutFour.setOnClickListener(v -> {
-            for(int i =0; i< productData.colorDetails.size();i++){
-                productData.colorDetails.get(i).setChkColor(false);
-            }
-            productData.colorDetails.get(3).setChkColor(true);
-            setColorData(productData);
-        });
 
     }
 
@@ -292,63 +251,6 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
     }
 
 
-    /*public void AddProductToCart(String userIddd){
-        DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Uri mImageUri = Uri.parse(SessionManager.readString(getActivity(),"selectImage",""));
-
-        MultipartBody.Part filePart;
-
-        Log.e("=====",SessionManager.readString(getActivity(),"selectImage",""));
-
-        if (!SessionManager.readString(getActivity(),"selectImage","").equalsIgnoreCase("")) {
-            File file = new File(mImageUri.getPath());   //DataManager.getInstance().saveBitmapToFile(new File());
-            filePart = MultipartBody.Part.createFormData("image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
-        } else {
-            RequestBody attachmentEmpty = RequestBody.create(MediaType.parse("text/plain"), "");
-            filePart = MultipartBody.Part.createFormData("attachment", "", attachmentEmpty);
-        }
-        RequestBody uId = RequestBody.create(MediaType.parse("text/plain"), userIddd);
-        RequestBody ProId = RequestBody.create(MediaType.parse("text/plain"), productData.id);
-        RequestBody counttt = RequestBody.create(MediaType.parse("text/plain"), count+"");
-        RequestBody colorrr = RequestBody.create(MediaType.parse("text/plain"), binding.tvColor.getText().toString());
-        RequestBody sizeee = RequestBody.create(MediaType.parse("text/plain"), binding.tvSize.getText().toString());
-
-
-        Call<Map<String,String>> editNameCall = apiInterface.addToCart11(uId,ProId,counttt,colorrr,sizeee, filePart);
-        editNameCall.enqueue(new Callback<Map<String,String>>() {
-            @Override
-            public void onResponse(Call<Map<String,String>> call, Response<Map<String,String>> response) {
-                DataManager.getInstance().hideProgressMessage();
-                try {
-                    Map<String,String> data = response.body();
-                    String responseString = new Gson().toJson(response.body());
-                    Log.e(TAG, "Add to Cart Response :" + responseString);
-                    if (data.get("status").equals("1")) {
-                        Toast.makeText(getActivity(), getString(R.string.item_added), Toast.LENGTH_SHORT).show();
-
-                    } else if (data.get("status").equals("0")){
-                        Toast.makeText(getActivity(), data.get("message"), Toast.LENGTH_SHORT).show();
-                    }
-
-                    // serviceAdapter.notifyDataSetChanged();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Map<String,String>> call, Throwable t) {
-                call.cancel();
-                DataManager.getInstance().hideProgressMessage();
-            }
-
-        });
-
-
-
-
-    }*/
 
 
     public void LogInAlert(){
@@ -397,267 +299,23 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
 
 
-    private void setColorData(ProductModel.Result data) {
-        if(data.colorDetails!=null){
-            if(data.colorDetails.size()==1){
-                binding.layoutOne.setVisibility(View.VISIBLE);
-                binding.layoutTwo.setVisibility(View.GONE);
-                binding.layoutThree.setVisibility(View.GONE);
-                binding.layoutFour.setVisibility(View.GONE);
-
-                if(data.colorDetails.get(0).isChkColor()== false){
-                    binding.view1.setVisibility(View.GONE);
-                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
-                    //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-                    chkColor = false;
-
-                }else {
-                    binding.view1.setVisibility(View.VISIBLE);
-                    binding.view1.setStrokeWidth(1);
-                    binding.view1.setStrokeColor(data.colorDetails.get(0).colorCode);
-                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(0).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
-
-                    binding.BlurImageView.setBlur(10);
-                    chkColor = true;
-                }
-            }
-
-            if(data.colorDetails.size()==2){
-                binding.layoutOne.setVisibility(View.VISIBLE);
-                binding.layoutTwo.setVisibility(View.VISIBLE);
-                binding.layoutThree.setVisibility(View.GONE);
-                binding.layoutFour.setVisibility(View.GONE);
-
-                if(data.colorDetails.get(0).isChkColor() == false){
-                    binding.view1.setVisibility(View.GONE);
-                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
-                    //   SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-                    chkColor = false;
-
-                }else {
-                    binding.view1.setVisibility(View.VISIBLE);
-                    binding.view1.setStrokeWidth(1);
-                    binding.view1.setStrokeColor(data.colorDetails.get(0).colorCode);
-                    binding.view1.setSolidColor("#FFFFFF");
-                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(0).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
-                    chkColor = true;
-
-                }
-
-
-                if(data.colorDetails.get(1).isChkColor() == false){
-                    binding.view2.setVisibility(View.GONE);
-                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
-                    //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-                    chkColor = false;
-
-                }else {
-                    binding.view2.setVisibility(View.VISIBLE);
-                    binding.view2.setStrokeWidth(1);
-                    binding.view2.setStrokeColor(data.colorDetails.get(1).colorCode);
-                    binding.view2.setSolidColor("#FFFFFF");
-                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(1).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
-                    chkColor = true;
-
-                }
-
-
-            }
-
-
-            if(data.colorDetails.size()==3){
-                binding.layoutOne.setVisibility(View.VISIBLE);
-                binding.layoutTwo.setVisibility(View.VISIBLE);
-                binding.layoutThree.setVisibility(View.VISIBLE);
-                binding.layoutFour.setVisibility(View.GONE);
-
-                if(data.colorDetails.get(0).isChkColor()== false){
-                    binding.view1.setVisibility(View.GONE);
-                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
-                    //  SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-                    chkColor = false;
-                }else {
-                    binding.view1.setVisibility(View.VISIBLE);
-                    binding.view1.setStrokeWidth(1);
-                    binding.view1.setStrokeColor(data.colorDetails.get(0).colorCode);
-                    binding.view1.setSolidColor("#FFFFFF");
-                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(0).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
-                    chkColor = true;
-
-                }
-
-
-                if(data.colorDetails.get(1).isChkColor()== false){
-                    binding.view2.setVisibility(View.GONE);
-                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
-                    //   SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-                    chkColor = false;
-                }else {
-                    binding.view2.setVisibility(View.VISIBLE);
-                    binding.view2.setStrokeWidth(1);
-                    binding.view2.setStrokeColor(data.colorDetails.get(1).colorCode);
-                    binding.view2.setSolidColor("#FFFFFF");
-                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(1).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
-                    chkColor = true;
-
-                }
-
-                if(data.colorDetails.get(2).isChkColor()== false){
-                    binding.view3.setVisibility(View.GONE);
-                    binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
-                    //    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
-                    chkColor = false;
-                }else {
-                    binding.view3.setVisibility(View.VISIBLE);
-                    binding.view3.setStrokeWidth(1);
-                    binding.view3.setStrokeColor(data.colorDetails.get(2).colorCode);
-                    binding.view3.setSolidColor("#FFFFFF");
-                    binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(2).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(2).image);
-                    chkColor = true;
-
-                }
-
-
-
-
-
-            }
-
-            if(data.colorDetails.size()==4){
-                binding.layoutOne.setVisibility(View.VISIBLE);
-                binding.layoutTwo.setVisibility(View.VISIBLE);
-                binding.layoutThree.setVisibility(View.VISIBLE);
-                binding.layoutFour.setVisibility(View.VISIBLE);
-
-                if(data.colorDetails.get(0).isChkColor()== false){
-                    binding.view1.setVisibility(View.GONE);
-                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
-                    //     SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-                    chkColor = false;
-                }else {
-                    binding.view1.setVisibility(View.VISIBLE);
-                    binding.view1.setStrokeWidth(1);
-                    binding.view1.setStrokeColor(data.colorDetails.get(0).colorCode);
-                    binding.view1.setSolidColor("#FFFFFF");
-                    binding.view11.setSolidColor(data.colorDetails.get(0).colorCode);
-
-                    Glide.with(getActivity()).load(data.colorDetails.get(0).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(0).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(0).image);
-                    chkColor = true;
-                }
-
-
-                if(data.colorDetails.get(1).isChkColor()== false){
-                    binding.view2.setVisibility(View.GONE);
-                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
-                    //      SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-                    chkColor = false;
-                }else {
-                    binding.view2.setVisibility(View.VISIBLE);
-                    binding.view2.setStrokeWidth(1);
-                    binding.view2.setStrokeColor(data.colorDetails.get(1).colorCode);
-                    binding.view2.setSolidColor("#FFFFFF");
-                    binding.view22.setSolidColor(data.colorDetails.get(1).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(1).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(1).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(1).image);
-                    chkColor = true;
-
-                }
-
-                if(data.colorDetails.get(2).isChkColor()== false){
-                    binding.view3.setVisibility(View.GONE);
-                    binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
-                    //       SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
-                    chkColor = false;
-                }else {
-                    binding.view3.setVisibility(View.VISIBLE);
-                    binding.view3.setStrokeWidth(1);
-                    binding.view3.setStrokeColor(data.colorDetails.get(2).colorCode);
-                    binding.view3.setSolidColor("#FFFFFF");
-                    binding.view33.setSolidColor(data.colorDetails.get(2).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(2).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(2).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(2).image);
-                    chkColor = true;
-
-                }
-
-
-                if(data.colorDetails.get(3).isChkColor()== false){
-                    binding.view4.setVisibility(View.GONE);
-                    binding.view44.setSolidColor(data.colorDetails.get(3).colorCode);
-                    //       SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(3).color);
-                    chkColor = false;
-                }else {
-                    binding.view4.setVisibility(View.VISIBLE);
-                    binding.view4.setStrokeWidth(1);
-                    binding.view4.setStrokeColor(data.colorDetails.get(3).colorCode);
-                    binding.view4.setSolidColor("#FFFFFF");
-                    binding.view44.setSolidColor(data.colorDetails.get(3).colorCode);
-                    Glide.with(getActivity()).load(data.colorDetails.get(3).image)
-                            .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
-                            .into(binding.BlurImageView);
-                    SessionManager.writeString(getActivity(),"selectColor",data.colorDetails.get(3).color);
-                    SessionManager.writeString(getActivity(),"selectImage",data.colorDetails.get(3).image);
-                    chkColor = true;
-                }
-
-
-
-            }
-
-
-
-
-        }
-
-    }
 
 
     @Override
     public void onIcon(int position, String type) {
-        if(type.equals("size"))
-         //   SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
-        SessionManager.writeString(getActivity(),"selectSize",colorArrayList.get(position).size);
-        chkSize = true;
+        if(type.equals("size")) {
+            SessionManager.writeString(getActivity(), "selectSize", colorArrayList.get(position).size);
+            chkSize = true;
+        }
+        else if(type.equals("color"))
+        {
+            SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
+            binding.BlurImageView.setBlur(10);
+            Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
+                    .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                    .into(binding.BlurImageView);
+            chkColor = true;
+        }
     }
 
 
