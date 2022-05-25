@@ -34,6 +34,9 @@ public class AdapterFilterCategoty extends RecyclerView.Adapter<AdapterFilterCat
         return new MyViewHolder(binding);
     }
 
+
+
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.tvColorName.setText(arrayList.get(position).getCategoryName());
