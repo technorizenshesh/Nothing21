@@ -2,6 +2,7 @@ package com.nothing21.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class AdapterFilterSize extends RecyclerView.Adapter<AdapterFilterSize.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.binding.layoutColor.setVisibility(View.GONE);
         holder.binding.tvColorName.setText(arrayList.get(position).getSizeName());
         if(arrayList.get(position).isChk()==true){
             holder.binding.LlMain.setBackground(context.getDrawable(R.drawable.rounded_select_yellow_bg));
@@ -56,7 +58,7 @@ public class AdapterFilterSize extends RecyclerView.Adapter<AdapterFilterSize.My
             super(itemView.getRoot());
             binding = itemView;
 
-            binding.LlMain.setOnClickListener(v -> {
+            binding.layoutClick.setOnClickListener(v -> {
                /* if(arrayList.get(getAdapterPosition()).isChk()==false){
                     arrayList.get(getAdapterPosition()).setChk(true);
                     listener.onPosition(getAdapterPosition(),"true");

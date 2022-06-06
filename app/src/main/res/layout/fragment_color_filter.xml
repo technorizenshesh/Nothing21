@@ -55,7 +55,8 @@
             android:layout_margin="@dimen/_5sdp"
             tools:listitem="@layout/item_color_filter"
             android:layout_above="@+id/btnApply"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
             />
 
         <TextView

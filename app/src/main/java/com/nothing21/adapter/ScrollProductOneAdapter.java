@@ -112,6 +112,7 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
             binding = itemView;
             bindingMain = itemView;
             binding.ivCart.setOnClickListener(v -> {
+                arrayList.get(getAdapterPosition()).colorDetails.get(0).setChkColor(true);
                 listener.onIcon(getAdapterPosition(),"Cart");
             });
 

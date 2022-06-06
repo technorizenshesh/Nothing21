@@ -56,7 +56,7 @@ public class AdapterFilterColor extends RecyclerView.Adapter<AdapterFilterColor.
             super(itemView.getRoot());
             binding = itemView;
 
-            binding.LlMain.setOnClickListener(v -> {
+            binding.layoutClick.setOnClickListener(v -> {
 /*
                 if(arrayList.get(getAdapterPosition()).isChk()==false){
                     arrayList.get(getAdapterPosition()).setChk(true);
@@ -81,6 +81,9 @@ public class AdapterFilterColor extends RecyclerView.Adapter<AdapterFilterColor.
                notifyDataSetChanged();
 
             });
+
+
+
         }
     }
 }

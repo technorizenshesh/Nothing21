@@ -86,7 +86,7 @@ public class SizeFilterBottomSheet  extends BottomSheetDialogFragment implements
 
         binding.btnApply.setOnClickListener(v -> {
            // if (addItemList.size() == 0)
-             if (sizeFilter.equals(""))   Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
+             if (sizeFilter.equals(""))   Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
             else {
                 listener.onFilter("size",sizeFilter );  // AddCommaValues()
                 dismiss();
