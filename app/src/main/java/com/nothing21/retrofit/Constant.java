@@ -2,9 +2,9 @@ package com.nothing21.retrofit;
 
 public class Constant {
 
-    public static final String BASE_URL = "https://www.adspot.ae/nothing21/webservice/"; // https://www.lamavie.ml/lamavie/webservice/
+    public static final String BASE_URL = "https://nothing21.com/nothing21/index.php/webservice/"; // https://www.lamavie.ml/lamavie/webservice/
 
-    public static final String BASE_URL1 = ""; //       http://nothing21.com/webservice/
+    public static final String BASE_URL1 = ""; //       https://www.adspot.ae/nothing21/webservice/
 
 
 

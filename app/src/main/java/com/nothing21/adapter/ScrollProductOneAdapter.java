@@ -120,7 +120,10 @@ public class ScrollProductOneAdapter extends RecyclerView.Adapter<ScrollProductO
                 listener.onIcon(getAdapterPosition(),"Fav");
             });
 
-            binding.layoutSecond.setOnClickListener(v -> { context.startActivity(new Intent(context, ProductSingalCopyAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
+            binding.layoutSecond.setOnClickListener(v -> {
+                SessionManager.writeString(context,"selectImage",arrayList.get(getAdapterPosition()).colorDetails.get(0).image);
+
+                context.startActivity(new Intent(context, ProductSingalCopyAct.class).putExtra("id",arrayList.get(getAdapterPosition()).id));
 
             });
 

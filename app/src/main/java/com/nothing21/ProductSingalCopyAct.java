@@ -104,14 +104,18 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
 
         binding.ivInfo.setOnClickListener(v -> {
-            if(!data.result.description.equals(""))
-                new InfoFragmentBottomSheet1(data.result,imgg).callBack(this::info).show(getSupportFragmentManager(),"");
+            if(!data.result.description.equals("")) {
+                if(imgg.equals("")) imgg = colorArrayList.get(0).image;
+                new InfoFragmentBottomSheet1(data.result, imgg).callBack(this::info).show(getSupportFragmentManager(), "");
+            }
             else   Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
         binding.layoutRatting.setOnClickListener(v -> {
-            if(!data.result.description.equals(""))
-                new RateBottomsheet(data.result,imgg).callBack(this::info).show(getSupportFragmentManager(),"");
+            if(!data.result.description.equals("")) {
+                if (imgg.equals("")) imgg = colorArrayList.get(0).image;
+                new RateBottomsheet(data.result, imgg).callBack(this::info).show(getSupportFragmentManager(), "");
+            }
             else   Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
@@ -119,6 +123,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
         binding.ivCart.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
+               if(imgg.equals("")) imgg = colorArrayList.get(0).image;
                 new CartFragmentBootomSheet1(data.result,imgg).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
@@ -192,6 +197,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
                         binding.rvSize.setAdapter(new SizeAdapter1(ProductSingalCopyAct.this, colorArrayList,ProductSingalCopyAct.this));
                         binding.rvColor.setAdapter(new ColorAdapter(ProductSingalCopyAct.this, colorArrayList,ProductSingalCopyAct.this));
                         SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",data.result.colorDetails.get(0).image);
+                        imgg = data.result.colorDetails.get(0).image;
 
 
                        /* if(!data.result.discount.equals("")) {

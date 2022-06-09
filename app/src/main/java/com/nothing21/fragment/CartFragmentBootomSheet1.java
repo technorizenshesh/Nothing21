@@ -121,8 +121,9 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         }
         priceCal(count);
         binding.BlurImageView.setBlur(10);
-        Log.e("Image Cart =====",img);
 
+     //   if (img==null || img.equals("")) img = SessionManager.readString(getActivity(),"selectImage","");
+        Log.e("Image Cart =====",img);
         Glide.with(getActivity()).load(img)
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                 .into(binding.BlurImageView);
@@ -225,7 +226,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     }
 
     public void AddProductToCart11(String userIdss){
-        String imgName [] = SessionManager.readString(getActivity(),"selectImage","").split("/");
+        String imgName [] = img.split("/");//SessionManager.readString(getActivity(),"selectImage","").split("/");
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String,String> map = new HashMap<>();
         map.put("user_id",userIdss);
@@ -376,9 +377,10 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         }
         else if(type.equals("color"))
         {
-            SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
+            img = colorArrayList.get(position).image;
+           // SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
             binding.BlurImageView.setBlur(10);
-            Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
+            Glide.with(getActivity()).load(img)
                     .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                     .into(binding.BlurImageView);
             chkColor = true;
