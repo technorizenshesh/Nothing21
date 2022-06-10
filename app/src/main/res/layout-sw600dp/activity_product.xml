@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+        <RelativeLayout
+            android:id="@+id/rlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/_8sdp">
+
+
+            <EditText
+                android:id="@+id/tvSearch"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:layout_marginEnd="@dimen/_7sdp"
+                android:layout_toLeftOf="@+id/ivDesign"
+                android:background="@drawable/rounded_white_black_bg"
+                android:drawableLeft="@drawable/ic_search"
+                android:drawablePadding="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/_10sdp"
+                android:singleLine="true"
+                android:hint="@string/search_product_name"
+                android:textColor="@color/color_grey"
+                android:textSize="@dimen/_9sdp" />
+
+
+
+
+            <ImageView
+                android:id="@+id/ivDesign"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/ic_design"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@+id/ivCamera"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:padding="@dimen/_6sdp"
+                android:elevation="@dimen/_2sdp"/>
+
+
+
+            <ImageView
+                android:id="@+id/ivCamera"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/ic_camera"
+                android:layout_toLeftOf="@+id/ivDisplay"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:padding="@dimen/_6sdp"
+                android:elevation="@dimen/_2sdp"/>
+
+
+
+
+            <ImageView
+                android:id="@+id/ivDisplay"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/ic_downa"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@+id/ivFilter"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:padding="@dimen/_6sdp"
+                android:elevation="@dimen/_2sdp"/>
+
+
+
+
+
+            <ImageView
+                android:id="@+id/ivFilter"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/ic_filter"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:elevation="@dimen/_2sdp"/>
+
+
+
+        </RelativeLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProducts"
+            android:layout_below="@+id/rlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_scroll_product"/>
+
+
+
+        <TextView
+            android:id="@+id/tvFound"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/_13sdp"
+            android:text="not available"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+</layout>

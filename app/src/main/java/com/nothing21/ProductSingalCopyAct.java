@@ -1,10 +1,15 @@
 package com.nothing21;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,10 +26,12 @@ import com.nothing21.adapter.OtherProAdapter;
 import com.nothing21.adapter.SizeAdapter1;
 import com.nothing21.databinding.ActivityProductSingalBinding;
 import com.nothing21.databinding.ActivityProductSingalCopyBinding;
+import com.nothing21.databinding.DialogFullscreenImageBinding;
 import com.nothing21.fragment.CartFragmentBootomSheet1;
 import com.nothing21.fragment.ColorSizeFragmentBottomSheet1;
 import com.nothing21.fragment.InfoFragmentBottomSheet1;
 import com.nothing21.fragment.RateBottomsheet;
+import com.nothing21.listener.ImageListener;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.listener.onItemClickListener;
@@ -45,13 +52,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductSingalCopyAct  extends AppCompatActivity implements InfoListener, onItemClickListener, onIconClickListener {
+public class ProductSingalCopyAct  extends AppCompatActivity implements InfoListener, onItemClickListener, onIconClickListener, ImageListener {
     public String TAG = "ProductSingalCopyAct";
     ActivityProductSingalCopyBinding binding;
+    DialogFullscreenImageBinding dialogBinding;
     Nothing21Interface apiInterface;
     ArrayList<ProductModelCopy.Result.ColorDetail> imgArrayList;
     ArrayList<ProductModel.Result> arrayList;
 
+    // https://nothing21.com/product?product_id=11
     ProductModelCopy data;
     OtherProAdapter adapter;
     String product_id="";
@@ -91,7 +100,17 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
 
                 if(getIntent()!=null) {
-                    product_id = getIntent().getStringExtra("id");
+                    if(getIntent().getData().getScheme().equals("https")){
+                        Intent appLinkIntent = getIntent();
+                        Uri appLinkData = appLinkIntent.getData();
+                        product_id = appLinkData.getQueryParameter("product_id");
+                        Log.e("This is DeepLink==", String.valueOf(appLinkData));
+
+                    }
+                    else {
+                        product_id = getIntent().getStringExtra("id");
+                        Log.e("Not DeepLink==",product_id);
+                    }
                     if(NetworkAvailablity.checkNetworkStatus(ProductSingalCopyAct.this))  GetProduct(product_id);
                     else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();                }
 
@@ -99,6 +118,10 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
                 // Yay.. we have our new token now.
             } catch (Exception e) {
                 e.printStackTrace();
+                product_id = getIntent().getStringExtra("id");
+                Log.e("Not DeepLink==",product_id);
+                if(NetworkAvailablity.checkNetworkStatus(ProductSingalCopyAct.this))  GetProduct(product_id);
+                else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -142,6 +165,14 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
             if(NetworkAvailablity.checkNetworkStatus(ProductSingalCopyAct.this))addFavrirr(product_id);
             else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
+        });
+
+
+        binding.ivShare.setOnClickListener(v -> {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://nothing21.com/product?product_id=" + product_id);
+            startActivity(Intent.createChooser(shareIntent, "Share link using"));
         });
 
     }
@@ -193,7 +224,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
                         }
 
-                        binding.viewPager.setAdapter(new MyViewPagerAdapter(ProductSingalCopyAct.this,imgArrayList));
+                        binding.viewPager.setAdapter(new MyViewPagerAdapter(ProductSingalCopyAct.this,imgArrayList,ProductSingalCopyAct.this));
                         binding.rvSize.setAdapter(new SizeAdapter1(ProductSingalCopyAct.this, colorArrayList,ProductSingalCopyAct.this));
                         binding.rvColor.setAdapter(new ColorAdapter(ProductSingalCopyAct.this, colorArrayList,ProductSingalCopyAct.this));
                         SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",data.result.colorDetails.get(0).image);
@@ -374,9 +405,23 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
     }
 
+    private void openFullScreenImageDialog(Context context, String image) {
+
+        Dialog dialogFullscreen    = new Dialog(context, WindowManager.LayoutParams.MATCH_PARENT);
+        dialogBinding = DataBindingUtil.inflate(LayoutInflater.from(context),
+                R.layout.dialog_fullscreen_image, null, false);
+        dialogFullscreen.setContentView(dialogBinding.getRoot());
+
+        Glide.with(context).load(image).into(dialogBinding.imageViewMain);
 
 
+        dialogFullscreen.show();
 
+    }
 
+    @Override
+    public void onImage(int position) {
+        openFullScreenImageDialog(ProductSingalCopyAct.this,imgArrayList.get(position).image);
+    }
 }
 

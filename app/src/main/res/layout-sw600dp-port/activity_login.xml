@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signin_and_register"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_25sdp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/existing_customers"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/_12sdp"
+            android:layout_margin="@dimen/_10sdp"
+            />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email_address"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/black"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/_11sdp"
+                android:layout_marginTop="-5dp"/>
+
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/rounded_border_bg"
+                android:elevation="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/_7sdp"
+                android:singleLine="true"
+                android:text="sddsds"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/black"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/_11sdp"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+
+            <EditText
+                android:id="@+id/etPasswoprd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_border_bg"
+                android:padding="@dimen/_7sdp"
+                android:elevation="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/black"
+                android:text="sddsds"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forgot_password"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/black"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/_11sdp"
+                android:layout_marginTop="@dimen/_20sdp"/>
+
+
+
+
+            <TextView
+                android:id="@+id/btnSignin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/white"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/_8sdp"
+                android:textSize="@dimen/_11sdp"
+                android:textAllCaps="true"
+                android:elevation="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/rounded_black_bg"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_customer"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_17sdp"/>
+
+
+
+            <TextView
+                android:id="@+id/btnSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_now"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/black"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/_8sdp"
+                android:textSize="@dimen/_11sdp"
+                android:textAllCaps="true"
+                android:elevation="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_37sdp"
+                android:background="@drawable/rounded_border_black_bg"/>
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+</layout>

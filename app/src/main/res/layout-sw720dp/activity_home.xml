@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardTabs"
+            android:layout_width="@dimen/_200sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_25sdp"
+            app:cardElevation="@dimen/_5sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <RelativeLayout
+                    android:id="@+id/rlHome"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_7sdp">
+
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:padding="@dimen/_4sdp">
+
+                        <ImageView
+                            android:id="@+id/ivHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/home_inactive" />
+
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlCart"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_7sdp">
+
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:padding="@dimen/_2sdp">
+
+                        <ImageView
+                            android:id="@+id/ivCart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_logo" />
+
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlAccount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_7sdp">
+
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:padding="@dimen/_4sdp">
+
+                        <ImageView
+                            android:id="@+id/ivAccount"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/account_inactive" />
+
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardTabIcons"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_25sdp"
+            app:cardElevation="@dimen/_5sdp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <RelativeLayout
+                    android:id="@+id/rlIcons"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:padding="@dimen/_7sdp">
+
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:padding="@dimen/_6sdp">
+
+                        <ImageView
+                            android:id="@+id/ivIcons"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/home_inactive" />
+
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+</layout>

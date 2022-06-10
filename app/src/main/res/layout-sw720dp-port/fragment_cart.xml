@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_10sdp">
+
+        <LinearLayout
+            android:id="@+id/layoutHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bag"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/black"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp">
+
+
+                <TextView
+                    android:id="@+id/tvOrder"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Value"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/_11sdp"
+                    android:textColor="@color/black"/>
+
+
+                <TextView
+                    android:layout_toRightOf="@+id/tvOrder"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" (Excluding Delivery) "
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/color_grey"/>
+
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="AED 63"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+
+            </RelativeLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCheckout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@drawable/rounded_black_bg"
+                android:text="@string/check_out"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_10sdp"/>
+
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutHeader"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_cart" />
+
+        <TextView
+            android:id="@+id/tvFound"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/_13sdp"
+            android:text="@string/bag_is_empty"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</layout>

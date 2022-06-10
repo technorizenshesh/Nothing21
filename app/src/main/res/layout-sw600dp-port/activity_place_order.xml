@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_address"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/black"/>
+
+
+    <TextView
+        android:id="@+id/tvCompleteadd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="@dimen/_11sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:textColor="@color/black"
+        android:hint="@string/please_select_address"
+        android:maxLines="2"/>
+
+
+
+
+    <TextView
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/rounded_black_bg"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="@dimen/_13sdp"/>
+
+
+</LinearLayout>
+</layout>
