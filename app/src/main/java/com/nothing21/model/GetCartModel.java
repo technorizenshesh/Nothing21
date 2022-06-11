@@ -17,7 +17,7 @@ public class GetCartModel {
     public String status;
     @SerializedName("total_amount")
     @Expose
-    public Integer totalAmount;
+    public String totalAmount;
 
     public class Result {
 

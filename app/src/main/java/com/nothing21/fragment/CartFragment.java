@@ -171,7 +171,7 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
                         }
                         Log.e("prolist_size===",stringArrayList.size()+"");
                         adapter.notifyDataSetChanged();
-                        totalAmt = data11.totalAmount;
+                        totalAmt = Double.parseDouble(data11.totalAmount);
                         binding.tvPrice.setText("AED " + String.format("%.2f",totalAmt ));
 
 
