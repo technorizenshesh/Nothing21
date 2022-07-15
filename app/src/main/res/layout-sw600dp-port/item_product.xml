@@ -45,6 +45,7 @@
             android:fontFamily="@font/poppins_regular"
             android:layout_margin="@dimen/_5sdp"
             android:text="sdsdsd"
+            android:maxLines="2"
             android:gravity="center"/>
 
         <TextView

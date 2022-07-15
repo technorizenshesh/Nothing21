@@ -147,6 +147,9 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
         binding.ivCart.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
                if(imgg.equals("")) imgg = colorArrayList.get(0).image;
+                SessionManager.writeString(ProductSingalCopyAct.this,"avaQuantity",colorArrayList.get(0).remainingQuantity);
+                SessionManager.writeString(ProductSingalCopyAct.this,"colorDetailsId",colorArrayList.get(0).colorId);
+
                 new CartFragmentBootomSheet1(data.result,imgg).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
@@ -398,6 +401,9 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
     public void next(int ii) {
             Log.e("slideCurrent==" + ii,binding.viewPager.getCurrentItem()+"");
           SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",colorArrayList.get(ii).image);
+         SessionManager.writeString(ProductSingalCopyAct.this,"avaQuantity",colorArrayList.get(ii).remainingQuantity);
+        SessionManager.writeString(ProductSingalCopyAct.this,"colorDetailsId",colorArrayList.get(ii).colorId);
+
         imgg = colorArrayList.get(ii).image;
         binding.viewPager.setCurrentItem(ii);
             Log.e("slideCurrentImage=="+ ii,SessionManager.readString(ProductSingalCopyAct.this,"selectImage",""));

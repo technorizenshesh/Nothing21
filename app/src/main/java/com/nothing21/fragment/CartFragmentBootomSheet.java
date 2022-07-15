@@ -166,10 +166,17 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
            else if(chkSize==false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
 
             else {
+
+             if(Integer.parseInt(SessionManager.readString(getActivity(),"avaQuantity",""))>0){
+
                 if (NetworkAvailablity.checkNetworkStatus(getActivity()))
                     AddProductToCart11(userId);
                 else
                     Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+            }
+
+            else Toast.makeText(getActivity(),getString(R.string.product__out_of_stock),Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -205,7 +212,11 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
     }
 
     public void AddProductToCart11(String userIddd){
-        String imgName [] = SessionManager.readString(getActivity(),"selectImage","").split("/");
+        String imgName []=null;
+        for(int i =0;i<colorArrayList.size();i++){
+           if( colorArrayList.get(i).isChkColor()==true)  imgName =  colorArrayList.get(i).image.split("/");
+        }
+       // String imgName [] = SessionManager.readString(getActivity(),"selectImage","").split("/");
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String,String> map = new HashMap<>();
         map.put("user_id",userIddd);
@@ -213,6 +224,8 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         map.put("quantity",count+"");
         map.put("color",SessionManager.readString(getActivity(),"selectColor",""));
         map.put("size",SessionManager.readString(getActivity(),"selectSize",""));
+        map.put("color_id",SessionManager.readString(getActivity(),"colorDetailsId",""));
+
         map.put("image", imgName[6]);
         map.put("price",priceTol+"");
         Log.e(TAG, "Add to Cart Request :" + map);
@@ -309,7 +322,17 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         }
         else if(type.equals("color"))
         {
+            for(int i =0;i<colorArrayList.size();i++){
+                colorArrayList.get(i).setChkColor(false);
+            }
+            colorArrayList.get(position).setChkColor(true);
+
+            SessionManager.writeString(getActivity(),"avaQuantity",colorArrayList.get(position).remainingQuantity);
+
             SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
+            SessionManager.writeString(getActivity(),"selectColor",colorArrayList.get(position).color);
+            SessionManager.writeString(getActivity(),"colorDetailsId",colorArrayList.get(position).colorId);
+
             binding.BlurImageView.setBlur(10);
             Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
                     .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))

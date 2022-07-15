@@ -36,7 +36,9 @@ public class AdapterSearch extends RecyclerView.Adapter<AdapterSearch.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Glide.with(context).load("https://www.adspot.ae/nothing21/uploads/images/"+arrayList.get(position).image1).error(R.drawable.dummy).into(holder.binding.ivImg);
+     //   Glide.with(context).load("https://www.adspot.ae/nothing21/uploads/images/"+arrayList.get(position).image1).error(R.drawable.dummy).into(holder.binding.ivImg);
+        Glide.with(context).load(arrayList.get(position).image).error(R.drawable.dummy).into(holder.binding.ivImg);
+
         holder.binding.tvProductName.setText(arrayList.get(position).name);
         holder.binding.tvBrand.setText(arrayList.get(position).brand);
         holder.binding.tvPrise.setText("AFD" +arrayList.get(position).price);

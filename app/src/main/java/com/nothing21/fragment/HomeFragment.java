@@ -209,7 +209,10 @@ public class HomeFragment extends Fragment  implements onItemClickListener {
 
     @Override
     public void onItem(int position) {
-        FragTrans(new ProductFragment(arrayList.get(position).id+""));
+     //   FragTrans(new ProductFragment(arrayList.get(position).id+""));
+
+        FragTrans(new SubCatFragment(arrayList.get(position).id+""));
+
     }
 
 
@@ -219,7 +222,9 @@ public class HomeFragment extends Fragment  implements onItemClickListener {
 
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                FragTrans(new ProductFragment(data.getStringExtra("id")));    ;
+                //FragTrans(new ProductFragment(data.getStringExtra("id")));    ;
+                FragTrans(new SubCatFragment(data.getStringExtra("id")));    ;
+
             }
         }
 

@@ -176,9 +176,15 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
            else if(chkSize == false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
 
             else {
-                if (NetworkAvailablity.checkNetworkStatus(getActivity())) AddProductToCart11(userId);
-                else
-                    Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                if (Integer.parseInt(SessionManager.readString(getActivity(), "avaQuantity", "")) > 0) {
+
+                    if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                        AddProductToCart11(userId);
+                    else
+                        Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                }
+                else Toast.makeText(getActivity(),getString(R.string.product__out_of_stock),Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -234,6 +240,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         map.put("quantity",count+"");
         map.put("color",SessionManager.readString(getActivity(),"selectColor",""));
         map.put("size",SessionManager.readString(getActivity(),"selectSize",""));
+        map.put("color_id",SessionManager.readString(getActivity(),"colorDetailsId",""));
         map.put("image", imgName[6]);
         map.put("price",priceTol+"");
         Log.e(TAG, "Add to Cart Request :" + map);
@@ -378,7 +385,10 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         else if(type.equals("color"))
         {
             img = colorArrayList.get(position).image;
-           // SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
+            SessionManager.writeString(getActivity(),"avaQuantity",colorArrayList.get(position).remainingQuantity);
+            SessionManager.writeString(getActivity(),"colorDetailsId",colorArrayList.get(position).colorId);
+
+            // SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
             binding.BlurImageView.setBlur(10);
             Glide.with(getActivity()).load(img)
                     .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))

@@ -125,11 +125,11 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         });
 
 
-       binding.layoutProcessing.setOnClickListener(v -> {
+    /*   binding.layoutProcessing.setOnClickListener(v -> {
             if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
               startActivity(new Intent(getActivity(), OrderStatusAct.class));
             }
-        });
+        });*/
 
 
         arrayList = new ArrayList<>();
@@ -237,8 +237,8 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             binding.tvWishList.setTextColor(getActivity().getResources().getColor(R.color.white));
             binding.tvView.setTextColor(getActivity().getResources().getColor(R.color.black));
             binding.rvFavList.setVisibility(View.VISIBLE);
-            if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+           /* if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
         }
         else if(i==2){
             binding.tvWishList.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
@@ -247,8 +247,8 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             binding.tvView.setTextColor(getActivity().getResources().getColor(R.color.white));
             binding.rvFavList.setVisibility(View.VISIBLE);
          //   binding.tvFound.setVisibility(View.VISIBLE);
-            if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllWishList();
-            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+           /* if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllWishList();
+            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
 
         }
     }
@@ -372,8 +372,8 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.get("status").equals("1")) {
-                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                    /*    if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
                     } else if (data.get("status").equals("0")){
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
 
@@ -423,14 +423,14 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                     Log.e(TAG, "Remove fav Response :" + responseString);
                     if (data.get("status").equals("1")) {
 
-                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                     /*   if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
 
 
                     } else if (data.get("status").equals("0")){
 
-                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                     /*   if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
                     }
 
                     // serviceAdapter.notifyDataSetChanged();

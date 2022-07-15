@@ -98,9 +98,9 @@ public class ProductModelCopy {
 
         public class ColorDetail {
 
-            @SerializedName("id")
+            @SerializedName("color_id")
             @Expose
-            public String id;
+            public String colorId;
             @SerializedName("product_id")
             @Expose
             public String productId;
@@ -122,6 +122,9 @@ public class ProductModelCopy {
             @Expose
             public String colorCode;
 
+            @SerializedName("remaining_quantity")
+            @Expose
+            public String remainingQuantity;
 
             @SerializedName("chk_color")
             @Expose
@@ -149,11 +152,11 @@ public class ProductModelCopy {
             }
 
             public String getId() {
-                return id;
+                return colorId;
             }
 
-            public void setId(String id) {
-                this.id = id;
+            public void setId(String colorId) {
+                this.colorId = colorId;
             }
 
             public String getProductId() {

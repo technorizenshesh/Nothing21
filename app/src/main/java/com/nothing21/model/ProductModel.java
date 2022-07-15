@@ -103,9 +103,9 @@ public class ProductModel {
 
         public class ColorDetail {
 
-            @SerializedName("id")
+            @SerializedName("color_id")
             @Expose
-            public String id;
+            public String colorId;
             @SerializedName("product_id")
             @Expose
             public String productId;
@@ -127,6 +127,11 @@ public class ProductModel {
             @SerializedName("color_code")
             @Expose
             public String colorCode;
+
+
+            @SerializedName("remaining_quantity")
+            @Expose
+            public String remainingQuantity;
 
             @SerializedName("chk_color")
             @Expose

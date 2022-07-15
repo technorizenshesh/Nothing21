@@ -18,6 +18,7 @@ import com.nothing21.model.ProductModelCopy;
 import com.nothing21.model.RateModel;
 import com.nothing21.model.SearchModel;
 import com.nothing21.model.SizeListModel;
+import com.nothing21.model.SubCatModel;
 
 import java.util.Map;
 
@@ -53,6 +54,11 @@ public interface Nothing21Interface {
 
     @GET("get_category")
     Call<CategoryModel> getAllCategory();
+
+
+    @FormUrlEncoded
+    @POST("get_sub_category")
+    Call<SubCatModel> getAllSubCategory (@FieldMap Map<String, String> params);
 
 
     @FormUrlEncoded

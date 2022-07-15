@@ -93,6 +93,16 @@ public class HomeAct extends AppCompatActivity {
         ExitAlert();
     }
 
+
+ /*   @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            ExitAlert();
+        }
+    }*/
+
     public void ExitAlert(){
         AlertDialog.Builder  builder1 = new AlertDialog.Builder(HomeAct.this);
         builder1.setMessage(getResources().getString(R.string.are_you_sure_you_want_to_exit_this_app));

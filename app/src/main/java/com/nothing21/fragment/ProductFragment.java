@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,15 +62,17 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     // ScrollProductAdapter adapterScroll;
     ScrollProductOneAdapter adapterScroll;
     GirdProductAdapter adapterGrid;
-    String viewType = "vertical", catId = "";
+    String viewType = "vertical", catId = "",subCatId="";
     public static TextView tvFound;
     String refreshedToken = "", userId = "", sortData = "DESC", filterString = "Name";
     boolean chk = false;
     static int y = 0;
 
 
-    public ProductFragment(String catId) {
+    public ProductFragment(String catId,String subCatId) {
         this.catId = catId;
+        this.subCatId = subCatId;
+
     }
 
     @Nullable
@@ -94,8 +97,11 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                 Log.i(TAG, "keyCode: " + keyCode);
                 if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
                     Log.i(TAG, "onKey Back listener is working!!!");
-                    startActivity(new Intent(getActivity(), HomeAct.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                    getActivity().finish();
+                   // startActivity(new Intent(getActivity(), HomeAct.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                   // getActivity().finish();
+                   // getActivity().onBackPressed();
+                    FragTrans(new SubCatFragment(catId+""));
+
                     return true;
                 }
                 return false;
@@ -131,7 +137,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             if (sortData.equals("DESC")) sortData = "ASC";
             else if (sortData.equals("ASC")) sortData = "DESC";
             if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                GetAllProduct(catId, sortData,"",0);
+                GetAllProduct(catId,subCatId, sortData,"",0);
             else
                 Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         });
@@ -302,10 +308,11 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     }
 
 
-    public void GetAllProduct(String catId, String sortData,String ChkFav,int pos) {
+    public void GetAllProduct(String catId, String subCatId ,String sortData,String ChkFav,int pos) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
         map.put("category_id", catId);
+        map.put("sub_category_id", subCatId);
         map.put("user_id", userId);
         map.put("order_by", sortData);
         Log.e("product Request===",map.toString());
@@ -429,7 +436,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     if (data.get("status").equals("1")) {
 
                         if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                            GetAllProduct(catId, sortData,"fav",pos);
+                            GetAllProduct(catId,subCatId, sortData,"fav",pos);
                         else
                             Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
@@ -437,7 +444,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     } else if (data.get("status").equals("0")) {
 
                         if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                            GetAllProduct(catId, sortData,"fav",pos);
+                            GetAllProduct(catId,subCatId, sortData,"fav",pos);
                         else
                             Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                     }
@@ -610,7 +617,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                 //  if(getIntent()!=null){
                 //  catId = getIntent().getStringExtra("catId");
                 if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                    GetAllProduct(catId, sortData,"",0);
+                    GetAllProduct(catId,subCatId, sortData,"",0);
                 else
                     Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                 //   }
@@ -622,5 +629,13 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             }
         });
 
+    }
+
+    public void FragTrans(Fragment fragment) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+        transaction.replace(R.id.container, fragment);
+        transaction.addToBackStack("fragment");
+        transaction.commit();
     }
 }
