@@ -78,23 +78,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         }
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-            try {
-                if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
-                    userId = DataManager.getInstance().getUserData(getActivity()).result.id;
-                }
-                else   userId = instanceIdResult.getToken();     //LogInAlert();
 
-                refreshedToken = instanceIdResult.getToken();
-
-                 tabSelect(1);
-
-                Log.e("Token===", userId);
-                // Yay.. we have our new token now.
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
 
 
 
@@ -125,11 +109,11 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         });
 
 
-    /*   binding.layoutProcessing.setOnClickListener(v -> {
+      binding.layoutProcessing.setOnClickListener(v -> {
             if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
               startActivity(new Intent(getActivity(), OrderStatusAct.class));
             }
-        });*/
+        });
 
 
         arrayList = new ArrayList<>();
@@ -137,7 +121,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
 
 
-        tabSelect(1);
+     //   tabSelect(1);
 
         binding.tvWishList.setOnClickListener(v -> {
             tabSelect(1);
@@ -237,8 +221,9 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             binding.tvWishList.setTextColor(getActivity().getResources().getColor(R.color.white));
             binding.tvView.setTextColor(getActivity().getResources().getColor(R.color.black));
             binding.rvFavList.setVisibility(View.VISIBLE);
-           /* if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
+            //if(userId.equals("")) userId = refreshedToken;
+            if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         }
         else if(i==2){
             binding.tvWishList.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
@@ -247,8 +232,8 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             binding.tvView.setTextColor(getActivity().getResources().getColor(R.color.white));
             binding.rvFavList.setVisibility(View.VISIBLE);
          //   binding.tvFound.setVisibility(View.VISIBLE);
-           /* if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllWishList();
-            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
+            if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllWishList();
+            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -372,8 +357,8 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.get("status").equals("1")) {
-                    /*    if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
+                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                     } else if (data.get("status").equals("0")){
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
 
@@ -423,14 +408,14 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                     Log.e(TAG, "Remove fav Response :" + responseString);
                     if (data.get("status").equals("1")) {
 
-                     /*   if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
+                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
 
                     } else if (data.get("status").equals("0")){
 
-                     /*   if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();*/
+                       if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                     }
 
                     // serviceAdapter.notifyDataSetChanged();
@@ -487,6 +472,25 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         alert11.show();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+            try {
+                if(DataManager.getInstance().getUserData(getActivity())!=null) {
+                    userId = DataManager.getInstance().getUserData(getActivity()).result.id;
+                }
+                else   userId = instanceIdResult.getToken();     //LogInAlert();
 
+                refreshedToken = instanceIdResult.getToken();
 
+                 tabSelect(1);
+
+                Log.e("Token===", userId);
+                // Yay.. we have our new token now.
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }

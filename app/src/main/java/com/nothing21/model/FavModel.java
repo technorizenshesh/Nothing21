@@ -74,9 +74,9 @@ public class FavModel {
 
         public class ColorDetail {
 
-            @SerializedName("id")
+            @SerializedName("color_id")
             @Expose
-            public String id;
+            public String colorId;
             @SerializedName("product_id")
             @Expose
             public String productId;

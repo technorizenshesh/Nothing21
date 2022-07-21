@@ -39,7 +39,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //  Glide.with(context).load(arrayList.get(position).image).error(R.drawable.dummy).into(holder.binding.ivImg);
-        Glide.with(context).load("https://www.adspot.ae/nothing21//uploads/images/"+arrayList.get(position).getImage()).error(R.drawable.dummy).into(holder.binding.ivImg);
+        Glide.with(context).load("https://nothing21.com/nothing21/uploads/images/"+arrayList.get(position).getImage()).error(R.drawable.dummy).into(holder.binding.ivImg);
 
         holder.binding.tvProductName.setText(arrayList.get(position).getProductName()+"");
         holder.binding.tvSizeColor.setText(context.getString(R.string.size) + arrayList.get(position).getSize() + " , " +
