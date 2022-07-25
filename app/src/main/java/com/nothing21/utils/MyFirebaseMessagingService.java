@@ -81,7 +81,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     title = "Delivered";
                     message = "Order Delivered successfully";
                     Intent intent1 = new Intent("Order_Status_Action");
-                    intent1.putExtra("status",key);
+                    intent1.putExtra("status",title);
+                    intent1.putExtra("productId",object.getString("product_id"));
                     sendBroadcast(intent1);
 
                 }

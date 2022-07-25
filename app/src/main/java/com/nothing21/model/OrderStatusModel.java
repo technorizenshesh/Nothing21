@@ -296,7 +296,9 @@ public class OrderStatusModel {
             @Expose
             private String orderStatus;
 
-
+            @SerializedName("order_id")
+            @Expose
+            private String orderIdss="";
 
 
 
@@ -396,7 +398,21 @@ public class OrderStatusModel {
             public void setOrderStatus(String orderStatus) {
                 this.orderStatus = orderStatus;
             }
+
+            public String getOrderIdss() {
+                return orderIdss;
+            }
+
+            public void setOrderIdss(String orderIdss) {
+                this.orderIdss = orderIdss;
+            }
         }
+
+
+
+
+
+
 
         public class ProductsDatum {
 

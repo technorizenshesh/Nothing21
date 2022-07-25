@@ -25,6 +25,9 @@ import com.google.gson.Gson;
 import com.nothing21.LoginAct;
 import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
+import com.nothing21.adapter.ColorCartAdapter;
+import com.nothing21.adapter.ColorCartAdapter1;
+import com.nothing21.adapter.SizeAdapter;
 import com.nothing21.adapter.SizeAdapter1;
 import com.nothing21.databinding.FragmentCartSheetBinding;
 import com.nothing21.databinding.FragmentEditCartSheetBinding;
@@ -128,14 +131,11 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
         count = Integer.parseInt(cartData.quantity);
         price = Double.parseDouble(cartData.price);
-       /* if(productData.colorDetails.size()!=0) {
-            binding.tvColor.setText(productData.colorDetails.get(0).color);
-            binding.tvSize.setText(productData.colorDetails.get(0).size);
-        }*/
+
         priceCal(count);
         binding.tvColor.setText(cartData.color);
         binding.tvSize.setText(cartData.size);
-      //  binding.tvPri.setText("AED" +String.format("%.2f", price * count) );
+      /*//  binding.tvPri.setText("AED" +String.format("%.2f", price * count) );
         binding.BlurImageView.setBlur(2);
         // productData.imageDetails.get(0).image
         Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
@@ -234,17 +234,79 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
         colorArrayList.addAll(productData.colorDetails);
         binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
 
-        setColorData(productData);
+        setColorData(productData);*/
 
 
 
 
+        for (int i=0;i<productData.colorDetails.size();i++){
+            if(productData.colorDetails.get(i).isChkColor() == true){
+                SessionManager.writeString(getActivity(),"selectImage",productData.colorDetails.get(i).image);
+                binding.BlurImageView.setBlur(10);
+                Glide.with(getActivity()).load(productData.colorDetails.get(i).image)
+                        .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                        .into(binding.BlurImageView);
+            }
+        }
+        SessionManager.writeString(getActivity(),"selectImage",cartData.image);
+        binding.BlurImageView.setBlur(10);
+        Glide.with(getActivity()).load(cartData.image)
+                .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                .into(binding.BlurImageView);
 
+        colorArrayList.clear();
+        colorArrayList.addAll(productData.colorDetails);
+
+        binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
+        binding.rvColor.setAdapter(new ColorCartAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
+
+        binding.tvMinus.setOnClickListener(v -> {
+            if (count > 1) {
+                count = count - 1;
+                check = true;
+                priceCal(count);
+            }
+        });
+
+        binding.tvPlus.setOnClickListener(v -> {
+            count = count + 1;
+            check = true;
+            priceCal(count);
+
+
+        });
+
+        binding.ivCart.setOnClickListener(v -> dialog.dismiss());
+
+        binding.ivColor1.setOnClickListener(v -> {
+            new ColorSizeFragmentBottomSheet1(productData,binding.tvSize.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
+        });
+
+
+        binding.tvUpdate.setOnClickListener(v -> {
+            if(chkColor==false) Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
+            else if(chkSize==false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
+
+            else {
+
+                if(Integer.parseInt(SessionManager.readString(getActivity(),"avaQuantity",""))>0){
+
+                    if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                        AddProductToCart11(userId);
+                    else
+                        Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                }
+
+                else Toast.makeText(getActivity(),getString(R.string.product__out_of_stock),Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
 
     }
 
+/*
     private void priceCal(int i) {
         Log.e("price=====", i + "");
         priceTol = price * i;
@@ -272,8 +334,38 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
 
     }
+*/
 
-   public void AddProductToCart111(){
+
+
+    private void priceCal(int i){
+        Log.e("price=====",i+"");
+        binding.tvCart1.setText(count+"");
+        priceTol = price * i ;
+        //  binding.tvPri.setText("AED" + String.format("%.2f", priceTol));
+        binding.tvPri.setText("AED" + String.format("%.2f", price));
+        if(!productData.discount.equals("")) {
+            binding.tvOldPrice.setVisibility(View.VISIBLE);
+            //  binding.tvDiscount.setVisibility(View.VISIBLE);
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discount )));
+            binding.tvPri.setTextColor(getResources().getColor(R.color.color_red));
+            binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
+            binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            //  binding.tvDiscount.setText("-"+data.result.discount + "% Off");
+
+        }
+        else {
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
+            binding.tvPri.setTextColor(getResources().getColor(R.color.black));
+            binding.tvOldPrice.setVisibility(View.GONE);
+            //  binding.tvDiscount.setVisibility(View.GONE);
+
+        }
+    }
+
+
+/*
+    public void AddProductToCart111(){
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
        String imgName [] = SessionManager.readString(getActivity(),"selectImage","").split("/");
 
@@ -318,6 +410,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
             }
         });
     }
+*/
 
 
    /* public void AddProductToCart(String userIddd){
@@ -421,6 +514,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
 
 
+/*
     private void setColorData(ProductModelCopy.Result data) {
         if(data.colorDetails!=null){
             if(data.colorDetails.size()==1){
@@ -675,15 +769,89 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
         }
 
     }
+*/
+
+
+
+    public void AddProductToCart11(String userIddd){
+        String imgName []=null;
+        for(int i =0;i<colorArrayList.size();i++){
+            if( colorArrayList.get(i).isChkColor()==true)  imgName =  colorArrayList.get(i).image.split("/");
+        }
+        // String imgName [] = SessionManager.readString(getActivity(),"selectImage","").split("/");
+        DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
+        Map<String,String> map = new HashMap<>();
+        map.put("user_id",userIddd);
+        map.put("product_id",productData.id);
+        map.put("quantity",count+"");
+        map.put("color",SessionManager.readString(getActivity(),"selectColor",""));
+        map.put("size",SessionManager.readString(getActivity(),"selectSize",""));
+        map.put("color_id",SessionManager.readString(getActivity(),"colorDetailsId",""));
+
+        map.put("image", imgName[6]);
+        map.put("price",priceTol+"");
+        Log.e(TAG, "Update to Cart Request :" + map);
+
+        Call<Map<String,String>> loginCall = apiInterface.updateCart(map);
+        loginCall.enqueue(new Callback<Map<String,String>>() {
+            @Override
+            public void onResponse(Call<Map<String,String>> call, Response<Map<String,String>> response) {
+                DataManager.getInstance().hideProgressMessage();
+
+                try {
+                    Map<String,String> data = response.body();
+                    String responseString = new Gson().toJson(response.body());
+                    Log.e(TAG, "Update to Cart Response :" + responseString);
+                    if (data.get("status").equals("1")) {
+                        Toast.makeText(getActivity(), getString(R.string.item_updated), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else if (data.get("status").equals("0")){
+                        Toast.makeText(getActivity(), data.get("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                    // serviceAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String,String>> call, Throwable t) {
+                call.cancel();
+                DataManager.getInstance().hideProgressMessage();
+            }
+        });
+
+    }
+
 
 
     @Override
     public void onIcon(int position, String type) {
-        if(type.equals("size"))
-            // SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
-            Log.e("selected Image===",colorArrayList.get(position).image);
-        SessionManager.writeString(getActivity(),"selectSize",colorArrayList.get(position).size);
-        chkSize = true;
+        if(type.equals("size")) {
+            SessionManager.writeString(getActivity(), "selectSize", colorArrayList.get(position).size);
+            chkSize = true;
+        }
+        else if(type.equals("color"))
+        {
+            for(int i =0;i<colorArrayList.size();i++){
+                colorArrayList.get(i).setChkColor(false);
+            }
+            colorArrayList.get(position).setChkColor(true);
+
+            SessionManager.writeString(getActivity(),"avaQuantity",colorArrayList.get(position).remainingQuantity);
+
+            SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
+            SessionManager.writeString(getActivity(),"selectColor",colorArrayList.get(position).color);
+            SessionManager.writeString(getActivity(),"colorDetailsId",colorArrayList.get(position).colorId);
+
+            binding.BlurImageView.setBlur(10);
+            Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
+                    .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                    .into(binding.BlurImageView);
+            chkColor = true;
+        }
 
     }
 

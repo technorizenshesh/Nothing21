@@ -142,7 +142,7 @@
                         android:orientation="horizontal">
 
 
-                        <RelativeLayout
+                       <!-- <RelativeLayout
                             android:id="@+id/layoutOne"
                             android:layout_width="@dimen/_16sdp"
                             android:layout_height="@dimen/_16sdp"
@@ -237,7 +237,16 @@
                                 android:layout_centerInParent="true" />
 
 
-                        </RelativeLayout>
+                        </RelativeLayout>-->
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_15sdp"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/item_color" />
 
 
                     </LinearLayout>

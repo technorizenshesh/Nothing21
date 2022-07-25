@@ -136,6 +136,7 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
 
     }
 
+
     public void getCartLists() {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();

@@ -53,6 +53,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'com.google.firebase:firebase-core:18.0.0'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
+    implementation 'com.hbb20:ccp:2.3.9'
+
 
     implementation 'com.stripe:stripe-android:15.1.0'
     implementation 'com.braintreepayments:card-form:4.2.0'

@@ -19,10 +19,16 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.nothing21.AboutAct;
+import com.nothing21.BuildConfig;
 import com.nothing21.HomeAct;
 
+import com.nothing21.OrderHistoryAct;
 import com.nothing21.OrderStatusAct;
+import com.nothing21.ProfileAct;
 import com.nothing21.R;
+import com.nothing21.ReturnListAct;
+import com.nothing21.SupportAct;
 import com.nothing21.adapter.MyOrderAdapter;
 import com.nothing21.adapter.MyOrderAdapterTwo;
 import com.nothing21.databinding.FragmentAccountBinding;
@@ -67,15 +73,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
-        if(SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
-            binding.tvName.setText("Hi Guest");
-            binding.tvLogout.setVisibility(View.GONE);
-        }
-        else {
-            binding.tvName.setText(DataManager.getInstance().getUserData(getActivity()).result.firstName + " " +
-                    DataManager.getInstance().getUserData(getActivity()).result.lastName);
-            binding.tvLogout.setVisibility(View.VISIBLE);
-        }
+
 
 
 
@@ -115,6 +113,52 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             }
         });
 
+
+        binding.layoutHistory.setOnClickListener(v -> {
+            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+                startActivity(new Intent(getActivity(), OrderHistoryAct.class));
+            }
+        });
+
+
+
+
+      binding.layoutProfile.setOnClickListener(v ->
+      {
+          if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+              startActivity(new Intent(getActivity(), ProfileAct.class));
+          }
+      });
+
+
+        binding.layoutSupport.setOnClickListener(v ->
+        {
+            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+                startActivity(new Intent(getActivity(), SupportAct.class));
+            }
+        });
+
+
+
+        binding.layoutReturn.setOnClickListener(v ->
+        {
+            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+                startActivity(new Intent(getActivity(), ReturnListAct.class));
+            }
+        });
+
+
+        binding.layoutShare.setOnClickListener(v -> {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            String  shareMessage = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID ;
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "Share link using"));
+        });
+
+
+        binding.layoutAbout.setOnClickListener(v ->
+            startActivity(new Intent(getActivity(), AboutAct.class)));
 
         arrayList = new ArrayList<>();
         arrayListTwo = new ArrayList<>();
@@ -492,5 +536,15 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                 e.printStackTrace();
             }
         });
+
+        if(SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            binding.tvName.setText("Hi Guest");
+            binding.tvLogout.setVisibility(View.GONE);
+        }
+        else {
+            binding.tvName.setText(DataManager.getInstance().getUserData(getActivity()).result.firstName + " " +
+                    DataManager.getInstance().getUserData(getActivity()).result.lastName);
+            binding.tvLogout.setVisibility(View.VISIBLE);
+        }
     }
 }

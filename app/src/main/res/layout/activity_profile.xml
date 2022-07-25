@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/header11"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/_13sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivUser"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:src="@drawable/dummy" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_toEndOf="@+id/ivUser"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/tvName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/poppins_regular"
+                                android:text="Rebecca Moore"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_15sdp" />
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/tvAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:singleLine="true"
+                            android:text="XWGF+P9 Roodepoort, South Africa"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_60sdp"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/back"
+                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/profile"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+
+                <TextView
+                    android:id="@+id/tvLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/logout"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/header"
+                android:orientation="vertical"
+                android:padding="@dimen/_15sdp"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_5sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivProfile"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_90sdp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/user_default" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_alignEnd="@id/ivProfile"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="-12dp"
+                        android:visibility="gone"
+                        app:civ_border_color="#fff"
+                        app:civ_border_width="2dp" />
+
+                    <ImageView
+                        android:id="@+id/btnEdit"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:src="@drawable/ic_edit"
+                        app:tint="@color/gray_dark" />
+
+
+                </RelativeLayout>
+
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounder_bg_white1"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:focusable="false"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/etSurName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounder_bg_white1"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:focusable="false"
+                    android:textColor="@color/black"
+
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/surname"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounder_bg_white1"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:focusable="false"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/email_address"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+
+                    android:padding="@dimen/_10sdp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounder_bg_white1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_3sdp">
+
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/ccp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_weight="0.3"
+                        android:gravity="center"
+                        app:ccp_countryPreference="BE,BG,CZ,DK,DE,EE,IE,EL,ES,FR,HR,IT,CY,LV,LT,LU,HU,MT,NL,PL,PT,SI,SK,FI,SE,IS,NO,CH,ME,MK,AL,RS,TR"
+                        app:ccp_defaultPhoneCode="91"
+                        app:ccp_textSize="@dimen/_12sdp" />
+
+                    <EditText
+                        android:id="@+id/etMobile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:backgroundTint="@color/white"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:focusable="false"
+                        android:inputType="number"
+                        android:maxLength="13"
+                        android:padding="@dimen/_10sdp"
+                        android:singleLine="true"
+                        android:hint="@string/telephone_number"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textDirection="locale"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/etEmirate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounder_bg_white1"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:focusable="false"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/emirate"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:textColor="@color/black"
+
+                    android:textSize="@dimen/_12sdp" />
+
+
+
+                <EditText
+                    android:id="@+id/etAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounder_bg_white1"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:focusable="false"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/address"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:textColor="@color/black"
+
+                    android:textSize="@dimen/_12sdp" />
+
+
+
+
+                <EditText
+                    android:id="@+id/etRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounder_bg_white1"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:focusable="false"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="@string/region"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+
+                    android:textDirection="locale"
+                    android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

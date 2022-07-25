@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -18,6 +19,9 @@ import com.nothing21.adapter.OrderStatusAdapter;
 import com.nothing21.databinding.ActivityOrderStatusBinding;
 import com.nothing21.databinding.FragmentCartBinding;
 import com.nothing21.fragment.CartFragment;
+import com.nothing21.fragment.GiveReviewBottomSheet;
+import com.nothing21.fragment.RateBottomsheet;
+import com.nothing21.listener.InfoListener;
 import com.nothing21.model.GetCartModel;
 import com.nothing21.model.OrderStatusModel;
 import com.nothing21.retrofit.ApiClient;
@@ -36,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderStatusAct extends AppCompatActivity {
+public class OrderStatusAct extends AppCompatActivity implements InfoListener {
     public String TAG = "OrderStatusAct";
     ActivityOrderStatusBinding binding;
     ArrayList<OrderStatusModel.Result.CartDatum> arrayList;
@@ -48,11 +52,22 @@ public class OrderStatusAct extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
-                if(NetworkAvailablity.checkNetworkStatus(OrderStatusAct.this)) getAllTransactionsApi();
-                else Toast.makeText(OrderStatusAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+
+                if(intent.getStringExtra("status").equals("Delivered")){
+                    callRate(intent.getStringExtra("productId"));
+                }
+                else {
+                    if(NetworkAvailablity.checkNetworkStatus(OrderStatusAct.this)) getAllTransactionsApi();
+                    else Toast.makeText(OrderStatusAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
     };
+
+    private void callRate(String productId) {
+        new GiveReviewBottomSheet(productId).callBack(this::info).show(getSupportFragmentManager(), "");
+    }
 
 
     @Override
@@ -98,19 +113,21 @@ public class OrderStatusAct extends AppCompatActivity {
                           //  Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
                             OrderStatusModel modelTransactions = new Gson().fromJson(stringResponse, OrderStatusModel.class);
                              arrayList.clear();
+                             binding.tvFound.setVisibility(View.GONE);
                              for (int i = 0;i< modelTransactions.getResult().size();i++){
                                  for (int j = 0;j< modelTransactions.getResult().get(i).getCartData().size();j++) {
                                      arrayList.add(modelTransactions.getResult().get(i).getCartData().get(j));
                                  }
                              }
 
-
-                            OrderStatusAdapter adapter = new OrderStatusAdapter(OrderStatusAct.this,arrayList);
+                             adapter = new OrderStatusAdapter(OrderStatusAct.this,arrayList);
                             binding.rvCart.setAdapter(adapter);
+
                         } else {
-                            OrderStatusAdapter adapterTransactions = new OrderStatusAdapter(OrderStatusAct.this, null);
-                            binding.rvCart.setAdapter(adapterTransactions);
-                            Toast.makeText(OrderStatusAct.this, jsonObject.getString("result"), Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(OrderStatusAct.this, jsonObject.getString("result"), Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
+                            binding.tvFound.setVisibility(View.VISIBLE);
+
                         }
 
                     } catch (JSONException e) {
@@ -146,5 +163,11 @@ public class OrderStatusAct extends AppCompatActivity {
         super.onDestroy();
         unregisterReceiver(OrderReceiver);
 
+    }
+
+    @Override
+    public void info(String value, String size) {
+        if(NetworkAvailablity.checkNetworkStatus(OrderStatusAct.this)) getAllTransactionsApi();
+        else Toast.makeText(OrderStatusAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
     }
 }

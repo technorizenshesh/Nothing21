@@ -110,6 +110,48 @@
 
 
         <activity
+            android:name=".ProfileAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".EditProfileAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".OrderHistoryAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".SupportAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+
+        <activity
+            android:name=".ReturnListAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".AboutAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+        <activity
             android:name=".ProductSingalCopyAct"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar"
@@ -142,6 +184,19 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.nothing21.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_path"></meta-data>
+        </provider>
+
 
 
     </application>

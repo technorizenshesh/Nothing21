@@ -85,6 +85,11 @@ public interface Nothing21Interface {
 
 
 
+    @FormUrlEncoded
+    @POST("update_to_cart")
+    Call<Map<String,String>> updateCart (@FieldMap Map<String, String> params);
+
+
 
 
     @Multipart
@@ -182,6 +187,52 @@ public interface Nothing21Interface {
     @POST("filter_product")
     Call<ProductModel> getApplyFilter (@FieldMap Map<String, String> params);
 
+
+    @FormUrlEncoded
+    @POST("get_profile")
+    Call<LoginModel> userProfile (@FieldMap Map<String, String> params);
+
+
+    @Multipart
+    @POST("update_profile")
+    Call<LoginModel> profileUpdate(
+            @Part("first_name") RequestBody first_name,
+            @Part("last_name") RequestBody last_name,
+            @Part("email") RequestBody email,
+            @Part("mobile") RequestBody mobile,
+            @Part("country_code") RequestBody country_code,
+            @Part("emirate") RequestBody dob,
+            @Part("address") RequestBody address,
+            @Part("user_id") RequestBody user_id,
+            @Part MultipartBody.Part file);
+
+
+
+    @FormUrlEncoded
+    @POST("add_rating_review")
+    Call<ResponseBody> rateReview(@FieldMap Map<String, String> params);
+
+
+
+
+    @FormUrlEncoded
+    @POST("get_order_delivered")
+    Call<ResponseBody> orderHistory(@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("place_order_return")
+    Call<ResponseBody> returnOrder(@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("support")
+    Call<ResponseBody> supportApi(@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("get_order_return")
+    Call<ResponseBody> returnHistory(@FieldMap Map<String, String> params);
 
 
 
