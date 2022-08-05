@@ -19,7 +19,7 @@ public class AboutAct extends AppCompatActivity {
     }
 
     private void initViews() {
-        binding.webView.loadUrl("https://nothing21.com/nothing21/about.html");
+        binding.webView.loadUrl("https://nothing21.com/nothing21/index.php/webservice/get_about_us");
         binding.webView.getSettings().setJavaScriptEnabled(true);
         binding.webView.setWebViewClient(new WebViewClient());
 
