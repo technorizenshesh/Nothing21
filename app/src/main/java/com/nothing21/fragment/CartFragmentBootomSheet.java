@@ -65,11 +65,11 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
     private BottomSheetBehavior<View> mBehavior;
     InfoListener listener;
     ProductModel.Result productData;
-    int count =1;
-    double price =0.00,priceTol=0.00;
+    int count = 1, pos;
+    double price = 0.00, priceTol = 0.00;
     Nothing21Interface apiInterface;
-    String refreshedToken = "",userId="";
-    boolean check =false,chkColor = true,chkSize=false;
+    String refreshedToken = "", userId = "",avaQnty="";
+    boolean check = false, chkColor = true, chkSize = false;
     ArrayList<ProductModel.Result.ColorDetail> colorArrayList;
 
 
@@ -93,17 +93,16 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         mBehavior = BottomSheetBehavior.from((View) binding.getRoot().getParent());
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         initViews();
-        return  dialog;
+        return dialog;
     }
 
     private void initViews() {
         colorArrayList = new ArrayList<>();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
             try {
-                if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
-                    userId = DataManager.getInstance().getUserData(getActivity()).result.id+"";
-                }
-                else   userId = instanceIdResult.getToken();     //LogInAlert();
+                if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
+                    userId = DataManager.getInstance().getUserData(getActivity()).result.id + "";
+                } else userId = instanceIdResult.getToken();     //LogInAlert();
 
                 refreshedToken = instanceIdResult.getToken();
                 Log.e("Token===", userId);
@@ -114,42 +113,51 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         });
 
 
-
-
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
         price = Double.parseDouble(productData.price);
         priceCal(count);
 
-        for (int i=0;i<productData.colorDetails.size();i++){
-            if(productData.colorDetails.get(i).isChkColor() == true){
-                SessionManager.writeString(getActivity(),"selectImage",productData.colorDetails.get(i).image);
+        for (int i = 0; i < productData.colorDetails.size(); i++) {
+            if (productData.colorDetails.get(i).isChkColor() == true) {
+                SessionManager.writeString(getActivity(), "selectImage", productData.colorDetails.get(i).image);
                 binding.BlurImageView.setBlur(10);
                 Glide.with(getActivity()).load(productData.colorDetails.get(i).image)
-                        .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+                        .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 3)))
                         .into(binding.BlurImageView);
             }
         }
 
 
-
         colorArrayList.clear();
         colorArrayList.addAll(productData.colorDetails);
+        avaQnty = colorArrayList.get(0).remainingQuantity+"";
 
-        binding.rvSize.setAdapter(new SizeAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet.this));
-        binding.rvColor.setAdapter(new ColorCartAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet.this));
+        binding.rvSize.setAdapter(new SizeAdapter(getActivity(), colorArrayList, CartFragmentBootomSheet.this));
+        binding.rvColor.setAdapter(new ColorCartAdapter(getActivity(), colorArrayList, CartFragmentBootomSheet.this));
 
         binding.tvMinus.setOnClickListener(v -> {
-                if (count > 1) {
-                    count = count - 1;
-                    check = true;
-                    priceCal(count);
+            if (count > 1) {
+                count = count - 1;
+                check = true;
+                priceCal(count);
             }
         });
 
         binding.tvPlus.setOnClickListener(v -> {
-                count = count + 1;
-                check = true;
-                priceCal(count);
+         //   if (chkColor == false)
+          //      Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
+          //  else {
+                    count = count + 1;
+                    check = true;
+               /// if (Integer.parseInt(productData.colorDetails.get(pos).remainingQuantity) > count) {
+                    priceCal(count);
+            //    }
+             //   else{
+             //       Toast.makeText(getActivity(), getString(R.string.product__out_of_stock), Toast.LENGTH_SHORT).show();
+            //        count = 1;
+
+            //    }
+         //   }
 
 
         });
@@ -157,52 +165,49 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         binding.ivCart.setOnClickListener(v -> dialog.dismiss());
 
         binding.ivColor1.setOnClickListener(v -> {
-            new ColorSizeFragmentBottomSheet(productData,binding.tvSize.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
+            new ColorSizeFragmentBottomSheet(productData, binding.tvSize.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(), "");
         });
 
 
         binding.tvAddCart.setOnClickListener(v -> {
-            if(chkColor==false) Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
-           else if(chkSize==false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
+            if (chkColor == false)
+                Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
+            else if (chkSize == false)
+                Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
 
             else {
 
-             if(Integer.parseInt(SessionManager.readString(getActivity(),"avaQuantity",""))>0){
+                if (Integer.parseInt(avaQnty) >= count) {
 
-                if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                    AddProductToCart11(userId);
-                else
-                    Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
-            }
-
-            else Toast.makeText(getActivity(),getString(R.string.product__out_of_stock),Toast.LENGTH_SHORT).show();
+                    if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                        AddProductToCart11(userId);
+                    else
+                        Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(getActivity(), getString(R.string.product__out_of_stock), Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
-
-
-
     }
 
-    private void priceCal(int i){
-        Log.e("price=====",i+"");
-        binding.tvCart1.setText(count+"");
-        priceTol = price * i ;
-      //  binding.tvPri.setText("AED" + String.format("%.2f", priceTol));
+    private void priceCal(int i) {
+        Log.e("price=====", i + "");
+        binding.tvCart1.setText(count + "");
+        priceTol = price * i;
+        //  binding.tvPri.setText("AED" + String.format("%.2f", priceTol));
         binding.tvPri.setText("AED" + String.format("%.2f", price));
-        if(!productData.discount.equals("")) {
+        if (!productData.discountedPrice.equals("0")) {
             binding.tvOldPrice.setVisibility(View.VISIBLE);
             //  binding.tvDiscount.setVisibility(View.VISIBLE);
-            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discount )));
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discountedPrice)));
             binding.tvPri.setTextColor(getResources().getColor(R.color.color_red));
             binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
             binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             //  binding.tvDiscount.setText("-"+data.result.discount + "% Off");
 
-        }
-        else {
+        } else {
             binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
             binding.tvPri.setTextColor(getResources().getColor(R.color.black));
             binding.tvOldPrice.setVisibility(View.GONE);
@@ -211,39 +216,40 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         }
     }
 
-    public void AddProductToCart11(String userIddd){
-        String imgName []=null;
-        for(int i =0;i<colorArrayList.size();i++){
-           if( colorArrayList.get(i).isChkColor()==true)  imgName =  colorArrayList.get(i).image.split("/");
+    public void AddProductToCart11(String userIddd) {
+        String imgName[] = null;
+        for (int i = 0; i < colorArrayList.size(); i++) {
+            if (colorArrayList.get(i).isChkColor() == true)
+                imgName = colorArrayList.get(i).image.split("/");
         }
-       // String imgName [] = SessionManager.readString(getActivity(),"selectImage","").split("/");
+        // String imgName [] = SessionManager.readString(getActivity(),"selectImage","").split("/");
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Map<String,String> map = new HashMap<>();
-        map.put("user_id",userIddd);
-        map.put("product_id",productData.id);
-        map.put("quantity",count+"");
-        map.put("color",SessionManager.readString(getActivity(),"selectColor",""));
-        map.put("size",SessionManager.readString(getActivity(),"selectSize",""));
-        map.put("color_id",SessionManager.readString(getActivity(),"colorDetailsId",""));
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", userIddd);
+        map.put("product_id", productData.id);
+        map.put("quantity", count + "");
+        map.put("color", SessionManager.readString(getActivity(), "selectColor", ""));
+        map.put("size", SessionManager.readString(getActivity(), "selectSize", ""));
+        map.put("color_id", SessionManager.readString(getActivity(), "colorDetailsId", ""));
 
         map.put("image", imgName[6]);
-        map.put("price",priceTol+"");
+        map.put("price", priceTol + "");
         Log.e(TAG, "Add to Cart Request :" + map);
 
-        Call<Map<String,String>> loginCall = apiInterface.addToCart(map);
-        loginCall.enqueue(new Callback<Map<String,String>>() {
+        Call<Map<String, String>> loginCall = apiInterface.addToCart(map);
+        loginCall.enqueue(new Callback<Map<String, String>>() {
             @Override
-            public void onResponse(Call<Map<String,String>> call, Response<Map<String,String>> response) {
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    Map<String,String> data = response.body();
+                    Map<String, String> data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Add to Cart Response :" + responseString);
                     if (data.get("status").equals("1")) {
                         Toast.makeText(getActivity(), getString(R.string.item_added), Toast.LENGTH_SHORT).show();
-                         dialog.dismiss();
-                    } else if (data.get("status").equals("0")){
+                        dialog.dismiss();
+                    } else if (data.get("status").equals("0")) {
                         Toast.makeText(getActivity(), data.get("message"), Toast.LENGTH_SHORT).show();
                     }
 
@@ -255,7 +261,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
             }
 
             @Override
-            public void onFailure(Call<Map<String,String>> call, Throwable t) {
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
             }
@@ -264,10 +270,8 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
     }
 
 
-
-
-    public void LogInAlert(){
-        AlertDialog.Builder  builder1 = new AlertDialog.Builder(getActivity());
+    public void LogInAlert() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage(getResources().getString(R.string.please_login));
         builder1.setCancelable(false);
 
@@ -295,49 +299,46 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
 
     @Override
-    public void info(String value,String size) {
-        if(!value.equals("")) {
+    public void info(String value, String size) {
+        if (!value.equals("")) {
             binding.tvColor.setText(value);
             binding.tvSize.setText(size);
-        }
-        else binding.tvColor.setText(productData.colorDetails.get(0).color);
+        } else binding.tvColor.setText(productData.colorDetails.get(0).color);
 
-        if(!size.equals(""))  {
+        if (!size.equals("")) {
             binding.tvColor.setText(value);
             binding.tvSize.setText(size);
-        }
-        else binding.tvSize.setText(productData.colorDetails.get(0).size);
+        } else binding.tvSize.setText(productData.colorDetails.get(0).size);
     }
-
-
-
-
 
 
     @Override
     public void onIcon(int position, String type) {
-        if(type.equals("size")) {
+        if (type.equals("size")) {
             SessionManager.writeString(getActivity(), "selectSize", colorArrayList.get(position).size);
             chkSize = true;
-        }
-        else if(type.equals("color"))
-        {
-            for(int i =0;i<colorArrayList.size();i++){
+           // avaQnty = colorArrayList.get(position).remainingQuantity+"";
+
+        } else if (type.equals("color")) {
+            for (int i = 0; i < colorArrayList.size(); i++) {
                 colorArrayList.get(i).setChkColor(false);
             }
             colorArrayList.get(position).setChkColor(true);
 
-            SessionManager.writeString(getActivity(),"avaQuantity",colorArrayList.get(position).remainingQuantity);
-
-            SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
-            SessionManager.writeString(getActivity(),"selectColor",colorArrayList.get(position).color);
-            SessionManager.writeString(getActivity(),"colorDetailsId",colorArrayList.get(position).colorId);
+            SessionManager.writeString(getActivity(), "avaQuantity", colorArrayList.get(position).remainingQuantity+"");
+            SessionManager.writeString(getActivity(), "selectImage", colorArrayList.get(position).image);
+            SessionManager.writeString(getActivity(), "selectColor", colorArrayList.get(position).color);
+            SessionManager.writeString(getActivity(), "colorDetailsId", colorArrayList.get(position).colorId);
 
             binding.BlurImageView.setBlur(10);
-            Glide.with(getActivity()).load(SessionManager.readString(getActivity(),"selectImage",""))
-                    .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
+            Glide.with(getActivity()).load(SessionManager.readString(getActivity(), "selectImage", ""))
+                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 3)))
                     .into(binding.BlurImageView);
             chkColor = true;
+            pos = position;
+            avaQnty = colorArrayList.get(position).remainingQuantity+"";
+           // count =1;
+           // priceCal(count);
         }
     }
 

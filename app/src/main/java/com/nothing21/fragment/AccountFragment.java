@@ -21,6 +21,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.AboutAct;
 import com.nothing21.BuildConfig;
+import com.nothing21.ContactUsAct;
 import com.nothing21.HomeAct;
 
 import com.nothing21.OrderHistoryAct;
@@ -159,6 +160,12 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
         binding.layoutAbout.setOnClickListener(v ->
             startActivity(new Intent(getActivity(), AboutAct.class)));
+
+
+        binding.layoutContactUs.setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), ContactUsAct.class)));
+
+
 
         arrayList = new ArrayList<>();
         arrayListTwo = new ArrayList<>();

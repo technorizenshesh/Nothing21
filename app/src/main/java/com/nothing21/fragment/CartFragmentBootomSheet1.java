@@ -65,7 +65,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     int count =1;
     double price =0.00,priceTol=0.00;
     Nothing21Interface apiInterface;
-    String refreshedToken = "",userId="",img="";
+    String refreshedToken = "",userId="",img="",avaQnty="";
     boolean check = false , chkColor = false,chkSize=false;
     ArrayList<ProductModelCopy.Result.ColorDetail> colorArrayList;
 
@@ -130,6 +130,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
 
         colorArrayList.clear();
         colorArrayList.addAll(productData.colorDetails);
+        avaQnty = colorArrayList.get(0).remainingQuantity+"";
+
         binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,CartFragmentBootomSheet1.this));
         binding.rvColor.setAdapter(new ColorAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet1.this));
 
@@ -176,7 +178,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
            else if(chkSize == false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
 
             else {
-                if (Integer.parseInt(SessionManager.readString(getActivity(), "avaQuantity", "")) > 0) {
+                if (Integer.parseInt(avaQnty) >= count) {
 
                     if (NetworkAvailablity.checkNetworkStatus(getActivity()))
                         AddProductToCart11(userId);
@@ -202,10 +204,10 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
       //  binding.tvPri.setText("AED" + String.format("%.2f", price));
 
 
-        if(!productData.discount.equals("")) {
+        if(!productData.discountedPrice.equals("0")) {
             binding.tvOldPrice.setVisibility(View.VISIBLE);
             //  binding.tvDiscount.setVisibility(View.VISIBLE);
-            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discount )));
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discountedPrice )));
             binding.tvPri.setTextColor(getResources().getColor(R.color.color_red));
             binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
             binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -394,6 +396,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                     .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                     .into(binding.BlurImageView);
             chkColor = true;
+            avaQnty = colorArrayList.get(position).remainingQuantity+"";
+
         }
     }
 

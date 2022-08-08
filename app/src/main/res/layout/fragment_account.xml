@@ -102,13 +102,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutShare"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
-         <!-- <RelativeLayout
+          <RelativeLayout
               android:layout_width="@dimen/_45sdp"
               android:layout_height="@dimen/_45sdp"
               android:background="@drawable/circle_white_gray_border_bg"
@@ -118,7 +119,8 @@
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_support"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/ic_share_earn"
                 app:tint="@color/black" />
 
 
@@ -133,9 +135,9 @@
               android:layout_marginEnd="@dimen/_5sdp"
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
-              android:text="@string/support"
+              android:text="@string/share_earn"
               android:textColor="@color/black"
-              android:textSize="@dimen/_9sdp" />-->
+              android:textSize="@dimen/_9sdp" />
 
 
         </LinearLayout>
@@ -449,7 +451,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layoutShare"
+            android:id="@+id/layoutContactUs"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -467,7 +469,7 @@
                 android:layout_height="@dimen/_25sdp"
                 android:layout_centerInParent="true"
                 android:padding="@dimen/_3sdp"
-                android:src="@drawable/ic_share_earn"
+                android:src="@drawable/ic_contact_us"
                 app:tint="@color/black" />
 
 
@@ -482,12 +484,17 @@
               android:layout_marginEnd="@dimen/_5sdp"
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
-              android:text="@string/share_earn"
+              android:text="@string/contact_us"
               android:textColor="@color/black"
               android:textSize="@dimen/_9sdp" />
 
 
         </LinearLayout>
+
+
+
+
+
 
 
       </LinearLayout>

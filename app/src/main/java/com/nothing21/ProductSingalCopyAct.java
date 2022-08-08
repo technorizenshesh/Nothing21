@@ -209,14 +209,14 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
                         //   binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
                         binding.tvProName.setText(data.result.name);
-                        if(!data.result.discount.equals("")) {
+                        if(!data.result.discountedPrice.equals("0")) {
                             binding.tvOldPrice.setVisibility(View.VISIBLE);
                             //  binding.tvDiscount.setVisibility(View.VISIBLE);
-                            binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price) - Double.parseDouble(data.result.discount )));
+                            binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price) - Double.parseDouble(data.result.discountedPrice )));
                             binding.tvProductPrice.setTextColor(getResources().getColor(R.color.color_red));
                             binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
                             binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                            //  binding.tvDiscount.setText("-"+data.result.discount + "% Off");
+                            //  binding.tvDiscount.setText("-"+data.result.discountedPrice + "% Off");
 
                         }
                         else {

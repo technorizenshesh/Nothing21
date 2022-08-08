@@ -69,7 +69,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
     Nothing21Interface apiInterface;
     GetCartModel.Result cartData;
     boolean check = false,chkColor = false,chkSize=false;
-    String refreshedToken = "",userId="";
+    String refreshedToken = "",userId="",avaQnty="";
     ArrayList<ProductModelCopy.Result.ColorDetail> colorArrayList;
 
 
@@ -131,6 +131,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
         count = Integer.parseInt(cartData.quantity);
         price = Double.parseDouble(cartData.price);
+        avaQnty = String.valueOf(count);
 
         priceCal(count);
         binding.tvColor.setText(cartData.color);
@@ -256,6 +257,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
         colorArrayList.clear();
         colorArrayList.addAll(productData.colorDetails);
+       // avaQnty = colorArrayList.get(0).remainingQuantity+"";
 
         binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
         binding.rvColor.setAdapter(new ColorCartAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
@@ -289,7 +291,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
             else {
 
-                if(Integer.parseInt(SessionManager.readString(getActivity(),"avaQuantity",""))>0){
+                if(Integer.parseInt(avaQnty) >= count){
 
                     if (NetworkAvailablity.checkNetworkStatus(getActivity()))
                         AddProductToCart11(userId);
@@ -344,10 +346,10 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
         priceTol = price * i ;
         //  binding.tvPri.setText("AED" + String.format("%.2f", priceTol));
         binding.tvPri.setText("AED" + String.format("%.2f", price));
-        if(!productData.discount.equals("")) {
+        if(!productData.discountedPrice.equals("0")) {
             binding.tvOldPrice.setVisibility(View.VISIBLE);
             //  binding.tvDiscount.setVisibility(View.VISIBLE);
-            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discount )));
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discountedPrice )));
             binding.tvPri.setTextColor(getResources().getColor(R.color.color_red));
             binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
             binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -851,6 +853,8 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
                     .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                     .into(binding.BlurImageView);
             chkColor = true;
+            avaQnty = colorArrayList.get(position).remainingQuantity+"";
+
         }
 
     }

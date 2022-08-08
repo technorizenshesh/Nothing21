@@ -51,6 +51,10 @@ public class ProductModel {
         @SerializedName("discount")
         @Expose
         public String discount;
+        @SerializedName("discounted_price")
+        @Expose
+        public String discountedPrice;
+
         @SerializedName("image1")
         @Expose
         public String image1;

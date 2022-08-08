@@ -15,19 +15,28 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/rounder_bg_white1.xml" value="0.12890625" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/yellow_bg.xml" value="0.20364583333333333" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/activity_address.xml" value="0.14739583333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/fragment_info.xml" value="0.18802083333333333" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/fragment_rate.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/item_product.xml" value="0.20416666666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/item_scroll_product_one.xml" value="0.15989583333333332" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/activity_address.xml" value="0.22109375" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/fragment_info.xml" value="0.14393939393939395" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/fragment_rate.xml" value="0.14393939393939395" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/item_product.xml" value="0.15629984051036683" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/item_scroll_product_one.xml" value="0.12240829346092504" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/activity_address.xml" value="0.110546875" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/fragment_info.xml" value="0.141015625" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/fragment_rate.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/item_product.xml" value="0.153125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/item_scroll_product_one.xml" value="0.119921875" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/activity_address.xml" value="0.13818359375" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/fragment_info.xml" value="0.10912938331318017" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/fragment_rate.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/item_product.xml" value="0.1185006045949214" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/item_scroll_product_one.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_about.xml" value="0.14140625" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_address.xml" value="0.16302083333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_contact_us.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_edit_profile.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_home.xml" value="0.11684782608695653" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_login.xml" value="0.1" />

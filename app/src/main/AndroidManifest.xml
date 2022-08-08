@@ -151,6 +151,15 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
+
+
+        <activity
+            android:name=".ContactUsAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
         <activity
             android:name=".ProductSingalCopyAct"
             android:screenOrientation="fullSensor"
