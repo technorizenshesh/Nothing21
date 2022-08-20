@@ -115,16 +115,16 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
 
       binding.layoutProcessing.setOnClickListener(v -> {
-            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+          /*  if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
               startActivity(new Intent(getActivity(), OrderStatusAct.class));
-            }
+            }*/
         });
 
 
         binding.layoutHistory.setOnClickListener(v -> {
-            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            /*if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
                 startActivity(new Intent(getActivity(), OrderHistoryAct.class));
-            }
+            }*/
         });
 
 
@@ -140,18 +140,18 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
         binding.layoutSupport.setOnClickListener(v ->
         {
-            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+          /*  if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
                 startActivity(new Intent(getActivity(), SupportAct.class));
-            }
+            }*/
         });
 
 
 
         binding.layoutReturn.setOnClickListener(v ->
         {
-            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+           /* if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
                 startActivity(new Intent(getActivity(), ReturnListAct.class));
-            }
+            }*/
         });
 
 
@@ -181,12 +181,12 @@ public class AccountFragment extends Fragment implements onIconClickListener {
      //   tabSelect(1);
 
         binding.tvWishList.setOnClickListener(v -> {
-            tabSelect(1);
+           // tabSelect(1);
         });
 
 
         binding.tvView.setOnClickListener(v -> {
-            tabSelect(2);
+          //  tabSelect(2);
         });
 
     }
@@ -541,7 +541,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
                 refreshedToken = instanceIdResult.getToken();
 
-                 tabSelect(1);
+              //   tabSelect(1);
 
                 Log.e("Token===", userId);
                 // Yay.. we have our new token now.

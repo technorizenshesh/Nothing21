@@ -254,7 +254,7 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
                     case R.id.menuPrice:
                         if (!item.isChecked()) {
                             item.setChecked(true);
-                            callCategory();
+                           // callCategory();
                             //  Toast.makeText(getActivity(), "Price", Toast.LENGTH_SHORT).show();
                         } else {
                             item.setChecked(false);
@@ -264,7 +264,7 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
                         if (!item.isChecked()) {
                             item.setChecked(true);
                             //    Toast.makeText(getActivity(), "Color", Toast.LENGTH_SHORT).show();
-                            callColor();
+                          //  callColor();
                         } else {
                             item.setChecked(false);
                         }
@@ -273,7 +273,7 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
                         if (!item.isChecked()) {
                             item.setChecked(true);
                             //   Toast.makeText(getActivity(), "Size", Toast.LENGTH_SHORT).show();
-                            callSize();
+                         //   callSize();
                         } else {
 
                             item.setChecked(false);
