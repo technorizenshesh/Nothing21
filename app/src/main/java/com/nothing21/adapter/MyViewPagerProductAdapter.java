@@ -13,15 +13,16 @@ import com.bumptech.glide.Glide;
 import com.nothing21.R;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductNewModel;
 
 import java.util.ArrayList;
 
 public class MyViewPagerProductAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     Context context;
-    ArrayList<ProductModel.Result.ColorDetail> arrayList;
+    ArrayList<ProductNewModel.Result.ColorDetail> arrayList;
 
-    public MyViewPagerProductAdapter( Context context, ArrayList<ProductModel.Result.ColorDetail> arrayList) {
+    public MyViewPagerProductAdapter( Context context, ArrayList<ProductNewModel.Result.ColorDetail> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }

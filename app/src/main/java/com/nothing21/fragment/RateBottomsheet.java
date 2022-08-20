@@ -26,6 +26,7 @@ import com.nothing21.databinding.FragmentInfoBinding;
 import com.nothing21.databinding.FragmentRateBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductModelCopyNew;
 import com.nothing21.model.RateModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -48,14 +49,14 @@ public class RateBottomsheet extends BottomSheetDialogFragment {
     BottomSheetDialog dialog;
     private BottomSheetBehavior<View> mBehavior;
     InfoListener listener;
-    ProductModelCopy.Result productData;
+    ProductModelCopyNew.Result productData;
     Nothing21Interface apiInterface;
     RateAdapter adapter;
     ArrayList<RateModel.Result>arrayList;
     String imgg="";
 
 
-    public RateBottomsheet(ProductModelCopy.Result productData,String imgg) {
+    public RateBottomsheet(ProductModelCopyNew.Result productData,String imgg) {
         this.productData = productData;
         this.imgg = imgg;
     }

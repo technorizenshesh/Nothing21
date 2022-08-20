@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
 import com.nothing21.model.ProductModel;
 

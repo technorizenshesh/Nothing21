@@ -37,6 +37,8 @@ import com.nothing21.listener.onIconClickListener;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductModelCopyNew;
+import com.nothing21.model.ProductNewModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -57,17 +59,24 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
     ActivityProductSingalCopyBinding binding;
     DialogFullscreenImageBinding dialogBinding;
     Nothing21Interface apiInterface;
-    ArrayList<ProductModelCopy.Result.ColorDetail> imgArrayList;
-    ArrayList<ProductModel.Result> arrayList;
+    ArrayList<ProductModelCopyNew.Result.ColorDetail> imgArrayList;
+    ArrayList<ProductNewModel.Result> arrayList;
 
     // https://nothing21.com/product?product_id=11
-    ProductModelCopy data;
+   // ProductModelCopy data;
+    ProductModelCopyNew data;
+
     OtherProAdapter adapter;
     String product_id="";
     String refreshedToken = "",userId="",imgg="";
     ImageAdapter adapter11;
     boolean chk = false;
-    ArrayList<ProductModelCopy.Result.ColorDetail>colorArrayList;
+    ArrayList<ProductModelCopyNew.Result.ColorDetail>colorArrayList;
+    ArrayList<ProductModelCopyNew.Result.ColorDetail.ColorVariation>sizeArrayList;
+    SizeAdapter1 sizeAdapter;
+    ColorAdapter colorAdapter;
+    MyViewPagerAdapter myViewPagerAdapter;
+    int colorPosition=0,variationPosition=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,12 +89,21 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
     private void initViews() {
         imgArrayList = new ArrayList<>();
         colorArrayList = new ArrayList<>();
+        sizeArrayList = new ArrayList<>();
+
         arrayList = new ArrayList<>();
 
         adapter = new OtherProAdapter(ProductSingalCopyAct.this,arrayList,ProductSingalCopyAct.this);
         binding.rvProduct.setAdapter(adapter);
 
+        myViewPagerAdapter = new MyViewPagerAdapter(ProductSingalCopyAct.this,imgArrayList,ProductSingalCopyAct.this);
+        binding.viewPager.setAdapter(myViewPagerAdapter);
 
+        sizeAdapter = new SizeAdapter1(ProductSingalCopyAct.this, sizeArrayList,ProductSingalCopyAct.this);
+        binding.rvSize.setAdapter(sizeAdapter);
+
+        colorAdapter = new ColorAdapter(ProductSingalCopyAct.this, colorArrayList,ProductSingalCopyAct.this);
+        binding.rvColor.setAdapter(colorAdapter);
 
 
 
@@ -146,22 +164,21 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
         binding.ivCart.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
-               if(imgg.equals("")) imgg = colorArrayList.get(0).image;
-                SessionManager.writeString(ProductSingalCopyAct.this,"avaQuantity",colorArrayList.get(0).remainingQuantity);
-                SessionManager.writeString(ProductSingalCopyAct.this,"colorDetailsId",colorArrayList.get(0).colorId);
-
+               if(imgg.equals("")) imgg = colorArrayList.get(colorPosition).image;
+                SessionManager.writeString(ProductSingalCopyAct.this,"avaQuantity",colorArrayList.get(colorPosition).colorVariation.get(variationPosition).remainingQuantity+"");
+                SessionManager.writeString(ProductSingalCopyAct.this,"colorDetailsId",colorArrayList.get(colorPosition).colorId);
                 new CartFragmentBootomSheet1(data.result,imgg).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
-        binding.ivColor.setOnClickListener(v -> {
+       /* binding.ivColor.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
                 // SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",data.result.colorDetails.get(0).image);
-                new ColorSizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).size).callBack(this::info).show(getSupportFragmentManager(),"");
+                new ColorSizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).colorVariation.get(0).size).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        });
+        });*/
 
 
         binding.ivLike.setOnClickListener(v -> {
@@ -182,7 +199,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
 
 
-    public void GetProduct(String productId){
+    /*public void GetProduct(String productId){
         DataManager.getInstance().showProgressMessage(ProductSingalCopyAct.this, getString(R.string.please_wait));
         Map<String,String> map = new HashMap<>();
         map.put("product_id",productId);
@@ -234,11 +251,11 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
                         imgg = data.result.colorDetails.get(0).image;
 
 
-                       /* if(!data.result.discount.equals("")) {
+                       *//* if(!data.result.discount.equals("")) {
                             binding.tvProductName.setVisibility(View.VISIBLE);
                             binding.tvOffer.setText(data.result.discount + "% Off");
                         }
-                        else binding.tvProductName.setVisibility(View.GONE);*/
+                        else binding.tvProductName.setVisibility(View.GONE);*//*
 
 
                         if(NetworkAvailablity.checkNetworkStatus(ProductSingalCopyAct.this))    getProduct(product_id);
@@ -262,8 +279,102 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
             }
         });
+    }*/
+
+
+
+    public void GetProduct(String productId){
+        DataManager.getInstance().showProgressMessage(ProductSingalCopyAct.this, getString(R.string.please_wait));
+        Map<String,String> map = new HashMap<>();
+        map.put("product_id",productId);
+        map.put("user_id",userId);
+        Call<ProductModelCopyNew> loginCall = apiInterface.getProductNew(map);
+        loginCall.enqueue(new Callback<ProductModelCopyNew>() {
+            @Override
+            public void onResponse(Call<ProductModelCopyNew> call, Response<ProductModelCopyNew> response) {
+                DataManager.getInstance().hideProgressMessage();
+
+                try {
+                    data = response.body();
+                    String responseString = new Gson().toJson(response.body());
+                    Log.e(TAG, "Product List Response :" + responseString);
+                    if (data.status.equals("1")) {
+                        imgArrayList.clear();
+                        colorArrayList.clear();
+                        sizeArrayList.clear();
+
+                        colorArrayList.addAll(data.result.colorDetails);
+                        imgArrayList.addAll(data.result.colorDetails);
+                        sizeArrayList.addAll(data.result.colorDetails.get(0).colorVariation);
+                        myViewPagerAdapter.notifyDataSetChanged();
+                        colorAdapter.notifyDataSetChanged();
+                        sizeAdapter.notifyDataSetChanged();
+
+                        if(data.result.favProductStatus.equals("false")) binding.ivLike.setImageDrawable(ProductSingalCopyAct.this.getDrawable(R.drawable.ic_white_heart));
+                        else binding.ivLike.setImageDrawable(ProductSingalCopyAct.this.getDrawable(R.drawable.ic_red_heart));
+
+
+                        //   binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
+                        binding.tvProName.setText(data.result.name);
+                        setItemValue(sizeArrayList);
+
+
+                       // binding.viewPager.setAdapter(new MyViewPagerAdapter(ProductSingalCopyAct.this,imgArrayList,ProductSingalCopyAct.this));
+                       // binding.rvSize.setAdapter(new SizeAdapter1(ProductSingalCopyAct.this, colorArrayList,ProductSingalCopyAct.this));
+                       // binding.rvColor.setAdapter(new ColorAdapter(ProductSingalCopyAct.this, colorArrayList,ProductSingalCopyAct.this));
+                        SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",data.result.colorDetails.get(0).image);
+                        imgg = data.result.colorDetails.get(0).image;
+
+
+                       /* if(!data.result.discount.equals("")) {
+                            binding.tvProductName.setVisibility(View.VISIBLE);
+                            binding.tvOffer.setText(data.result.discount + "% Off");
+                        }
+                        else binding.tvProductName.setVisibility(View.GONE);*/
+
+
+                        if(NetworkAvailablity.checkNetworkStatus(ProductSingalCopyAct.this))    getProduct(product_id);
+                        else Toast.makeText(ProductSingalCopyAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+
+                    } else if (data.status.equals("0")){
+                        imgArrayList.clear();
+                    }
+
+                    // serviceAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductModelCopyNew> call, Throwable t) {
+                call.cancel();
+                DataManager.getInstance().hideProgressMessage();
+
+            }
+        });
     }
 
+    private void setItemValue(ArrayList<ProductModelCopyNew.Result.ColorDetail.ColorVariation> sizeArrayList) {
+        if(!sizeArrayList.get(variationPosition).priceDiscount.equals("0")) {
+            binding.tvOldPrice.setVisibility(View.VISIBLE);
+            //  binding.tvDiscount.setVisibility(View.VISIBLE);
+            binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(sizeArrayList.get(variationPosition).priceCalculated)));
+            binding.tvProductPrice.setTextColor(getResources().getColor(R.color.color_red));
+            binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(sizeArrayList.get(variationPosition).price)));
+            binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            //  binding.tvDiscount.setText("-"+data.result.discountedPrice + "% Off");
+
+        }
+        else {
+            binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(sizeArrayList.get(variationPosition).price)));
+            binding.tvProductPrice.setTextColor(getResources().getColor(R.color.black));
+            binding.tvOldPrice.setVisibility(View.GONE);
+            //  binding.tvDiscount.setVisibility(View.GONE);
+
+        }
+    }
 
 
     @Override
@@ -327,14 +438,14 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
         Map<String,String> map = new HashMap<>();
         map.put("user_id",userId);
         map.put("product_id",proId);
-        Call<ProductModel> loginCall = apiInterface.getOtherProduct(map);
-        loginCall.enqueue(new Callback<ProductModel>() {
+        Call<ProductNewModel> loginCall = apiInterface.getOtherProduct(map);
+        loginCall.enqueue(new Callback<ProductNewModel>() {
             @Override
-            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+            public void onResponse(Call<ProductNewModel> call, Response<ProductNewModel> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    ProductModel data = response.body();
+                    ProductNewModel data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.status.equals("1")) {
@@ -358,7 +469,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
             }
 
             @Override
-            public void onFailure(Call<ProductModel> call, Throwable t) {
+            public void onFailure(Call<ProductNewModel> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
 
@@ -382,11 +493,13 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
     @Override
     public void onIcon(int position, String type) {
         if(type.equals("size")) {
-            SessionManager.writeString(ProductSingalCopyAct.this, "selectSize", colorArrayList.get(position).size);
+            SessionManager.writeString(ProductSingalCopyAct.this, "selectSize", sizeArrayList.get(position).size);
+            SessionManager.writeString(ProductSingalCopyAct.this,"avaQuantity",sizeArrayList.get(position).remainingQuantity+"");
+            variationPosition = position;
+            setItemValue(sizeArrayList);
         }
         else if(type.equals("color")) {
             next(position);
-
         }
     }
 
@@ -399,13 +512,18 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
     }
 
     public void next(int ii) {
-            Log.e("slideCurrent==" + ii,binding.viewPager.getCurrentItem()+"");
-          SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",colorArrayList.get(ii).image);
-         SessionManager.writeString(ProductSingalCopyAct.this,"avaQuantity",colorArrayList.get(ii).remainingQuantity);
-        SessionManager.writeString(ProductSingalCopyAct.this,"colorDetailsId",colorArrayList.get(ii).colorId);
+        Log.e("slideCurrent==" + ii,binding.viewPager.getCurrentItem()+"");
 
         imgg = colorArrayList.get(ii).image;
+        sizeArrayList.clear();
+        sizeArrayList.addAll(colorArrayList.get(ii).colorVariation);
+        sizeAdapter.notifyDataSetChanged();
+
+        SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",colorArrayList.get(ii).image);
+        SessionManager.writeString(ProductSingalCopyAct.this,"colorDetailsId",colorArrayList.get(ii).colorId);
+        setItemValue(sizeArrayList);
         binding.viewPager.setCurrentItem(ii);
+        colorPosition = ii;
             Log.e("slideCurrentImage=="+ ii,SessionManager.readString(ProductSingalCopyAct.this,"selectImage",""));
         Log.e("slideCurrentImage=="+ ii,imgg);
 

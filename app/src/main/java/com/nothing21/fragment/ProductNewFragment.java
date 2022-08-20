@@ -1,7 +1,5 @@
-/*
 package com.nothing21.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,17 +25,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.HomeAct;
-import com.nothing21.ProductAct;
 import com.nothing21.R;
-import com.nothing21.adapter.GirdProductAdapter;
-import com.nothing21.adapter.ScrollProductAdapter;
-import com.nothing21.adapter.ScrollProductOneAdapter;
-import com.nothing21.databinding.ActivityProductBinding;
+import com.nothing21.adapter.GirdProductAdapterNew;
+import com.nothing21.adapter.ScrollProductOneAdapterNew;
 import com.nothing21.databinding.FragmentProductBinding;
 import com.nothing21.listener.FilterListener;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.ProductModel;
+import com.nothing21.model.ProductNewModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -46,8 +42,6 @@ import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,22 +49,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductFragment extends Fragment implements onIconClickListener, InfoListener, FilterListener {
+public class ProductNewFragment extends Fragment implements onIconClickListener, InfoListener, FilterListener {
     public String TAG = "ProductFragment";
     FragmentProductBinding binding;
     Nothing21Interface apiInterface;
-    ArrayList<ProductModel.Result> arrayList;
+    ArrayList<ProductNewModel.Result> arrayList;
     // ScrollProductAdapter adapterScroll;
-    ScrollProductOneAdapter adapterScroll;
-    GirdProductAdapter adapterGrid;
-    String viewType = "vertical", catId = "", subCatId = "";
+    ScrollProductOneAdapterNew adapterScroll;
+    GirdProductAdapterNew adapterGrid;
+    String viewType = "vertical", catId = "",subCatId="";
     public static TextView tvFound;
     String refreshedToken = "", userId = "", sortData = "DESC", filterString = "Name";
     boolean chk = false;
     static int y = 0;
 
 
-    public ProductFragment(String catId, String subCatId) {
+    public ProductNewFragment(String catId,String subCatId) {
         this.catId = catId;
         this.subCatId = subCatId;
 
@@ -101,7 +95,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     // startActivity(new Intent(getActivity(), HomeAct.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     // getActivity().finish();
                     // getActivity().onBackPressed();
-                    FragTrans(new SubCatFragment(catId + ""));
+                    FragTrans(new SubCatFragment(catId+""));
 
                     return true;
                 }
@@ -123,22 +117,22 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         HomeAct.cardTabIcons.animate().alpha(1.0f);
         HomeAct.cardTabIcons.setVisibility(View.VISIBLE);
 
-        SessionManager.writeString(getActivity(), "selectImage", "");
+        SessionManager.writeString(getActivity(),"selectImage","");
 
         binding.rvProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapterScroll = new ScrollProductOneAdapter(getActivity(), arrayList, ProductFragment.this);
+        adapterScroll = new ScrollProductOneAdapterNew(getActivity(), arrayList, ProductNewFragment.this);
         //  binding.rvProducts.scrollToPosition(0);
         // binding.rvProducts.setLayoutFrozen(true);
         binding.rvProducts.setAdapter(adapterScroll);
 
 
-        adapterGrid = new GirdProductAdapter(getActivity(), arrayList, ProductFragment.this);
+        adapterGrid = new GirdProductAdapterNew(getActivity(), arrayList, ProductNewFragment.this);
 
         binding.ivDisplay.setOnClickListener(v -> {
             if (sortData.equals("DESC")) sortData = "ASC";
             else if (sortData.equals("ASC")) sortData = "DESC";
             if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                GetAllProduct(catId, subCatId, sortData, "", 0);
+                GetAllProduct(catId,subCatId, sortData,"",0);
             else
                 Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         });
@@ -147,6 +141,8 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         binding.ivFilter.setOnClickListener(v -> {
             popupMenuDialog();
         });
+
+
 
 
         binding.ivDesign.setOnClickListener(v -> {
@@ -174,7 +170,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
 
             @Override
             public void onTextChanged(CharSequence query, int start, int before, int count) {
-                getFilterSearch(query.toString(), filterString);
+               // getFilterSearch(query.toString(), filterString);
             }
 
             @Override
@@ -193,8 +189,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                 }
                 if (binding.rvProducts.SCROLL_STATE_IDLE == newState) {
                     // fragProductLl.setVisibility(View.VISIBLE);
-                   */
-/* if (y <= 0) {
+                   /* if (y <= 0) {
                         HomeAct.cardTabs.animate().alpha(1.0f);
                         HomeAct.cardTabs.setVisibility(View.VISIBLE);
                         HomeAct.cardTabIcons.animate().alpha(0.0f);
@@ -206,8 +201,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                         HomeAct.cardTabs.setVisibility(View.GONE);
                         HomeAct.cardTabIcons.animate().alpha(1.0f);
                         HomeAct.cardTabIcons.setVisibility(View.VISIBLE);
-                    }*//*
-
+                    }*/
 
                     HomeAct.cardTabs.animate().alpha(0.0f);
                     HomeAct.cardTabs.setVisibility(View.GONE);
@@ -304,51 +298,54 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         new SizeFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
     }
 
-    private void callCategory() {
+    private void callCategory(){
         new CategoryFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
     }
 
 
-    public void GetAllProduct(String catId, String subCatId, String sortData, String ChkFav, int pos) {
+    public void GetAllProduct(String catId, String subCatId ,String sortData,String ChkFav,int pos) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
         map.put("category_id", catId);
         map.put("sub_category_id", subCatId);
         map.put("user_id", userId);
         map.put("order_by", sortData);
-        Log.e("product c===", map.toString());
-        Call<ProductModel> loginCall = apiInterface.getAllProduct(map);
-        loginCall.enqueue(new Callback<ProductModel>() {
+        Log.e("product c===",map.toString());
+        Call<ProductNewModel> loginCall = apiInterface.getAllProductNew(map);
+        loginCall.enqueue(new Callback<ProductNewModel>() {
             @Override
-            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+            public void onResponse(Call<ProductNewModel> call, Response<ProductNewModel> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    ProductModel data = response.body();
+                    ProductNewModel data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.status.equals("1")) {
                         arrayList.clear();
                         binding.tvFound.setVisibility(View.GONE);
                         arrayList.addAll(data.result);
-                        if (ChkFav.equals("fav")) {
+                        if(ChkFav.equals("fav")){
                             adapterGrid.notifyItemChanged(pos);
                             adapterScroll.notifyItemChanged(pos);
 
-                        } else {
+                        }
+                        else {
                             adapterGrid.notifyDataSetChanged();
                             adapterScroll.notifyDataSetChanged();
                         }
 
 
+
                     } else if (data.status.equals("0")) {
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
                         arrayList.clear();
-                        if (ChkFav.equals("fav")) {
+                        if(ChkFav.equals("fav")){
                             adapterGrid.notifyItemChanged(pos);
                             adapterScroll.notifyItemChanged(pos);
 
-                        } else {
+                        }
+                        else {
                             adapterGrid.notifyDataSetChanged();
                             adapterScroll.notifyDataSetChanged();
                         }
@@ -364,7 +361,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             }
 
             @Override
-            public void onFailure(Call<ProductModel> call, Throwable t) {
+            public void onFailure(Call<ProductNewModel> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
                 arrayList.clear();
@@ -376,19 +373,19 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
 
     @Override
     public void onIcon(int position, String type) {
-        if (type.equals("Info")) {
+      /*  if (type.equals("Info")) {
             if (!arrayList.get(position).description.equals(""))
                 new InfoFragmentBottomSheet(arrayList.get(position)).callBack(this::info).show(getChildFragmentManager(), "");
             else
                 Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        } else if (type.equals("Cart")) {
+        } else */ if (type.equals("Cart")) {
 
             if (arrayList.get(position).colorDetails.size() != 0) {
                 new CartFragmentBootomSheet(arrayList.get(position)).callBack(this::info).show(getChildFragmentManager(), "");
             } else
                 Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
 
-        } else if (type.equals("Color")) {
+        } /*else if (type.equals("Color")) {
             if (arrayList.get(position).colorDetails.size() != 0) {
                 new ColorSizeFragmentBottomSheet(arrayList.get(position), arrayList.get(position).colorDetails.get(0).size).callBack(this::info).show(getChildFragmentManager(), "");
             } else
@@ -399,9 +396,9 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             } else
                 Toast.makeText(getActivity(), getString(R.string.not_available), Toast.LENGTH_SHORT).show();
 
-        } else if (type.equals("Fav")) {
+        }*/ else if (type.equals("Fav")) {
             if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                addFavrirr(arrayList.get(position).id + "", position);
+                addFavrirr(arrayList.get(position).id + "",position);
             else
                 Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
         }
@@ -415,7 +412,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     }
 
 
-    public void addFavrirr(String proId, int pos) {
+    public void addFavrirr(String proId,int pos) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
         map.put("user_id", userId);
@@ -434,7 +431,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     if (data.get("status").equals("1")) {
 
                         if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                            GetAllProduct(catId, subCatId, sortData, "fav", pos);
+                            GetAllProduct(catId,subCatId, sortData,"fav",pos);
                         else
                             Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
@@ -442,7 +439,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                     } else if (data.get("status").equals("0")) {
 
                         if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                            GetAllProduct(catId, subCatId, sortData, "fav", pos);
+                            GetAllProduct(catId,subCatId, sortData,"fav",pos);
                         else
                             Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                     }
@@ -467,6 +464,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
     /// user_id=41&product_id=1
 
 
+/*
     public void getFilterSearch(String query, String filter) {
         try {
             query = query.toLowerCase();
@@ -535,11 +533,12 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         }
 
     }
+*/
 
 
     @Override
     public void onFilter(String type, String value) {
-        if (NetworkAvailablity.checkNetworkStatus(getActivity())) ApplyFilter(type, value);
+        if(NetworkAvailablity.checkNetworkStatus(getActivity())) ApplyFilter(type,value);
 
     }
 
@@ -550,20 +549,22 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         if (type.equals("color")) {
             map.put("color", value);
             //  map.put("category_id", value);
-        } else if (type.equals("size")) {
+        }
+        else if (type.equals("size")) {
             map.put("size", value);
             //  map.put("category_id", value);
-        } else if (type.equals("category")) map.put("category_id", value);
-        Log.e(TAG, "Apply Filter Request :" + type + "  " + map);
+        }
+        else if (type.equals("category")) map.put("category_id", value);
+        Log.e(TAG, "Apply Filter Request :" + type +"  " + map);
 
-        Call<ProductModel> loginCall = apiInterface.getApplyFilter(map);
-        loginCall.enqueue(new Callback<ProductModel>() {
+        Call<ProductNewModel> loginCall = apiInterface.getApplyFilterNew(map);
+        loginCall.enqueue(new Callback<ProductNewModel>() {
             @Override
-            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+            public void onResponse(Call<ProductNewModel> call, Response<ProductNewModel> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    ProductModel data = response.body();
+                    ProductNewModel data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Apply Filter List Response :" + responseString);
                     if (data.status.equals("1")) {
@@ -589,7 +590,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
             }
 
             @Override
-            public void onFailure(Call<ProductModel> call, Throwable t) {
+            public void onFailure(Call<ProductNewModel> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
             }
@@ -613,7 +614,7 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
                 //  if(getIntent()!=null){
                 //  catId = getIntent().getStringExtra("catId");
                 if (NetworkAvailablity.checkNetworkStatus(getActivity()))
-                    GetAllProduct(catId, subCatId, sortData, "", 0);
+                    GetAllProduct(catId,subCatId, sortData,"",0);
                 else
                     Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                 //   }
@@ -635,4 +636,3 @@ public class ProductFragment extends Fragment implements onIconClickListener, In
         transaction.commit();
     }
 }
-*/

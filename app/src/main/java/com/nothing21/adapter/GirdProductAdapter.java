@@ -1,3 +1,4 @@
+/*
 package com.nothing21.adapter;
 
 import android.app.Activity;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.MyViewHolder> implements onIconClickProductListener {
     Context context;
     ArrayList<ProductModel.Result> arrayList;
-    ArrayList<String>imgArrayList;
+    ArrayList<String> imgArrayList;
     onIconClickListener listener;
 
 
@@ -50,24 +51,23 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemGirdProductBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_gird_product,parent,false);
+        ItemGirdProductBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_gird_product, parent, false);
         return new MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.tvName.setText(arrayList.get(position).name);
-        if(!arrayList.get(position).discountedPrice.equals("0")) {
+        if (!arrayList.get(position).discountedPrice.equals("0")) {
             holder.binding.tvOldPrice.setVisibility(View.VISIBLE);
             holder.binding.tvDiscount.setVisibility(View.VISIBLE);
-            holder.binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price) - Double.parseDouble(arrayList.get(position).discountedPrice )));
+            holder.binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price) - Double.parseDouble(arrayList.get(position).discountedPrice)));
             holder.binding.tvPrice.setTextColor(context.getResources().getColor(R.color.color_red));
             holder.binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
             holder.binding.tvOldPrice.setPaintFlags(holder.binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.binding.tvDiscount.setText("-"+arrayList.get(position).discountedPrice + "% Off");
+            holder.binding.tvDiscount.setText("-" + arrayList.get(position).discountedPrice + "% Off");
 
-        }
-        else {
+        } else {
             holder.binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
             holder.binding.tvPrice.setTextColor(context.getResources().getColor(R.color.black));
             holder.binding.tvOldPrice.setVisibility(View.GONE);
@@ -76,14 +76,12 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
         }
 
 
-        holder.binding.viewPager.setAdapter(new MyViewPagerProductGirdAdapter(context,arrayList.get(position).colorDetails,arrayList.get(position).id));
-        holder.binding.rvColor.setAdapter(new ColorProductAdapter(context, arrayList.get(position).colorDetails,GirdProductAdapter.this,holder.binding.viewPager));
+        holder.binding.viewPager.setAdapter(new MyViewPagerProductGirdAdapter(context, arrayList.get(position).colorDetails, arrayList.get(position).id));
+        holder.binding.rvColor.setAdapter(new ColorProductAdapter(context, arrayList.get(position).colorDetails, GirdProductAdapter.this, holder.binding.viewPager));
 
-        if(arrayList.get(position).fav_product_status.equals("false")) holder.binding.ivLike.setImageDrawable(context.getDrawable(R.drawable.ic_white_heart));
+        if (arrayList.get(position).fav_product_status.equals("false"))
+            holder.binding.ivLike.setImageDrawable(context.getDrawable(R.drawable.ic_white_heart));
         else holder.binding.ivLike.setImageDrawable(context.getDrawable(R.drawable.ic_red_heart));
-
-
-
 
 
     }
@@ -95,34 +93,35 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ItemGirdProductBinding binding;
+
         public MyViewHolder(@NonNull ItemGirdProductBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
 
             binding.ivLike.setOnClickListener(v -> {
-                listener.onIcon(getAdapterPosition(),"Fav");
+                listener.onIcon(getAdapterPosition(), "Fav");
             });
 
         }
     }
 
 
-  public void filterList(ArrayList<ProductModel.Result> filterlist) {
-      if(filterlist.size()==0)
-         // ProductAct.tvFound.setVisibility(View.VISIBLE);
-          ProductFragment.tvFound.setVisibility(View.VISIBLE);
-      else
-         // ProductAct.tvFound.setVisibility(View.GONE);
-          ProductFragment.tvFound.setVisibility(View.GONE);
-      arrayList = filterlist;
-      notifyDataSetChanged();
-  }
+    public void filterList(ArrayList<ProductModel.Result> filterlist) {
+        if (filterlist.size() == 0)
+            // ProductAct.tvFound.setVisibility(View.VISIBLE);
+            ProductFragment.tvFound.setVisibility(View.VISIBLE);
+        else
+            // ProductAct.tvFound.setVisibility(View.GONE);
+            ProductFragment.tvFound.setVisibility(View.GONE);
+        arrayList = filterlist;
+        notifyDataSetChanged();
+    }
 
 
     @Override
     public void onIcon(int position, String type, ViewPager viewPager) {
-        if(type.equals("color")) {
-            next(position,viewPager);
+        if (type.equals("color")) {
+            next(position, viewPager);
         }
     }
 
@@ -134,3 +133,4 @@ public class GirdProductAdapter extends RecyclerView.Adapter<GirdProductAdapter.
 
 
 }
+*/

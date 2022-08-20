@@ -19,6 +19,7 @@ import com.nothing21.databinding.FragmentInfoBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductModelCopyNew;
 import com.nothing21.utils.SessionManager;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -29,10 +30,10 @@ public class InfoFragmentBottomSheet1 extends BottomSheetDialogFragment {
     BottomSheetDialog dialog;
     private BottomSheetBehavior<View> mBehavior;
     InfoListener listener;
-    ProductModelCopy.Result productData;
+    ProductModelCopyNew.Result productData;
     String imgg="";
 
-    public InfoFragmentBottomSheet1(ProductModelCopy.Result productData,String imgg) {
+    public InfoFragmentBottomSheet1(ProductModelCopyNew.Result productData, String imgg) {
         this.productData = productData;
         this.imgg = imgg;
     }

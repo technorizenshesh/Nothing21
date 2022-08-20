@@ -23,17 +23,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.LoginAct;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
 import com.nothing21.adapter.ColorAdapter;
-import com.nothing21.adapter.ColorCartAdapter;
-import com.nothing21.adapter.SizeAdapter;
 import com.nothing21.adapter.SizeAdapter1;
 import com.nothing21.databinding.FragmentCartSheetBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
-import com.nothing21.model.ProductModel;
-import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductModelCopyNew;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -41,15 +37,11 @@ import com.nothing21.utils.DataManager;
 import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,16 +53,17 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     BottomSheetDialog dialog;
     private BottomSheetBehavior<View> mBehavior;
     InfoListener listener;
-    ProductModelCopy.Result productData;
-    int count =1;
+    ProductModelCopyNew.Result productData;
+    int count =1,colorPosition=0,variationPosition=0;
     double price =0.00,priceTol=0.00;
     Nothing21Interface apiInterface;
     String refreshedToken = "",userId="",img="",avaQnty="";
     boolean check = false , chkColor = false,chkSize=false;
-    ArrayList<ProductModelCopy.Result.ColorDetail> colorArrayList;
+    ArrayList<ProductModelCopyNew.Result.ColorDetail> colorArrayList;
+    ArrayList<ProductModelCopyNew.Result.ColorDetail.ColorVariation> sizeArrayList;
+    SizeAdapter1 sizeAdapter;
 
-
-    public CartFragmentBootomSheet1(ProductModelCopy.Result productData,String img) {
+    public CartFragmentBootomSheet1(ProductModelCopyNew.Result productData,String img) {
         this.productData = productData;
         this.img =  img;
     }
@@ -97,6 +90,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
 
     private void initViews() {
         colorArrayList = new ArrayList<>();
+        sizeArrayList = new ArrayList<>();
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
@@ -114,25 +108,24 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
             }
         });
 
-        price = Double.parseDouble(productData.price);
-        if(productData.colorDetails.size()!=0) {
-            binding.tvColor.setText(productData.colorDetails.get(0).color);
-            binding.tvSize.setText(productData.colorDetails.get(0).size);
-        }
-        priceCal(count);
+
+        priceCal(count,colorPosition,variationPosition);
         binding.BlurImageView.setBlur(10);
 
-     //   if (img==null || img.equals("")) img = SessionManager.readString(getActivity(),"selectImage","");
         Log.e("Image Cart =====",img);
         Glide.with(getActivity()).load(img)
                 .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                 .into(binding.BlurImageView);
 
         colorArrayList.clear();
+        sizeArrayList.clear();
         colorArrayList.addAll(productData.colorDetails);
-        avaQnty = colorArrayList.get(0).remainingQuantity+"";
+        sizeArrayList.addAll(productData.colorDetails.get(0).colorVariation);
+        avaQnty = colorArrayList.get(0).colorVariation.get(0).remainingQuantity+"";
 
-        binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,CartFragmentBootomSheet1.this));
+        sizeAdapter = new SizeAdapter1(getActivity(), sizeArrayList,CartFragmentBootomSheet1.this);
+        binding.rvSize.setAdapter(sizeAdapter);
+
         binding.rvColor.setAdapter(new ColorAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet1.this));
 
 
@@ -143,7 +136,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
                 if (count > 1) {
                     count = count - 1;
                     check = true;
-                    priceCal(count);
+                    priceCal(count,colorPosition,variationPosition);
               //  }
             }
           //  else LogInAlert();
@@ -153,7 +146,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
            // if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")) {
                 count = count + 1;
                 check = true;
-                priceCal(count);
+            priceCal(count,colorPosition,variationPosition);
          //   }
 
          //   else LogInAlert();
@@ -163,14 +156,14 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         binding.ivCart.setOnClickListener(v -> dialog.dismiss());
 
 
-        binding.ivColor1.setOnClickListener(v -> {
+      /*  binding.ivColor1.setOnClickListener(v -> {
             new ColorSizeFragmentBottomSheet1(productData,binding.tvSize.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
         });
 
 
         binding.ivSize.setOnClickListener(v -> {
             new SizeFragmentBottomSheet1(productData,binding.tvColor.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
-        });
+        });*/
 
 
         binding.tvAddCart.setOnClickListener(v -> {
@@ -196,34 +189,37 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
 
     }
 
-    private void priceCal(int i){
-        Log.e("price=====",i+"");
-        priceTol = price * i ;
-        binding.tvCart1.setText(count+"");
+    private void priceCal(int i,int colorPosition,int variationPosition){
+
       //  binding.tvPri.setText("AED" + String.format("%.2f", priceTol));
       //  binding.tvPri.setText("AED" + String.format("%.2f", price));
 
 
-        if(!productData.discountedPrice.equals("0")) {
+        if(!productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceDiscount.equals("0")) {
             binding.tvOldPrice.setVisibility(View.VISIBLE);
             //  binding.tvDiscount.setVisibility(View.VISIBLE);
-            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discountedPrice )));
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceCalculated)));
             binding.tvPri.setTextColor(getResources().getColor(R.color.color_red));
-            binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
+            binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).price)));
             binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             //  binding.tvDiscount.setText("-"+data.result.discount + "% Off");
+            price = Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceCalculated);
 
         }
         else {
-            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).price)));
             binding.tvPri.setTextColor(getResources().getColor(R.color.black));
             binding.tvOldPrice.setVisibility(View.GONE);
             //  binding.tvDiscount.setVisibility(View.GONE);
+            price = Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).price);
+
 
         }
 
 
-
+        Log.e("price=====",i+"");
+        priceTol = price ;
+        binding.tvCart1.setText(count+"");
 
 
        /* if(check == true) {
@@ -363,7 +359,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
 
     @Override
     public void info(String value,String size) {
-        if(!value.equals("")) {
+       /* if(!value.equals("")) {
             binding.tvColor.setText(value);
             binding.tvSize.setText(size);
         }
@@ -373,7 +369,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
             binding.tvColor.setText(value);
             binding.tvSize.setText(size);
         }
-        else binding.tvSize.setText(productData.colorDetails.get(0).size);
+        else binding.tvSize.setText(productData.colorDetails.get(0).size);*/
     }
 
 
@@ -381,22 +377,29 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     @Override
     public void onIcon(int position, String type) {
         if(type.equals("size")) {
-            SessionManager.writeString(getActivity(), "selectSize", colorArrayList.get(position).size);
+            SessionManager.writeString(getActivity(), "selectSize", sizeArrayList.get(position).size+"");
+            avaQnty = sizeArrayList.get(position).remainingQuantity+"";
+            SessionManager.writeString(getActivity(),"avaQuantity",sizeArrayList.get(position).remainingQuantity+"");
             chkSize = true;
+            variationPosition = position;
+            priceCal(count,colorPosition,variationPosition);
+
         }
         else if(type.equals("color"))
         {
+            colorPosition = position;
             img = colorArrayList.get(position).image;
-            SessionManager.writeString(getActivity(),"avaQuantity",colorArrayList.get(position).remainingQuantity);
             SessionManager.writeString(getActivity(),"colorDetailsId",colorArrayList.get(position).colorId);
 
-            // SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
             binding.BlurImageView.setBlur(10);
             Glide.with(getActivity()).load(img)
                     .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                     .into(binding.BlurImageView);
             chkColor = true;
-            avaQnty = colorArrayList.get(position).remainingQuantity+"";
+            sizeArrayList.clear();
+            sizeArrayList.addAll(colorArrayList.get(position).colorVariation);
+            sizeAdapter.notifyDataSetChanged();
+            priceCal(count,colorPosition,variationPosition);
 
         }
     }

@@ -23,18 +23,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.LoginAct;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
-import com.nothing21.adapter.ColorCartAdapter;
-import com.nothing21.adapter.ColorCartAdapter1;
-import com.nothing21.adapter.SizeAdapter;
-import com.nothing21.adapter.SizeAdapter1;
-import com.nothing21.databinding.FragmentCartSheetBinding;
 import com.nothing21.databinding.FragmentEditCartSheetBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.GetCartModel;
-import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
@@ -43,15 +36,11 @@ import com.nothing21.utils.DataManager;
 import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -259,8 +248,8 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
         colorArrayList.addAll(productData.colorDetails);
        // avaQnty = colorArrayList.get(0).remainingQuantity+"";
 
-        binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
-        binding.rvColor.setAdapter(new ColorCartAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
+     //   binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
+     //   binding.rvColor.setAdapter(new ColorCartAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
 
         binding.tvMinus.setOnClickListener(v -> {
             if (count > 1) {

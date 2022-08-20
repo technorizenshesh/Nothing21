@@ -15,8 +15,7 @@
 
             <include
                 android:id="@+id/reservation_toolbar"
-                layout="@layout/toolbar"
-                />
+                layout="@layout/toolbar" />
 
             <LinearLayout
                 android:id="@+id/layoutCard"

@@ -14,7 +14,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
 import com.nothing21.adapter.EditColorSizeAdapter;
 import com.nothing21.databinding.FragmentColorSizeSheetBinding;

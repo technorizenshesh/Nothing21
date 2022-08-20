@@ -37,20 +37,20 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:visibility="gone"/>
 
-
+-->
                 <ImageView
                     android:id="@+id/ivImg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/img3"
-                    android:visibility="visible" />-->
+                    android:src="@drawable/dummy"
+                    android:visibility="visible" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:visibility="gone"
                     />
 
                 <TextView

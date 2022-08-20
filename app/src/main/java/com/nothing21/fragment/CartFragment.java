@@ -22,16 +22,12 @@ import com.google.gson.Gson;
 import com.nothing21.HomeAct;
 import com.nothing21.LoginAct;
 import com.nothing21.OrderPlaceAct;
-import com.nothing21.ProductAct;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.adapter.CartAdapter;
 import com.nothing21.R;
 import com.nothing21.databinding.FragmentCartBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
-import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.GetCartModel;
-import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
@@ -328,8 +324,8 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
     }
 
     private void callEdit(ProductModelCopy data,int pos) {
-        new EditCartBottomSheet(data.result,arrayList.get(pos),data11.totalAmount+"").callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
-
+       // new EditCartBottomSheet(data.result,arrayList.get(pos),data11.totalAmount+"").callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
+       // Krana hai sahi
     }
 
     @Override

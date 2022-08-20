@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.nothing21.R;
 import com.nothing21.listener.ImageListener;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductModelCopyNew;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -26,10 +27,10 @@ import java.util.ArrayList;
 public class MyViewPagerAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     Context context;
-    ArrayList<ProductModelCopy.Result.ColorDetail> arrayList;
+    ArrayList<ProductModelCopyNew.Result.ColorDetail> arrayList;
     ImageListener listener;
 
-    public MyViewPagerAdapter( Context context, ArrayList<ProductModelCopy.Result.ColorDetail> arrayList,ImageListener listener) {
+    public MyViewPagerAdapter( Context context, ArrayList<ProductModelCopyNew.Result.ColorDetail> arrayList,ImageListener listener) {
         this.context = context;
         this.arrayList = arrayList;
         this.listener =listener;

@@ -1,3 +1,4 @@
+/*
 package com.nothing21.adapter;
 
 import android.content.Context;
@@ -20,7 +21,7 @@ import com.nothing21.R;
 import com.nothing21.ViewProductAdapter1;
 import com.nothing21.databinding.ItemProductBinding;
 import com.nothing21.databinding.ItemScrollProductBinding;
-import com.nothing21.fragment.ProductFragment;
+import com.nothing21.fragment.ProductNewFragment;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.ProductModel;
 
@@ -242,7 +243,8 @@ public class ScrollProductAdapter extends RecyclerView.Adapter<ScrollProductAdap
     }
 
 
-   /* public void setListData(int position , ItemScrollProductBinding binding){
+   */
+/* public void setListData(int position , ItemScrollProductBinding binding){
      //   imgArrayList.clear();
         if(!arrayList.get(position).image1.equals("")) imgArrayList.add(arrayList.get(position).image1);
           else if(!arrayList.get(position).image2.equals("")) imgArrayList.add(arrayList.get(position).image2);
@@ -252,12 +254,13 @@ public class ScrollProductAdapter extends RecyclerView.Adapter<ScrollProductAdap
         binding.rvProductItm.setAdapter(new ViewProductAdapter1(context,imgArrayList,arrayList.get(position).id));
 
 
-    }*/
+    }*//*
+
 
     public void filterList(ArrayList<ProductModel.Result> filterlist) {
         if(filterlist.size()==0)
          //   ProductAct.tvFound.setVisibility(View.VISIBLE);
-            ProductFragment.tvFound.setVisibility(View.VISIBLE);
+            ProductNewFragment.tvFound.setVisibility(View.VISIBLE);
 
         else
            // ProductAct.tvFound.setVisibility(View.GONE);
@@ -269,3 +272,4 @@ public class ScrollProductAdapter extends RecyclerView.Adapter<ScrollProductAdap
 
 }
 
+*/

@@ -1,3 +1,4 @@
+/*
 package com.nothing21.adapter;
 
 import android.app.Activity;
@@ -15,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.nothing21.LoginAct;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
 import com.nothing21.databinding.ItemProductImagBinding;
 import com.nothing21.model.ProductModel;
@@ -106,4 +106,4 @@ public class ViewProductAdapter2 extends RecyclerView.Adapter<ViewProductAdapter
         alert11.show();
     }
 
-}
+}*/

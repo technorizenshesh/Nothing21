@@ -1,3 +1,4 @@
+/*
 package com.nothing21;
 
 import android.os.Bundle;
@@ -370,3 +371,4 @@ public class ProductAct extends AppCompatActivity implements onIconClickListener
 
 
 }
+*/

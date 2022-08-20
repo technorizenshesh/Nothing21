@@ -24,9 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.nothing21.HomeAct;
 import com.nothing21.R;
-import com.nothing21.adapter.GirdProductAdapter;
 import com.nothing21.adapter.ProductAdapter;
-import com.nothing21.adapter.ScrollProductOneAdapter;
 import com.nothing21.adapter.SubCatAdapter;
 import com.nothing21.databinding.FragmentSubCatBinding;
 import com.nothing21.listener.onItemClickListener;
@@ -238,7 +236,8 @@ public class SubCatFragment extends Fragment implements onItemClickListener {
     @Override
     public void onItem(int position) {
         //   FragTrans(new ProductFragment(arrayList.get(position).id+""));
-          FragTrans(new ProductFragment(catId,arrayList.get(position).getId()+""));
+        //  FragTrans(new ProductFragment(catId,arrayList.get(position).getId()+""));
+        FragTrans(new ProductNewFragment(catId,arrayList.get(position).getId()+""));
 
     }
 }

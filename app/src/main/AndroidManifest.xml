@@ -56,18 +56,18 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
-        <activity
+      <!--  <activity
             android:name=".ProductAct"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
+            android:configChanges="orientation|screenSize|keyboardHidden" />-->
 
 
-        <activity
+       <!-- <activity
             android:name=".ProductSingalAct"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
+            android:configChanges="orientation|screenSize|keyboardHidden" />-->
 
         <activity
             android:name=".OrderPlaceAct"
@@ -155,6 +155,20 @@
 
         <activity
             android:name=".ContactUsAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".Login2Act"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".Register2Act"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize|keyboardHidden" />

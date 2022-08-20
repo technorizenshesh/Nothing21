@@ -15,6 +15,8 @@ import com.nothing21.model.LoginModel;
 import com.nothing21.model.MyOrderModel;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductModelCopyNew;
+import com.nothing21.model.ProductNewModel;
 import com.nothing21.model.RateModel;
 import com.nothing21.model.SearchModel;
 import com.nothing21.model.SizeListModel;
@@ -65,9 +67,20 @@ public interface Nothing21Interface {
     @POST("get_product_by_category")
     Call<ProductModel> getAllProduct (@FieldMap Map<String, String> params);
 
+
+    @FormUrlEncoded
+    @POST("get_product_by_category_new")
+    Call<ProductNewModel> getAllProductNew (@FieldMap Map<String, String> params);
+
+
     @FormUrlEncoded
     @POST("get_product_details")
     Call<ProductModelCopy> getProduct (@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("get_product_details")
+    Call<ProductModelCopyNew> getProductNew (@FieldMap Map<String, String> params);
 
 
 
@@ -147,7 +160,7 @@ public interface Nothing21Interface {
 
     @FormUrlEncoded
     @POST("get_product_by_product_id")
-    Call<ProductModel> getOtherProduct (@FieldMap Map<String, String> params);
+    Call<ProductNewModel> getOtherProduct (@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("get_fav_product")
@@ -186,6 +199,11 @@ public interface Nothing21Interface {
     @FormUrlEncoded
     @POST("filter_product")
     Call<ProductModel> getApplyFilter (@FieldMap Map<String, String> params);
+
+
+    @FormUrlEncoded
+    @POST("")
+    Call<ProductNewModel> getApplyFilterNew (@FieldMap Map<String, String> params);
 
 
     @FormUrlEncoded

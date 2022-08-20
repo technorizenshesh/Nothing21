@@ -15,16 +15,17 @@ import com.nothing21.databinding.ItemColorBinding;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductNewModel;
 import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
 
 public class ColorCartAdapter extends RecyclerView.Adapter<ColorCartAdapter.MyViewHolder> {
     Context context;
-    ArrayList<ProductModel.Result.ColorDetail> arrayList;
+    ArrayList<ProductNewModel.Result.ColorDetail> arrayList;
     onIconClickListener listener;
 
-    public ColorCartAdapter(Context context, ArrayList<ProductModel.Result.ColorDetail>arrayList, onIconClickListener listener) {
+    public ColorCartAdapter(Context context, ArrayList<ProductNewModel.Result.ColorDetail>arrayList, onIconClickListener listener) {
         this.context = context;
         this.arrayList = arrayList;
         this.listener = listener;

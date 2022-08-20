@@ -17,19 +17,24 @@ import com.nothing21.listener.onIconClickListener;
 import com.nothing21.listener.onIconClickProductListener;
 import com.nothing21.model.ProductModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductNewModel;
 import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
 
 public class ColorProductAdapter extends RecyclerView.Adapter<ColorProductAdapter.MyViewHolder> {
     Context context;
-    ArrayList<ProductModel.Result.ColorDetail> arrayList;
+    ArrayList<ProductNewModel.Result.ColorDetail> arrayList;
     onIconClickProductListener listener;
     ViewPager viewPager;
+    int mainPosition;
+    ScrollProductOneAdapterNew.MyViewHolder myViewHolder;
 
-    public ColorProductAdapter(Context context, ArrayList<ProductModel.Result.ColorDetail>arrayList, onIconClickProductListener listener, ViewPager viewPager) {
+    public ColorProductAdapter(Context context, ArrayList<ProductNewModel.Result.ColorDetail>arrayList, int mainPosition, ScrollProductOneAdapterNew.MyViewHolder myViewHolder, onIconClickProductListener listener, ViewPager viewPager) {
         this.context = context;
         this.arrayList = arrayList;
+        this.mainPosition = mainPosition;
+        this.myViewHolder = myViewHolder;
         this.listener = listener;
         this.viewPager = viewPager;
     }
@@ -92,7 +97,7 @@ public class ColorProductAdapter extends RecyclerView.Adapter<ColorProductAdapte
                     arrayList.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).setChkColor(true);
-                listener.onIcon(getAdapterPosition(),"color",viewPager);
+                listener.onIcon(getAdapterPosition(),mainPosition,myViewHolder,"color",viewPager);
                 SessionManager.writeString(context,"selectImage",arrayList.get(getAdapterPosition()).image);
                 Log.e("cureenttt",arrayList.get(getAdapterPosition()).isChkColor()+"");
                 notifyDataSetChanged();

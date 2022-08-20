@@ -12,15 +12,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
-import com.nothing21.databinding.ItemGirdProductBinding;
 import com.nothing21.databinding.ItemImagBinding;
-import com.nothing21.databinding.ItemProductImagBinding;
-import com.nothing21.fragment.ProductFragment;
-import com.nothing21.listener.onIconClickListener;
-import com.nothing21.listener.onItemClickListener;
-import com.nothing21.model.ProductModel;
+
 import com.nothing21.model.ProductModelCopy;
 
 import java.util.ArrayList;

@@ -1,3 +1,4 @@
+/*
 package com.nothing21.adapter;
 
 import android.content.Context;
@@ -53,3 +54,4 @@ public class ShadeColorAdapter extends RecyclerView.Adapter<ShadeColorAdapter.My
         }
     }
 }
+*/

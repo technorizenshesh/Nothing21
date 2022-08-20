@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.ProductSingalCopyAct;
 import com.nothing21.R;
 import com.nothing21.databinding.ItemCartBinding;

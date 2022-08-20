@@ -17,15 +17,16 @@ import com.nothing21.fragment.HomeFragment;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.CategoryModel;
 import com.nothing21.model.ProductModel;
+import com.nothing21.model.ProductNewModel;
 
 import java.util.ArrayList;
 
 public class OtherProAdapter extends RecyclerView.Adapter<OtherProAdapter.MyViewHolder> {
     Context context;
-    ArrayList<ProductModel.Result> arrayList;
+    ArrayList<ProductNewModel.Result> arrayList;
     onItemClickListener listener;
 
-    public OtherProAdapter(Context context, ArrayList<ProductModel.Result> arrayList,onItemClickListener listener) {
+    public OtherProAdapter(Context context, ArrayList<ProductNewModel.Result> arrayList,onItemClickListener listener) {
         this.context = context;
         this.arrayList = arrayList;
         this.listener = listener;

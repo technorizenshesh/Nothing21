@@ -13,15 +13,16 @@ import com.nothing21.databinding.ItemSizeColorBinding;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.ProductModel;
+import com.nothing21.model.ProductNewModel;
 
 import java.util.ArrayList;
 
 public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> {
     Context context;
-    ArrayList<ProductModel.Result.ColorDetail> arrayList;
+    ArrayList<ProductNewModel.Result.ColorDetail.ColorVariation> arrayList;
     onIconClickListener listener;
 
-    public SizeAdapter(Context context, ArrayList<ProductModel.Result.ColorDetail>arrayList, onIconClickListener listener) {
+    public SizeAdapter(Context context, ArrayList<ProductNewModel.Result.ColorDetail.ColorVariation>arrayList, onIconClickListener listener) {
         this.context = context;
         this.arrayList = arrayList;
         this.listener = listener;

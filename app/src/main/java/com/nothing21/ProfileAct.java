@@ -12,10 +12,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.nothing21.adapter.MyOrderAdapter;
 import com.nothing21.databinding.ActivityProfileBinding;
-import com.nothing21.fragment.AccountFragment;
-import com.nothing21.model.FavModel;
 import com.nothing21.model.LoginModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;

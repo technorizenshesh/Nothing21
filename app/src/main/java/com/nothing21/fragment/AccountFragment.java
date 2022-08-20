@@ -24,6 +24,7 @@ import com.nothing21.BuildConfig;
 import com.nothing21.ContactUsAct;
 import com.nothing21.HomeAct;
 
+import com.nothing21.Login2Act;
 import com.nothing21.OrderHistoryAct;
 import com.nothing21.OrderStatusAct;
 import com.nothing21.ProfileAct;
@@ -104,7 +105,12 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         }
 
         binding.tvLogout.setOnClickListener(v -> {
-            LogOutAlert();
+            if(SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+                startActivity(new Intent(getActivity(), Login2Act.class));
+            }
+            else {
+                LogOutAlert();
+            }
         });
 
 
@@ -546,12 +552,15 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
         if(SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
             binding.tvName.setText("Hi Guest");
-            binding.tvLogout.setVisibility(View.GONE);
+            binding.tvLogout.setVisibility(View.VISIBLE);
+            binding.tvLogout.setText(getString(R.string.login_signup));
+
         }
         else {
             binding.tvName.setText(DataManager.getInstance().getUserData(getActivity()).result.firstName + " " +
                     DataManager.getInstance().getUserData(getActivity()).result.lastName);
             binding.tvLogout.setVisibility(View.VISIBLE);
+            binding.tvLogout.setText(getString(R.string.logout));
         }
     }
 }

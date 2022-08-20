@@ -51,7 +51,6 @@
             android:inputType="textEmailAddress"
             android:padding="@dimen/_7sdp"
             android:singleLine="true"
-            android:text="sddsds"
             android:textColor="@color/black"
             android:textSize="@dimen/_11sdp" />
 
@@ -78,7 +77,6 @@
             android:inputType="textPassword"
             android:padding="@dimen/_7sdp"
             android:singleLine="true"
-            android:text="sddsds"
             android:textColor="@color/black"
             android:textSize="@dimen/_11sdp" />
 
@@ -105,7 +103,6 @@
             android:inputType="textPassword"
             android:padding="@dimen/_7sdp"
             android:singleLine="true"
-            android:text="sddsds"
             android:textColor="@color/black"
             android:textSize="@dimen/_11sdp" />
 
@@ -132,7 +129,6 @@
             android:inputType="text"
             android:padding="@dimen/_7sdp"
             android:singleLine="true"
-            android:text="sddsds"
             android:textColor="@color/black"
             android:textSize="@dimen/_11sdp" />
 

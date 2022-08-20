@@ -1,6 +1,7 @@
 package com.nothing21.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -36,7 +37,9 @@ public class AdapterFilterColor extends RecyclerView.Adapter<AdapterFilterColor.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.binding.tvColorName.setText(arrayList.get(position).getColorName());
-        holder.binding.rvColorShade.setAdapter(new ShadeColorAdapter(context,arrayList.get(position).getColorDetails()));
+        holder.binding.viewShade.setBackgroundColor(Color.parseColor(arrayList.get(position).getColorLink()));
+
+      //  holder.binding.rvColorShade.setAdapter(new ShadeColorAdapter(context,arrayList.get(position).getColorDetails()));
         if(arrayList.get(position).isChk()==true){
             holder.binding.LlMain.setBackground(context.getDrawable(R.drawable.rounded_select_yellow_bg));
         } else  holder.binding.LlMain.setBackground(context.getDrawable(R.drawable.rounded_unselect_white_bg));

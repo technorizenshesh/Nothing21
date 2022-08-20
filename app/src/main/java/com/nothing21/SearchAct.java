@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.gson.Gson;
 import com.nothing21.adapter.AdapterSearch;
 import com.nothing21.databinding.ActivitySearchBinding;
-import com.nothing21.fragment.ProductFragment;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.SearchModel;
 import com.nothing21.retrofit.ApiClient;

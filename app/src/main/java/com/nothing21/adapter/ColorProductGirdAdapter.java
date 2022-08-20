@@ -9,26 +9,32 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.nothing21.R;
 import com.nothing21.databinding.ItemColorBinding;
-import com.nothing21.databinding.ItemSizeColorBinding;
-import com.nothing21.listener.onIconClickListener;
-import com.nothing21.model.ProductModelCopy;
-import com.nothing21.model.ProductModelCopyNew;
+import com.nothing21.listener.onIconClickProductGirdListener;
+import com.nothing21.listener.onIconClickProductListener;
+import com.nothing21.model.ProductNewModel;
 import com.nothing21.utils.SessionManager;
 
 import java.util.ArrayList;
 
-public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.MyViewHolder> {
+public class ColorProductGirdAdapter extends RecyclerView.Adapter<ColorProductGirdAdapter.MyViewHolder> {
     Context context;
-    ArrayList<ProductModelCopyNew.Result.ColorDetail> arrayList;
-    onIconClickListener listener;
+    ArrayList<ProductNewModel.Result.ColorDetail> arrayList;
+    onIconClickProductGirdListener listener;
+    ViewPager viewPager;
+    int mainPosition;
+    GirdProductAdapterNew.MyViewHolder myViewHolder;
 
-    public ColorAdapter(Context context, ArrayList<ProductModelCopyNew.Result.ColorDetail>arrayList, onIconClickListener listener) {
+    public ColorProductGirdAdapter(Context context, ArrayList<ProductNewModel.Result.ColorDetail>arrayList, int mainPosition, GirdProductAdapterNew.MyViewHolder myViewHolder, onIconClickProductGirdListener listener, ViewPager viewPager) {
         this.context = context;
         this.arrayList = arrayList;
+        this.mainPosition = mainPosition;
+        this.myViewHolder = myViewHolder;
         this.listener = listener;
+        this.viewPager = viewPager;
     }
 
     @NonNull
@@ -58,8 +64,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.MyViewHolder
 
 
 
-           // SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",data.result.colorDetails.get(0).image);
-          //  SessionManager.writeString(ProductSingalCopyAct.this,"selectColor",data.result.colorDetails.get(0).color);
+            // SessionManager.writeString(ProductSingalCopyAct.this,"selectImage",data.result.colorDetails.get(0).image);
+            //  SessionManager.writeString(ProductSingalCopyAct.this,"selectColor",data.result.colorDetails.get(0).color);
 
 
 
@@ -89,7 +95,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.MyViewHolder
                     arrayList.get(i).setChkColor(false);
                 }
                 arrayList.get(getAdapterPosition()).setChkColor(true);
-                listener.onIcon(getAdapterPosition(),"color");
+                listener.onGirdIcon(getAdapterPosition(),mainPosition,myViewHolder,"color",viewPager);
+                SessionManager.writeString(context,"selectImage",arrayList.get(getAdapterPosition()).image);
                 Log.e("cureenttt",arrayList.get(getAdapterPosition()).isChkColor()+"");
                 notifyDataSetChanged();
             });

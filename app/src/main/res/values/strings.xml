@@ -102,6 +102,7 @@
     <string name="order_return">Order Return</string>
     <string name="item_updated">Item Updated</string>
     <string name="contact_us">Contact Us</string>
+    <string name="login_signup">Login/Signup</string>
 
 
 </resources>

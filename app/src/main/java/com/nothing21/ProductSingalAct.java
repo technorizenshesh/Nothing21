@@ -1,3 +1,4 @@
+/*
 package com.nothing21;
 
 import android.content.Intent;
@@ -128,13 +129,15 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
         });
 
-     /*   binding.ivIn.setOnClickListener(v -> {
+     */
+/*   binding.ivIn.setOnClickListener(v -> {
             if(data.result.colorDetails.size()!=0) {
                 SessionManager.writeString(ProductSingalAct.this,"selectImage",data.result.colorDetails.get(0).image);
                 new SizeFragmentBottomSheet1(data.result,data.result.colorDetails.get(0).color).callBack(this::info).show(getSupportFragmentManager(),"");
             }
             else Toast.makeText(ProductSingalAct.this, getString(R.string.not_available), Toast.LENGTH_SHORT).show();
-        });*/
+        });*//*
+
 
 
 
@@ -220,11 +223,13 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
                         colorArrayList.clear();
                         colorArrayList.addAll(data.result.colorDetails);
                         imgArrayList.addAll(data.result.colorDetails);
-                       /* Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.ivProduct);
+                       */
+/* Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.ivProduct);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(0).image).error(R.drawable.dummy).into(binding.icOne);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(1).image).error(R.drawable.dummy).into(binding.icTwo);
                         Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(2).image).error(R.drawable.dummy).into(binding.icThree);
-                        Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(3).image).error(R.drawable.dummy).into(binding.icFour);*/
+                        Glide.with(ProductSingalAct.this).load(data.result.imageDetails.get(3).image).error(R.drawable.dummy).into(binding.icFour);*//*
+
 
                         adapter11.notifyDataSetChanged();
                         setColorData(data);
@@ -260,11 +265,13 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
 
                         Glide.with(ProductSingalAct.this).load(data.result.colorDetails.get(0).image).error(R.drawable.dummy).into(binding.ivImg);
 
-                       /* if(!data.result.discount.equals("")) {
+                       */
+/* if(!data.result.discount.equals("")) {
                             binding.tvProductName.setVisibility(View.VISIBLE);
                             binding.tvOffer.setText(data.result.discount + "% Off");
                         }
-                        else binding.tvProductName.setVisibility(View.GONE);*/
+                        else binding.tvProductName.setVisibility(View.GONE);*//*
+
 
 
                     if(NetworkAvailablity.checkNetworkStatus(ProductSingalAct.this))    getProduct(product_id);
@@ -705,3 +712,4 @@ public class ProductSingalAct extends AppCompatActivity implements InfoListener,
         finish();
     }
 }
+*/

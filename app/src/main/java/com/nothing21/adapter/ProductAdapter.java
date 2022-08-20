@@ -11,14 +11,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.nothing21.ProductAct;
 import com.nothing21.R;
-import com.nothing21.databinding.ItemCartBinding;
 import com.nothing21.databinding.ItemProductBinding;
 import com.nothing21.fragment.HomeFragment;
 import com.nothing21.listener.onItemClickListener;
 import com.nothing21.model.CategoryModel;
-import com.nothing21.model.ProductModel;
 
 import java.util.ArrayList;
 

@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.nothing21.ProductSingalAct;
 import com.nothing21.R;
 import com.nothing21.databinding.ItemMyOrderBinding;
 import com.nothing21.databinding.ItemMyOrderTwoBinding;
@@ -79,8 +78,8 @@ public class MyOrderAdapterTwo extends RecyclerView.Adapter<MyOrderAdapterTwo.My
             binding = itemView;
 
             binding.layoutMain.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, ProductSingalAct.class)
-                        .putExtra("id",arrayList.get(getAdapterPosition()).id));
+               /* context.startActivity(new Intent(context, ProductSingalAct.class)
+                        .putExtra("id",arrayList.get(getAdapterPosition()).id));*/
             });
 
 
