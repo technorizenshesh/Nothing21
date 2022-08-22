@@ -241,6 +241,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         map.put("color_id",SessionManager.readString(getActivity(),"colorDetailsId",""));
         map.put("image", imgName[6]);
         map.put("price",priceTol+"");
+        map.put("variation_id", SessionManager.readString(getActivity(), "selectVariationId", ""));
         Log.e(TAG, "Add to Cart Request :" + map);
         Call<Map<String,String>> loginCall = apiInterface.addToCart(map);
         loginCall.enqueue(new Callback<Map<String,String>>() {
@@ -377,9 +378,10 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     @Override
     public void onIcon(int position, String type) {
         if(type.equals("size")) {
-            SessionManager.writeString(getActivity(), "selectSize", sizeArrayList.get(position).size+"");
             avaQnty = sizeArrayList.get(position).remainingQuantity+"";
+            SessionManager.writeString(getActivity(), "selectSize", sizeArrayList.get(position).size+"");
             SessionManager.writeString(getActivity(),"avaQuantity",sizeArrayList.get(position).remainingQuantity+"");
+            SessionManager.writeString(getActivity(), "selectVariationId", sizeArrayList.get(position).variationId+"");
             chkSize = true;
             variationPosition = position;
             priceCal(count,colorPosition,variationPosition);
@@ -389,7 +391,10 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         {
             colorPosition = position;
             img = colorArrayList.get(position).image;
+            SessionManager.writeString(getActivity(), "selectImage", colorArrayList.get(position).image);
             SessionManager.writeString(getActivity(),"colorDetailsId",colorArrayList.get(position).colorId);
+            SessionManager.writeString(getActivity(), "selectColor", colorArrayList.get(position).color);
+
 
             binding.BlurImageView.setBlur(10);
             Glide.with(getActivity()).load(img)

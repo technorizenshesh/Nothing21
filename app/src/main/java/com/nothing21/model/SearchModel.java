@@ -46,12 +46,12 @@ public class SearchModel {
         @SerializedName("lon")
         @Expose
         public String lon;
-        @SerializedName("price")
+       /* @SerializedName("price")
         @Expose
-        public String price;
-        @SerializedName("discount")
+        public String price;*/
+    /*    @SerializedName("discount")
         @Expose
-        public String discount;
+        public String discount;*/
         @SerializedName("image1")
         @Expose
         public String image1;
@@ -77,6 +77,9 @@ public class SearchModel {
         @Expose
         public String image;
 
+        @SerializedName("price_calculated")
+        @Expose
+        public String priceCalculated;
 
 
 

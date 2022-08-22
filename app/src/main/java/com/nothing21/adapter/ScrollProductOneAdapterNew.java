@@ -41,6 +41,7 @@ public class ScrollProductOneAdapterNew extends RecyclerView.Adapter<ScrollProdu
         imgArrayList = new ArrayList<>();
         this.listener  = listener;
 
+
     }
 
     @NonNull
@@ -48,6 +49,7 @@ public class ScrollProductOneAdapterNew extends RecyclerView.Adapter<ScrollProdu
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemScrollProductOneBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_scroll_product_one,parent,false);
         // setChkColor();
+
         return new MyViewHolder(binding);
     }
 
@@ -55,11 +57,10 @@ public class ScrollProductOneAdapterNew extends RecyclerView.Adapter<ScrollProdu
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
 
-        Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
+      //  Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
-       // holder.binding.viewPager.setAdapter(new MyViewPagerProductAdapter(context,arrayList.get(position).colorDetails));
         holder.binding.rvColor.setAdapter(new ColorProductAdapter(context, arrayList.get(position).colorDetails,position,holder,ScrollProductOneAdapterNew.this,holder.binding.viewPager));
-
+        holder.binding.viewPager.setAdapter(new MyViewPagerProductAdapter(context,arrayList.get(position).colorDetails));
         setItemValue(position,0,0,holder);
 
       /*  holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).colorDetails.get(0).colorVariation.get(0).price)));
@@ -99,7 +100,7 @@ public class ScrollProductOneAdapterNew extends RecyclerView.Adapter<ScrollProdu
     @Override
     public void onIcon(int position,int mainPosition,MyViewHolder holder, String type, ViewPager viewPager) {
         if(type.equals("color")) {
-           // next(position,viewPager);
+            next(position,viewPager);
             setItemValue(mainPosition,position,0,holder);
         }
     }
@@ -172,7 +173,7 @@ public class ScrollProductOneAdapterNew extends RecyclerView.Adapter<ScrollProdu
         Log.e("Image value==",arrayList.get(mainPosition).colorDetails.get(colorPosition).image);
         holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(mainPosition).colorDetails.get(colorPosition).colorVariation.get(variationPosition).price+"")));
         holder.binding.tvProductName.setText(arrayList.get(mainPosition).name);
-        Glide.with(context).load(arrayList.get(mainPosition).colorDetails.get(colorPosition).image).error(R.drawable.dummy).into(holder.binding.ivImg);
+       // Glide.with(context).load(arrayList.get(mainPosition).colorDetails.get(colorPosition).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
 
         if(!arrayList.get(mainPosition).colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceDiscount.equals("0")) {
@@ -194,5 +195,8 @@ public class ScrollProductOneAdapterNew extends RecyclerView.Adapter<ScrollProdu
         }
 
     }
+
+
+
 
 }

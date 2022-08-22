@@ -234,9 +234,10 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         map.put("color", SessionManager.readString(getActivity(), "selectColor", ""));
         map.put("size", SessionManager.readString(getActivity(), "selectSize", ""));
         map.put("color_id", SessionManager.readString(getActivity(), "colorDetailsId", ""));
-
         map.put("image", imgName[6]);
         map.put("price", priceTol + "");
+        map.put("variation_id", SessionManager.readString(getActivity(), "selectVariationId", ""));
+
         Log.e(TAG, "Add to Cart Request :" + map);
 
         Call<Map<String, String>> loginCall = apiInterface.addToCart(map);
@@ -345,9 +346,10 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         }*/
 
         if(type.equals("size")) {
-            SessionManager.writeString(getActivity(), "selectSize", sizeArrayList.get(position).size+"");
             avaQnty = sizeArrayList.get(position).remainingQuantity+"";
             SessionManager.writeString(getActivity(),"avaQuantity",sizeArrayList.get(position).remainingQuantity+"");
+            SessionManager.writeString(getActivity(), "selectSize", sizeArrayList.get(position).size+"");
+            SessionManager.writeString(getActivity(), "selectVariationId", sizeArrayList.get(position).variationId+"");
             chkSize = true;
             variationPosition = position;
             priceCal(count,colorPosition,variationPosition);

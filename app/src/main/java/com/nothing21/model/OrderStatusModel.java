@@ -422,9 +422,11 @@ public class OrderStatusModel {
             @SerializedName("product_name")
             @Expose
             private String productName;
+
             @SerializedName("price")
             @Expose
             private String price;
+
 
             public String getId() {
                 return id;

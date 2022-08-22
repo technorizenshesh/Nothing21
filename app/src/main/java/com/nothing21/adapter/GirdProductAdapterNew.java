@@ -49,7 +49,7 @@ public class GirdProductAdapterNew extends RecyclerView.Adapter<GirdProductAdapt
 
         Glide.with(context).load(arrayList.get(position).colorDetails.get(0).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
-       // holder.binding.viewPager.setAdapter(new MyViewPagerProductGirdAdapter(context,arrayList.get(position).colorDetails,arrayList.get(position).id));
+        holder.binding.viewPager.setAdapter(new MyViewPagerProductGirdAdapter(context,arrayList.get(position).colorDetails,arrayList.get(position).id));
         holder.binding.rvColor.setAdapter(new ColorProductGirdAdapter(context, arrayList.get(position).colorDetails,position,holder,GirdProductAdapterNew.this,holder.binding.viewPager));
 
         if(arrayList.get(position).favProductStatus.equals("false")) holder.binding.ivLike.setImageDrawable(context.getDrawable(R.drawable.ic_white_heart));
@@ -70,7 +70,7 @@ public class GirdProductAdapterNew extends RecyclerView.Adapter<GirdProductAdapt
     @Override
     public void onGirdIcon(int position, int mainPosition, MyViewHolder holder, String type, ViewPager viewPager) {
         if(type.equals("color")) {
-           // next(position,viewPager);
+            next(position,viewPager);
             setItemValue(mainPosition,position,0,holder);
         }
     }
@@ -112,7 +112,7 @@ public class GirdProductAdapterNew extends RecyclerView.Adapter<GirdProductAdapt
 
     public void setItemValue(int mainPosition,int colorPosition,int variationPosition, MyViewHolder holder){
         holder.binding.tvName.setText(arrayList.get(mainPosition).name);
-        Glide.with(context).load(arrayList.get(mainPosition).colorDetails.get(colorPosition).image).error(R.drawable.dummy).into(holder.binding.ivImg);
+      //  Glide.with(context).load(arrayList.get(mainPosition).colorDetails.get(colorPosition).image).error(R.drawable.dummy).into(holder.binding.ivImg);
 
         if(!arrayList.get(mainPosition).colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceDiscount.equals("0")) {
             holder.binding.tvOldPrice.setVisibility(View.VISIBLE);

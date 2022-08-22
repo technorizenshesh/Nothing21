@@ -47,8 +47,8 @@ public class ReturnListAct extends AppCompatActivity {
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
         arrayList = new ArrayList<>();
 
-      //  adapter = new OrderStatusAdapter(ReturnListAct.this, arrayList);
-       // binding.rvCart.setAdapter(adapter);
+   //    adapter = new OrderStatusAdapter(ReturnListAct.this, arrayList);
+   //    binding.rvCart.setAdapter(adapter);
 
         if (NetworkAvailablity.checkNetworkStatus(ReturnListAct.this)) getAllReturnOrderApi();
         else

@@ -159,6 +159,10 @@ public class ProductModelCopyNew {
 
             public class ColorVariation {
 
+                @SerializedName("variation_id")
+                @Expose
+                public String variationId;
+
                 @SerializedName("cart_quantity")
                 @Expose
                 public Integer cartQuantity;

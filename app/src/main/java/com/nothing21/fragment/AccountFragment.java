@@ -37,6 +37,7 @@ import com.nothing21.databinding.FragmentAccountBinding;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.FavModel;
 import com.nothing21.model.ProductModel;
+import com.nothing21.model.ProductNewModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -57,7 +58,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
     FragmentAccountBinding binding;
     Nothing21Interface apiInterface;
     ArrayList<FavModel.Result> arrayList;
-    ArrayList<ProductModel.Result> arrayListTwo;
+    ArrayList<ProductNewModel.Result> arrayListTwo;
 
     MyOrderAdapter adapter;
     MyOrderAdapterTwo adapterTwo;
@@ -115,16 +116,16 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
 
       binding.layoutProcessing.setOnClickListener(v -> {
-          /*  if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
               startActivity(new Intent(getActivity(), OrderStatusAct.class));
-            }*/
+            }
         });
 
 
         binding.layoutHistory.setOnClickListener(v -> {
-            /*if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
                 startActivity(new Intent(getActivity(), OrderHistoryAct.class));
-            }*/
+            }
         });
 
 
@@ -140,18 +141,18 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
         binding.layoutSupport.setOnClickListener(v ->
         {
-          /*  if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
                 startActivity(new Intent(getActivity(), SupportAct.class));
-            }*/
+            }
         });
 
 
 
         binding.layoutReturn.setOnClickListener(v ->
         {
-           /* if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
                 startActivity(new Intent(getActivity(), ReturnListAct.class));
-            }*/
+            }
         });
 
 
@@ -178,15 +179,15 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
 
 
-     //   tabSelect(1);
+      //  tabSelect(1);
 
         binding.tvWishList.setOnClickListener(v -> {
-           // tabSelect(1);
+            tabSelect(1);
         });
 
 
         binding.tvView.setOnClickListener(v -> {
-          //  tabSelect(2);
+            tabSelect(2);
         });
 
     }
@@ -357,14 +358,14 @@ public class AccountFragment extends Fragment implements onIconClickListener {
       //  map.put("category_id",catId);
         map.put("user_id",userId);
       //  map.put("order_by",sortData);
-        Call<ProductModel> loginCall = apiInterface.getRecentView(map);
-        loginCall.enqueue(new Callback<ProductModel>() {
+        Call<ProductNewModel> loginCall = apiInterface.getRecentView(map);
+        loginCall.enqueue(new Callback<ProductNewModel>() {
             @Override
-            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+            public void onResponse(Call<ProductNewModel> call, Response<ProductNewModel> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    ProductModel data = response.body();
+                    ProductNewModel data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.status.equals("1")) {
@@ -390,7 +391,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             }
 
             @Override
-            public void onFailure(Call<ProductModel> call, Throwable t) {
+            public void onFailure(Call<ProductNewModel> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
             }
@@ -541,7 +542,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
 
                 refreshedToken = instanceIdResult.getToken();
 
-              //   tabSelect(1);
+                 tabSelect(1);
 
                 Log.e("Token===", userId);
                 // Yay.. we have our new token now.

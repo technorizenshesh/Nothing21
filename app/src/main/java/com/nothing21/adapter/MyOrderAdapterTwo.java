@@ -12,19 +12,21 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.nothing21.ProductSingalCopyAct;
 import com.nothing21.R;
 import com.nothing21.databinding.ItemMyOrderBinding;
 import com.nothing21.databinding.ItemMyOrderTwoBinding;
 import com.nothing21.model.FavModel;
 import com.nothing21.model.ProductModel;
+import com.nothing21.model.ProductNewModel;
 
 import java.util.ArrayList;
 
 public class MyOrderAdapterTwo extends RecyclerView.Adapter<MyOrderAdapterTwo.MyViewHolder> {
     Context context;
-    ArrayList<ProductModel.Result> arrayList;
+    ArrayList<ProductNewModel.Result> arrayList;
 
-    public MyOrderAdapterTwo(Context context, ArrayList<ProductModel.Result>arrayList) {
+    public MyOrderAdapterTwo(Context context, ArrayList<ProductNewModel.Result>arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -49,16 +51,16 @@ public class MyOrderAdapterTwo extends RecyclerView.Adapter<MyOrderAdapterTwo.My
         holder.binding.tvStatus.setVisibility(View.GONE);
 
 
-        if(!arrayList.get(position).discount.equals("")) {
+        if(!arrayList.get(position).colorDetails.get(0).colorVariation.get(0).equals("")) {
             holder.binding.tvOldPrice.setVisibility(View.VISIBLE);
-            holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price) - Double.parseDouble(arrayList.get(position).discount )));
+            holder.binding.tvProductPrice.setText("AED" + String.format("%.2f",Double.parseDouble(arrayList.get(position).colorDetails.get(0).colorVariation.get(0).priceCalculated)));
             holder.binding.tvProductPrice.setTextColor(context.getResources().getColor(R.color.color_red));
-            holder.binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
+            holder.binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).colorDetails.get(0).colorVariation.get(0).price)));
             holder.binding.tvOldPrice.setPaintFlags(holder.binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         }
         else {
-            holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).price)));
+            holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).colorDetails.get(0).colorVariation.get(0).price)));
             holder.binding.tvProductPrice.setTextColor(context.getResources().getColor(R.color.black));
             holder.binding.tvOldPrice.setVisibility(View.GONE);
 
@@ -78,8 +80,8 @@ public class MyOrderAdapterTwo extends RecyclerView.Adapter<MyOrderAdapterTwo.My
             binding = itemView;
 
             binding.layoutMain.setOnClickListener(v -> {
-               /* context.startActivity(new Intent(context, ProductSingalAct.class)
-                        .putExtra("id",arrayList.get(getAdapterPosition()).id));*/
+                context.startActivity(new Intent(context, ProductSingalCopyAct.class)
+                        .putExtra("id",arrayList.get(getAdapterPosition()).id));
             });
 
 

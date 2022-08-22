@@ -54,6 +54,7 @@ public class OrderStatusAct extends AppCompatActivity implements InfoListener {
             if (intent != null) {
 
                 if(intent.getStringExtra("status").equals("Delivered")){
+
                     callRate(intent.getStringExtra("productId"));
                 }
                 else {
@@ -125,6 +126,7 @@ public class OrderStatusAct extends AppCompatActivity implements InfoListener {
 
                         } else {
                            // Toast.makeText(OrderStatusAct.this, jsonObject.getString("result"), Toast.LENGTH_SHORT).show();
+                            arrayList.clear();
                             adapter.notifyDataSetChanged();
                             binding.tvFound.setVisibility(View.VISIBLE);
 

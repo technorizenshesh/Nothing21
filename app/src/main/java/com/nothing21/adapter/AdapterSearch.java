@@ -41,7 +41,9 @@ public class AdapterSearch extends RecyclerView.Adapter<AdapterSearch.MyViewHold
 
         holder.binding.tvProductName.setText(arrayList.get(position).name);
         holder.binding.tvBrand.setText(arrayList.get(position).brand);
-        holder.binding.tvPrise.setText("AFD" +arrayList.get(position).price);
+     //   holder.binding.tvPrise.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(position).priceCalculated)));
+        holder.binding.tvPrise.setText("AED" + arrayList.get(position).priceCalculated);
+
     }
 
     @Override

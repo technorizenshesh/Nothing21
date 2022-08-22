@@ -24,11 +24,14 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.LoginAct;
 import com.nothing21.R;
+import com.nothing21.adapter.ColorCartAdapter1;
+import com.nothing21.adapter.SizeAdapter1;
 import com.nothing21.databinding.FragmentEditCartSheetBinding;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.GetCartModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductModelCopyNew;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -52,19 +55,20 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
     BottomSheetDialog dialog;
     private BottomSheetBehavior<View> mBehavior;
     InfoListener listener;
-    ProductModelCopy.Result productData;
-    int count =1;
+    ProductModelCopyNew.Result productData;
+    int count =1,colorPosition=0,variationPosition=0;
     double price =0.00,price1 =0.00,priceTol=0.00;
     Nothing21Interface apiInterface;
     GetCartModel.Result cartData;
     boolean check = false,chkColor = false,chkSize=false;
     String refreshedToken = "",userId="",avaQnty="";
-    ArrayList<ProductModelCopy.Result.ColorDetail> colorArrayList;
+    ArrayList<ProductModelCopyNew.Result.ColorDetail> colorArrayList;
+    ArrayList<ProductModelCopyNew.Result.ColorDetail.ColorVariation> sizeArrayList;
 
 
 
 
-    public EditCartBottomSheet(ProductModelCopy.Result productData,GetCartModel.Result cartData,String price) {
+    public EditCartBottomSheet(ProductModelCopyNew.Result productData, GetCartModel.Result cartData, String price) {
         this.productData = productData;
         this.cartData = cartData;
         this.price1 = Double.parseDouble(price);
@@ -98,6 +102,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
     private void initViews() {
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
         colorArrayList = new ArrayList<>();
+        sizeArrayList = new ArrayList<>();
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
             try {
@@ -122,7 +127,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
         price = Double.parseDouble(cartData.price);
         avaQnty = String.valueOf(count);
 
-        priceCal(count);
+        priceCal(count,colorPosition,variationPosition);
         binding.tvColor.setText(cartData.color);
         binding.tvSize.setText(cartData.size);
       /*//  binding.tvPri.setText("AED" +String.format("%.2f", price * count) );
@@ -246,32 +251,33 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
         colorArrayList.clear();
         colorArrayList.addAll(productData.colorDetails);
-       // avaQnty = colorArrayList.get(0).remainingQuantity+"";
+        sizeArrayList.addAll(productData.colorDetails.get(colorPosition).colorVariation);
+        avaQnty = colorArrayList.get(colorPosition).colorVariation.get(variationPosition).remainingQuantity+"";
 
-     //   binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
-     //   binding.rvColor.setAdapter(new ColorCartAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
+        binding.rvSize.setAdapter(new SizeAdapter1(getActivity(), sizeArrayList,EditCartBottomSheet.this));
+        binding.rvColor.setAdapter(new ColorCartAdapter1(getActivity(), colorArrayList,EditCartBottomSheet.this));
 
         binding.tvMinus.setOnClickListener(v -> {
             if (count > 1) {
                 count = count - 1;
                 check = true;
-                priceCal(count);
+                priceCal(count,colorPosition,variationPosition);
             }
         });
 
         binding.tvPlus.setOnClickListener(v -> {
             count = count + 1;
             check = true;
-            priceCal(count);
+            priceCal(count,colorPosition,variationPosition);
 
 
         });
 
         binding.ivCart.setOnClickListener(v -> dialog.dismiss());
 
-        binding.ivColor1.setOnClickListener(v -> {
+    /*    binding.ivColor1.setOnClickListener(v -> {
             new ColorSizeFragmentBottomSheet1(productData,binding.tvSize.getText().toString()).callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
-        });
+        });*/
 
 
         binding.tvUpdate.setOnClickListener(v -> {
@@ -329,29 +335,32 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
 
 
-    private void priceCal(int i){
-        Log.e("price=====",i+"");
-        binding.tvCart1.setText(count+"");
-        priceTol = price * i ;
+    private void priceCal(int i,int colorPosition,int variationPosition) {
         //  binding.tvPri.setText("AED" + String.format("%.2f", priceTol));
         binding.tvPri.setText("AED" + String.format("%.2f", price));
-        if(!productData.discountedPrice.equals("0")) {
+        if(!productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceDiscount.equals("0")) {
             binding.tvOldPrice.setVisibility(View.VISIBLE);
             //  binding.tvDiscount.setVisibility(View.VISIBLE);
-            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price) - Double.parseDouble(productData.discountedPrice )));
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceCalculated)));
             binding.tvPri.setTextColor(getResources().getColor(R.color.color_red));
-            binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
+            binding.tvOldPrice.setText("AED" + String.format("%.2f", Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).price)));
             binding.tvOldPrice.setPaintFlags(binding.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             //  binding.tvDiscount.setText("-"+data.result.discount + "% Off");
+            price = Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceCalculated);
 
         }
         else {
-            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.price)));
+            binding.tvPri.setText("AED" + String.format("%.2f", Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).price)));
             binding.tvPri.setTextColor(getResources().getColor(R.color.black));
             binding.tvOldPrice.setVisibility(View.GONE);
             //  binding.tvDiscount.setVisibility(View.GONE);
-
+            price = Double.parseDouble(productData.colorDetails.get(colorPosition).colorVariation.get(variationPosition).price);
         }
+        Log.e("price=====", i + "");
+        priceTol = price;
+        binding.tvCart1.setText(count + "");
+
+
     }
 
 
@@ -490,7 +499,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
     @Override
     public void info(String value,String size) {
-        if(!value.equals("")) {
+       /* if(!value.equals("")) {
             binding.tvColor.setText(value);
             binding.tvSize.setText(size);
         }
@@ -500,7 +509,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
             binding.tvColor.setText(value);
             binding.tvSize.setText(size);
         }
-        else binding.tvSize.setText(productData.colorDetails.get(0).size);
+        else binding.tvSize.setText(productData.colorDetails.get(0).size);*/
     }
 
 
@@ -781,6 +790,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
 
         map.put("image", imgName[6]);
         map.put("price",priceTol+"");
+        map.put("variation_id", SessionManager.readString(getActivity(), "selectVariationId", ""));
         Log.e(TAG, "Update to Cart Request :" + map);
 
         Call<Map<String,String>> loginCall = apiInterface.updateCart(map);
@@ -821,17 +831,26 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
     @Override
     public void onIcon(int position, String type) {
         if(type.equals("size")) {
-            SessionManager.writeString(getActivity(), "selectSize", colorArrayList.get(position).size);
+            avaQnty = sizeArrayList.get(position).remainingQuantity+"";
+            SessionManager.writeString(getActivity(), "selectSize", sizeArrayList.get(position).size);
+            SessionManager.writeString(getActivity(),"avaQuantity",sizeArrayList.get(position).remainingQuantity+"");
+            SessionManager.writeString(getActivity(), "selectVariationId", sizeArrayList.get(position).variationId+"");
             chkSize = true;
+            variationPosition = position;
+            priceCal(count,colorPosition,variationPosition);
+
         }
         else if(type.equals("color"))
         {
+            colorPosition = position;
+
             for(int i =0;i<colorArrayList.size();i++){
                 colorArrayList.get(i).setChkColor(false);
             }
             colorArrayList.get(position).setChkColor(true);
+            sizeArrayList.clear();
+            sizeArrayList.addAll(colorArrayList.get(position).colorVariation);
 
-            SessionManager.writeString(getActivity(),"avaQuantity",colorArrayList.get(position).remainingQuantity);
 
             SessionManager.writeString(getActivity(),"selectImage",colorArrayList.get(position).image);
             SessionManager.writeString(getActivity(),"selectColor",colorArrayList.get(position).color);
@@ -842,7 +861,7 @@ public class EditCartBottomSheet extends BottomSheetDialogFragment implements In
                     .apply(RequestOptions.bitmapTransform( new BlurTransformation(25, 3)))
                     .into(binding.BlurImageView);
             chkColor = true;
-            avaQnty = colorArrayList.get(position).remainingQuantity+"";
+            priceCal(count,colorPosition,variationPosition);
 
         }
 

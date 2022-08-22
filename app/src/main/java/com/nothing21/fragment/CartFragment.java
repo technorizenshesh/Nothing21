@@ -29,6 +29,7 @@ import com.nothing21.listener.InfoListener;
 import com.nothing21.listener.onIconClickListener;
 import com.nothing21.model.GetCartModel;
 import com.nothing21.model.ProductModelCopy;
+import com.nothing21.model.ProductModelCopyNew;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -160,7 +161,7 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
                             stringArrayList.add(arrayList.get(i).productId);
                             stringArrayListCartId.add(arrayList.get(i).cartId);
                             if(!arrayList.get(i).discount.equals("")){
-                                totalCountAmt =   totalCountAmt +  Double.parseDouble(arrayList.get(i).price) - Double.parseDouble(arrayList.get(i).discount );
+                                totalCountAmt =   totalCountAmt + ( Double.parseDouble(arrayList.get(i).price) - (Double.parseDouble(arrayList.get(i).discount) /100) )  * Double.parseDouble(arrayList.get(i).quantity) ;
                             }else {
                                 totalCountAmt = totalCountAmt + Double.parseDouble(arrayList.get(i).price);
                             }
@@ -168,7 +169,8 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
                         }
                         Log.e("prolist_size===",stringArrayList.size()+"");
                         adapter.notifyDataSetChanged();
-                        totalAmt = Double.parseDouble(data11.totalAmount);
+                       // totalAmt = Double.parseDouble(data11.totalAmount);
+                         totalAmt = totalCountAmt;
                         binding.tvPrice.setText("AED " + String.format("%.2f",totalAmt ));
 
 
@@ -289,14 +291,14 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String,String> map = new HashMap<>();
         map.put("product_id",productId);
-        Call<ProductModelCopy> loginCall = apiInterface.getProduct(map);
-        loginCall.enqueue(new Callback<ProductModelCopy>() {
+        Call<ProductModelCopyNew> loginCall = apiInterface.getProduct(map);
+        loginCall.enqueue(new Callback<ProductModelCopyNew>() {
             @Override
-            public void onResponse(Call<ProductModelCopy> call, Response<ProductModelCopy> response) {
+            public void onResponse(Call<ProductModelCopyNew> call, Response<ProductModelCopyNew> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    ProductModelCopy   data = response.body();
+                    ProductModelCopyNew   data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.status.equals("1")) {
@@ -315,7 +317,7 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
             }
 
             @Override
-            public void onFailure(Call<ProductModelCopy> call, Throwable t) {
+            public void onFailure(Call<ProductModelCopyNew> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
 
@@ -323,8 +325,8 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
         });
     }
 
-    private void callEdit(ProductModelCopy data,int pos) {
-       // new EditCartBottomSheet(data.result,arrayList.get(pos),data11.totalAmount+"").callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
+    private void callEdit(ProductModelCopyNew data,int pos) {
+        new EditCartBottomSheet(data.result,arrayList.get(pos),data11.totalAmount+"").callBack(this::info).show(getActivity().getSupportFragmentManager(),"");
        // Krana hai sahi
     }
 

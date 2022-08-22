@@ -20,30 +20,32 @@
             android:orientation="vertical">
 
 
-            <!--   <androidx.recyclerview.widget.RecyclerView
-                   android:id="@+id/rvProductItm"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:orientation="horizontal"
-                   android:visibility="gone"
-                   app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                   tools:listitem="@layout/item_imag" />
-   -->
-
-            <ImageView
-                android:id="@+id/ivImg"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProductItm"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/dummy"
-                android:visibility="visible"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_imag" />
+
+
+            <!--      <ImageView
+                     android:id="@+id/ivImg"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:scaleType="fitXY"
+                     android:src="@drawable/dummy"
+                     android:visibility="visible"/>
+
+                     -->
 
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
+                android:visibility="visible"
                 />
 
 

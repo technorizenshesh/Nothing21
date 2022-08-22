@@ -75,7 +75,7 @@ public interface Nothing21Interface {
 
     @FormUrlEncoded
     @POST("get_product_details")
-    Call<ProductModelCopy> getProduct (@FieldMap Map<String, String> params);
+    Call<ProductModelCopyNew> getProduct (@FieldMap Map<String, String> params);
 
 
     @FormUrlEncoded
@@ -173,7 +173,7 @@ public interface Nothing21Interface {
 
     @FormUrlEncoded
     @POST("get_recent_product_by_category")
-    Call<ProductModel> getRecentView (@FieldMap Map<String, String> params);
+    Call<ProductNewModel> getRecentView (@FieldMap Map<String, String> params);
 
 
     @FormUrlEncoded
@@ -202,7 +202,7 @@ public interface Nothing21Interface {
 
 
     @FormUrlEncoded
-    @POST("")
+    @POST("filter_product")
     Call<ProductNewModel> getApplyFilterNew (@FieldMap Map<String, String> params);
 
 
