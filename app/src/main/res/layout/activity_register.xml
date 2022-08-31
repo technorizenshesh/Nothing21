@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <ScrollView
       android:layout_width="match_parent"
@@ -219,7 +220,8 @@
             android:gravity="center_horizontal"
             android:text="@string/region"
             android:textColor="@color/black"
-            android:textSize="@dimen/_11sdp" />
+            android:textSize="@dimen/_11sdp"
+            android:visibility="gone"/>
 
 
         <EditText
@@ -235,7 +237,8 @@
             android:singleLine="true"
             android:text="sddsds"
             android:textColor="@color/black"
-            android:textSize="@dimen/_11sdp" />
+            android:textSize="@dimen/_11sdp"
+            android:visibility="gone"/>
 
 
         <TextView
@@ -263,7 +266,57 @@
             android:singleLine="true"
             android:text="sddsds"
             android:textColor="@color/black"
-            android:textSize="@dimen/_11sdp" />
+            android:textSize="@dimen/_11sdp"
+            android:visibility="gone"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_33sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_border_bg"
+            android:elevation="@dimen/_5sdp">
+
+          <com.hbb20.CountryCodePicker
+              android:id="@+id/ccp"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_marginEnd="@dimen/_5sdp"
+              android:layout_weight="0.3"
+              android:gravity="center"
+              app:ccp_countryPreference="BE,BG,CZ,DK,DE,EE,IE,EL,ES,FR,HR,IT,CY,LV,LT,LU,HU,MT,NL,PL,PT,SI,SK,FI,SE,IS,NO,CH,ME,MK,AL,RS,TR"
+              app:ccp_defaultPhoneCode="91"
+              app:ccp_textSize="@dimen/_12sdp"
+              app:ccp_clickable="false"/>
+
+          <EditText
+              android:id="@+id/etMobile"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.7"
+              android:backgroundTint="@color/white"
+              android:drawablePadding="@dimen/_10sdp"
+              android:focusable="false"
+              android:inputType="number"
+              android:maxLength="12"
+              android:background="@null"
+              android:padding="@dimen/_10sdp"
+              android:singleLine="true"
+              android:hint="@string/telephone_number"
+              android:textAlignment="viewStart"
+              android:textColor="@color/black"
+              android:textDirection="locale"
+              android:textSize="@dimen/_12sdp" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"

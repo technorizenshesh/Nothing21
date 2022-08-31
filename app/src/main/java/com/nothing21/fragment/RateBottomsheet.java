@@ -107,7 +107,7 @@ public class RateBottomsheet extends BottomSheetDialogFragment {
 
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String,String> map = new HashMap<>();
-        map.put("product_id","1");
+        map.put("product_id",productData.id);
 
         Log.e(TAG,"Get AllRate Request : "+map.toString());
         Call<RateModel> loginCall = apiInterface.getAllRatesss(map);

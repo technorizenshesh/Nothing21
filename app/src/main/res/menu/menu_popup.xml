@@ -8,6 +8,13 @@
         android:checkable="true"
          />
 
+
+    <item
+        android:id="@+id/menuSubCat"
+        android:title="Sub-Category"
+        android:checkable="true"
+        />
+
     <item
         android:id="@+id/menuColor"
         android:title="Color"

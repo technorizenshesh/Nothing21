@@ -17,6 +17,8 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/activity_address.xml" value="0.14739583333333334" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/activity_login.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/activity_register.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/fragment_account.xml" value="0.10702614379084967" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/fragment_category_filter.xml" value="0.20416666666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/fragment_info.xml" value="0.18802083333333333" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/fragment_rate.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp-port/item_gird_product.xml" value="0.14297385620915032" />
@@ -25,6 +27,8 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/activity_address.xml" value="0.22109375" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/activity_login.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/activity_register.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/fragment_account.xml" value="0.13645833333333332" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/fragment_category_filter.xml" value="0.15629984051036683" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/fragment_info.xml" value="0.14393939393939395" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/fragment_rate.xml" value="0.14393939393939395" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw600dp/item_gird_product.xml" value="0.11323763955342903" />
@@ -33,6 +37,8 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/activity_address.xml" value="0.110546875" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/activity_login.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/activity_register.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/fragment_account.xml" value="0.153125" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/fragment_category_filter.xml" value="0.153125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/fragment_info.xml" value="0.141015625" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/fragment_rate.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp-port/item_gird_product.xml" value="0.1109375" />
@@ -41,6 +47,8 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/activity_address.xml" value="0.13818359375" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/activity_login.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/activity_register.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/fragment_account.xml" value="0.10234375" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/fragment_category_filter.xml" value="0.10234375" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/fragment_info.xml" value="0.10912938331318017" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/fragment_rate.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout-sw720dp/item_gird_product.xml" value="0.1" />

@@ -31,7 +31,7 @@
     <string name="returns">Returns</string>
     <string name="my_orders">My Orders</string>
     <string name="more_services">More Services</string>
-    <string name="support">Support</string>
+    <string name="support">Customer Care</string>
     <string name="panding_support">Panding Support</string>
     <string name="share_earn"><![CDATA[Share & Earn]]></string>
     <string name="wishlist">Wishlist</string>
@@ -98,11 +98,13 @@
     <string name="send">Send</string>
     <string name="description">Description</string>
     <string name="succssfully_send">Successfully send.</string>
-    <string name="about">About</string>
+    <string name="about">About Us</string>
     <string name="order_return">Order Return</string>
     <string name="item_updated">Item Updated</string>
     <string name="contact_us">Contact Us</string>
     <string name="login_signup">Login/Signup</string>
+    <string name="sub_categoty">Sub-Category</string>
+    <string name="please_select_sub_category">Please select sub category</string>
 
 
 </resources>

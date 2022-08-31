@@ -81,7 +81,8 @@ public class LoginAct extends AppCompatActivity {
           validation();
         } );
 
-
+        binding.btnForgotPass.setOnClickListener(v ->{
+        } );
 
 
     }

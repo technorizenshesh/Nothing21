@@ -168,7 +168,7 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
 
             @Override
             public void onTextChanged(CharSequence query, int start, int before, int count) {
-                 getFilterSearch(query.toString(), filterString);
+                getFilterSearch(query.toString(), filterString);
             }
 
             @Override
@@ -252,12 +252,25 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
                     case R.id.menuPrice:
                         if (!item.isChecked()) {
                             item.setChecked(true);
-                             callCategory();
+                            callCategory();
                             //  Toast.makeText(getActivity(), "Price", Toast.LENGTH_SHORT).show();
                         } else {
                             item.setChecked(false);
                         }
                         break;
+
+
+                    case R.id.menuSubCat:
+                        if (!item.isChecked()) {
+                            item.setChecked(true);
+                            callSubCategory();
+                            //  Toast.makeText(getActivity(), "Price", Toast.LENGTH_SHORT).show();
+                        } else {
+                            item.setChecked(false);
+                        }
+                        break;
+
+
                     case R.id.menuColor:
                         if (!item.isChecked()) {
                             item.setChecked(true);
@@ -271,7 +284,7 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
                         if (!item.isChecked()) {
                             item.setChecked(true);
                             //   Toast.makeText(getActivity(), "Size", Toast.LENGTH_SHORT).show();
-                           //    callSize();
+                            callSize();
                         } else {
 
                             item.setChecked(false);
@@ -298,6 +311,10 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
 
     private void callCategory() {
         new CategoryFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
+    }
+
+    private void callSubCategory() {
+        new SubCatFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
     }
 
 
@@ -551,9 +568,11 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
             map.put("size", value);
             //  map.put("category_id", value);
         } else if (type.equals("category")) map.put("category_id", value);
+        else if (type.equals("sub category")) map.put("sub_category_id", value);
         Log.e(TAG, "Apply Filter Request :" + type + "  " + map);
-
-        Call<ProductNewModel> loginCall = apiInterface.getApplyFilterNew(map);
+        Call<ProductNewModel> loginCall;
+        if (type.equals("sub category")) loginCall = apiInterface.getApplyFilterBySubCat(map);
+        else loginCall = apiInterface.getApplyFilterNew(map);
         loginCall.enqueue(new Callback<ProductNewModel>() {
             @Override
             public void onResponse(Call<ProductNewModel> call, Response<ProductNewModel> response) {

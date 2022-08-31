@@ -312,7 +312,8 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
 
                         if(data.result.favProductStatus.equals("false")) binding.ivLike.setImageDrawable(ProductSingalCopyAct.this.getDrawable(R.drawable.ic_white_heart));
                         else binding.ivLike.setImageDrawable(ProductSingalCopyAct.this.getDrawable(R.drawable.ic_red_heart));
-
+                        binding.RatingBar.setRating(Float.parseFloat(data.result.ratingByAdmin));
+                        binding.viewRate.setText(" ("+data.result.ratingByAdmin + ")");
 
                         //   binding.tvPrice.setText("AED" + String.format("%.2f", Double.parseDouble(data.result.price)));
                         binding.tvProName.setText(data.result.name);
@@ -357,6 +358,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
     }
 
     private void setItemValue(ArrayList<ProductModelCopyNew.Result.ColorDetail.ColorVariation> sizeArrayList) {
+
         if(!sizeArrayList.get(variationPosition).priceDiscount.equals("0")) {
             binding.tvOldPrice.setVisibility(View.VISIBLE);
             //  binding.tvDiscount.setVisibility(View.VISIBLE);

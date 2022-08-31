@@ -116,10 +116,10 @@ public class Register2Act extends AppCompatActivity {
             binding.etAddress.setFocusable(true);
         }
 
-        else if (binding.etRegion.getText().toString().equals("")){
+     /*   else if (binding.etRegion.getText().toString().equals("")){
             binding.etRegion.setError(getString(R.string.required));
             binding.etRegion.setFocusable(true);
-        }
+        }*/
 
         else if (binding.etNumber.getText().toString().equals("")){
             binding.etNumber.setError(getString(R.string.required));
@@ -141,6 +141,7 @@ public class Register2Act extends AppCompatActivity {
         map.put("email", binding.etEmail.getText().toString());
         map.put("password",binding.etPasswoprd.getText().toString());
         map.put("mobile",binding.etNumber.getText().toString());
+        map.put("country_code",binding.ccp.getSelectedCountryCode());
         map.put("emirate",binding.etEmirate.getText().toString());
         map.put("address",binding.etAddress.getText().toString());
         map.put("lat", "");

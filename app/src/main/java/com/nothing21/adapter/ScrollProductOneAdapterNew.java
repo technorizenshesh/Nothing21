@@ -174,6 +174,8 @@ public class ScrollProductOneAdapterNew extends RecyclerView.Adapter<ScrollProdu
         holder.binding.tvProductPrice.setText("AED" + String.format("%.2f", Double.parseDouble(arrayList.get(mainPosition).colorDetails.get(colorPosition).colorVariation.get(variationPosition).price+"")));
         holder.binding.tvProductName.setText(arrayList.get(mainPosition).name);
        // Glide.with(context).load(arrayList.get(mainPosition).colorDetails.get(colorPosition).image).error(R.drawable.dummy).into(holder.binding.ivImg);
+        holder.binding.RatingBar.setRating(Float.parseFloat(arrayList.get(mainPosition).ratingByAdmin));
+        holder.binding.viewRate.setText(" ("+arrayList.get(mainPosition).ratingByAdmin + ")");
 
 
         if(!arrayList.get(mainPosition).colorDetails.get(colorPosition).colorVariation.get(variationPosition).priceDiscount.equals("0")) {

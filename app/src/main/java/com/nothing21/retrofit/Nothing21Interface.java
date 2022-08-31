@@ -20,6 +20,7 @@ import com.nothing21.model.ProductNewModel;
 import com.nothing21.model.RateModel;
 import com.nothing21.model.SearchModel;
 import com.nothing21.model.SizeListModel;
+import com.nothing21.model.SubCatFilterModel;
 import com.nothing21.model.SubCatModel;
 
 import java.util.Map;
@@ -195,6 +196,9 @@ public interface Nothing21Interface {
     @GET("get_category")
     Call<CategoryListModel> getAllCategory11();
 
+    @GET("get_category_subcategory")
+    Call<SubCatFilterModel> getAllSubCategory();
+
 
     @FormUrlEncoded
     @POST("filter_product")
@@ -204,6 +208,10 @@ public interface Nothing21Interface {
     @FormUrlEncoded
     @POST("filter_product")
     Call<ProductNewModel> getApplyFilterNew (@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("filter_product_subcategory")
+    Call<ProductNewModel> getApplyFilterBySubCat (@FieldMap Map<String, String> params);
 
 
     @FormUrlEncoded
@@ -252,6 +260,8 @@ public interface Nothing21Interface {
     @POST("get_order_return")
     Call<ResponseBody> returnHistory(@FieldMap Map<String, String> params);
 
+    @GET("contact_us")
+    Call<ResponseBody> getContact();
 
 
 }

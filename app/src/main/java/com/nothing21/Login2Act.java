@@ -76,7 +76,8 @@ public class Login2Act extends AppCompatActivity {
             validation();
         } );
 
-
+        binding.btnForgotPass.setOnClickListener(v ->{
+        } );
 
 
     }
