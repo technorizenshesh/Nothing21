@@ -106,5 +106,20 @@
     <string name="sub_categoty">Sub-Category</string>
     <string name="please_select_sub_category">Please select sub category</string>
 
+    <string name="forgotpasswordtext">Please, enter your email address. You will
+       <br /> receive a link to create a new password via <br /> email. </string>
+
+    <string name="forgot_password1">Forgot Password</string>
+    <string name="our_policy">Our policies</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_condition"><![CDATA[Terms & Conditions]]></string>
+    <string name="shipping_policy">Shipping Policy</string>
+    <string name="return_policy">Return Policy</string>
+    <string name="account">Account</string>
+    <string name="order_issues">Order Issues</string>
+    <string name="delivery">Delivery</string>
+    <string name="return_refund">Return and refund</string>
+    <string name="payment_promos">Payment and promos</string>
+    <string name="please_check_your_email">Please check your email</string>
 
 </resources>

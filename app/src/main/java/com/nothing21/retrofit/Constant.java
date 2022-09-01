@@ -23,76 +23,30 @@ public class Constant {
 
     public static String address = "address";
 
-    public static String pickup_lat = "pickup_latitude";
-
-    public static String pickup_lon = "pickup_longitude";
-
-    public static String pickup_address = "pickup_address";
-
     public static String cart_id = "cart_id";
 
 
+    public static String ABOUT_US ="https://nothing21.com/nothing21/index.php/webservice/get_about_us";
 
-    public static String city = "city";
+    public static String PRIVACY_POLICY = "https://nothing21.com/nothing21/webservice/get_policy?privacy_policy";
 
+    public static String TERMS_CONDITIONS = "https://nothing21.com/nothing21/webservice/get_policy?terms_conditions";
 
-    public static String elat = "latitude";
+    public static String SHIPPING_POLICY = "https://nothing21.com/nothing21/webservice/get_policy?shipping_policy";
 
-    public static String elon = "longitude";
-
-    public static String eaddress = "address";
-
-    public static String ecity = "city";
-
-    public static String eAddressId = "address_id";
-
-    public static String eCountryCode = "country_code";
-
-    public static String emobile = "mobile";
-
-
-
-    // for booking
-
-    public static String BOOKING_CART_IDS = "cart_ids";
-
-    public static String BOOKING_TOTAL = "booking_total";
-
-    public static String BOOKING_ADDRESS_ID = "booking_address_id";
-
-    public static String BOOKING_ADDRESS = "booking_address";
-
-    public static String BOOKING_LAT = "booking_lat";
-
-    public static String BOOKING_LON = "booking_lon";
-
-    public static String BOOKING_ADDRESS_TYPE = "booking_address_type";
-
-    public static String PICKUP_DATE = "pickup_date";
-
-    public static String PICKUP_DATE_ORIGINAL = "pickup_date_original";
+    public static String RETURN_POLICY = "https://nothing21.com/nothing21/webservice/get_policy?returns_policy";
 
 
 
 
-    public static String PICKUP_TIME = "pickup_time";
-
-    public static String PICKUP_TIME_ORIGINAL = "pickup_time_original";
 
 
-    public static String DELIVERY_DATE = "delivery_date";
-
-    public static String DELIVERY_DATE_ORIGINAL = "delivery_date_original";
 
 
-    public static String DELIVERY_TIME = "delivery_time";
-
-    public static String PAYMENT_TYPE = "payment_type";
-
-    public static String ORDER_ID = "order_id";
 
 
-    public static String driver_id = "driver_id";
+
+
 
 
 

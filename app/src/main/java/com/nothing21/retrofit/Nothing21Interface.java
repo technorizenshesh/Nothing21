@@ -252,8 +252,8 @@ public interface Nothing21Interface {
 
 
     @FormUrlEncoded
-    @POST("support")
-    Call<ResponseBody> supportApi(@FieldMap Map<String, String> params);
+    @POST("forgot_password")
+    Call<ResponseBody> forgotPassApi(@FieldMap Map<String, String> params);
 
 
     @FormUrlEncoded

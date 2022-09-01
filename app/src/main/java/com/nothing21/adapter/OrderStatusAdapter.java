@@ -51,7 +51,13 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         //     holder.binding.tvProductSize.setText(context.getString(R.string.size) + " " + arrayList.get(position).size);
       //  holder.binding.tvProductPrice.setText("AED "+ String.format("%.2f",Double.parseDouble(arrayList.get(position).price) * Integer.parseInt(arrayList.get(position).quantity)));
       //  holder.binding.tvProductDelivery.setText(context.getString(R.string.delivery_two_day));
-        holder.binding.tvProductDelivery.setText("Order Status : "+arrayList.get(position).getOrderStatus());
+       if(arrayList.get(position).getOrderStatus().equals("Pending")){
+           holder.binding.tvProductDelivery.setVisibility(View.GONE);
+
+       }else {
+           holder.binding.tvProductDelivery.setVisibility(View.VISIBLE);
+           holder.binding.tvProductDelivery.setText("Order Status : "+arrayList.get(position).getOrderStatus());
+       }
 
 
        /* if(!arrayList.get(position).discount.equals("")) {

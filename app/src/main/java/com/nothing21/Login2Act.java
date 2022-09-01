@@ -77,6 +77,7 @@ public class Login2Act extends AppCompatActivity {
         } );
 
         binding.btnForgotPass.setOnClickListener(v ->{
+            startActivity(new Intent(Login2Act.this,ForgotPassAct.class));
         } );
 
 

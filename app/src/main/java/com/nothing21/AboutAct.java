@@ -11,15 +11,23 @@ import com.nothing21.databinding.ActivityAboutBinding;
 
 public class AboutAct extends AppCompatActivity {
     ActivityAboutBinding binding;
+    String url = "", title = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      binding = DataBindingUtil.setContentView(this,R.layout.activity_about);
-      initViews();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_about);
+        initViews();
     }
 
     private void initViews() {
-        binding.webView.loadUrl("https://nothing21.com/nothing21/index.php/webservice/get_about_us");
+        if (getIntent() != null) {
+            url = getIntent().getStringExtra("url");
+            title = getIntent().getStringExtra("title");
+
+        }
+        binding.tvTitle.setText(title);
+        binding.webView.loadUrl(url);
         binding.webView.getSettings().setJavaScriptEnabled(true);
         binding.webView.setWebViewClient(new WebViewClient());
 
@@ -27,3 +35,6 @@ public class AboutAct extends AppCompatActivity {
     }
 
 }
+
+
+

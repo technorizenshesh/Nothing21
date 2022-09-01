@@ -34,6 +34,7 @@ import com.nothing21.utils.DataManager;
 import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -123,7 +124,10 @@ public class RateBottomsheet extends BottomSheetDialogFragment {
                         arrayList.clear();
                         arrayList.addAll(data.result);
                         adapter.notifyDataSetChanged();
+                        DecimalFormat precision = new DecimalFormat("0.0");
+                  //      binding.tvAvgRate.setText(precision.format(data.avgRating));
                         binding.tvAvgRate.setText(data.avgRating+"");
+
                         binding.RatingBar.setRating(Float.parseFloat(data.avgRating));
                         setChar(String.valueOf(data.rating5),String.valueOf(data.rating4),
                                 String.valueOf(data.rating3),String.valueOf(data.rating2)

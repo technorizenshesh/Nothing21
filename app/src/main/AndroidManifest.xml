@@ -175,6 +175,27 @@
 
 
         <activity
+            android:name=".ForgotPassAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".OurPolicyAct"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".Account2Act"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
             android:name=".ProductSingalCopyAct"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar"

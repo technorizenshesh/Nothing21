@@ -143,41 +143,42 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutAccount"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
-          <!-- <RelativeLayout
-               android:layout_width="@dimen/_45sdp"
-               android:layout_height="@dimen/_45sdp"
-               android:background="@drawable/circle_white_gray_border_bg"
-               android:elevation="@dimen/_5sdp">
+          <RelativeLayout
+              android:layout_width="@dimen/_45sdp"
+              android:layout_height="@dimen/_45sdp"
+              android:background="@drawable/circle_white_gray_border_bg"
+              android:elevation="@dimen/_5sdp">
 
-             <ImageView
-                 android:layout_width="@dimen/_25sdp"
-                 android:layout_height="@dimen/_25sdp"
-                 android:layout_centerInParent="true"
-                 android:alpha=".5"
-                 android:src="@drawable/ic_wallet"
-                 app:tint="@color/black" />
-
-
-           </RelativeLayout>
+            <ImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_centerInParent="true"
+                android:alpha=".5"
+                android:src="@drawable/ic_wallet"
+                app:tint="@color/black" />
 
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="@dimen/_5sdp"
-               android:layout_marginTop="@dimen/_9sdp"
-               android:layout_marginEnd="@dimen/_5sdp"
-               android:fontFamily="@font/poppins_regular"
-               android:gravity="center"
-               android:text="@string/wallet"
-               android:textColor="@color/black"
-               android:textSize="@dimen/_9sdp" />-->
+          </RelativeLayout>
+
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/_5sdp"
+              android:layout_marginTop="@dimen/_9sdp"
+              android:layout_marginEnd="@dimen/_5sdp"
+              android:fontFamily="@font/poppins_regular"
+              android:gravity="center"
+              android:text="@string/account"
+              android:textColor="@color/black"
+              android:textSize="@dimen/_9sdp" />
 
 
         </LinearLayout>
@@ -487,6 +488,142 @@
               android:text="@string/contact_us"
               android:textColor="@color/black"
               android:textSize="@dimen/_9sdp" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/_100sdp"
+          android:orientation="horizontal"
+          android:weightSum="3">
+
+
+        <LinearLayout
+            android:id="@+id/layoutPolicy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+          <RelativeLayout
+              android:layout_width="@dimen/_45sdp"
+              android:layout_height="@dimen/_45sdp"
+              android:background="@drawable/circle_white_gray_border_bg"
+              android:elevation="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_support"
+                app:tint="@color/black" />
+
+
+          </RelativeLayout>
+
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/_5sdp"
+              android:layout_marginTop="@dimen/_9sdp"
+              android:layout_marginEnd="@dimen/_5sdp"
+              android:fontFamily="@font/poppins_regular"
+              android:gravity="center"
+              android:text="@string/our_policy"
+              android:textColor="@color/black"
+              android:textSize="@dimen/_9sdp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+          <!--    <RelativeLayout
+                  android:layout_width="@dimen/_45sdp"
+                  android:layout_height="@dimen/_45sdp"
+                  android:background="@drawable/circle_white_gray_border_bg"
+                  android:elevation="@dimen/_5sdp">
+
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_about"
+                    app:tint="@color/black" />
+
+
+              </RelativeLayout>
+
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="@dimen/_5sdp"
+                  android:layout_marginTop="@dimen/_9sdp"
+                  android:layout_marginEnd="@dimen/_5sdp"
+                  android:fontFamily="@font/poppins_regular"
+                  android:gravity="center"
+                  android:text="@string/about"
+                  android:textColor="@color/black"
+                  android:textSize="@dimen/_9sdp" />-->
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+          <!--  <RelativeLayout
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/circle_white_gray_border_bg"
+                android:elevation="@dimen/_5sdp">
+
+              <ImageView
+                  android:layout_width="@dimen/_25sdp"
+                  android:layout_height="@dimen/_25sdp"
+                  android:layout_centerInParent="true"
+                  android:padding="@dimen/_3sdp"
+                  android:src="@drawable/ic_contact_us"
+                  app:tint="@color/black" />
+
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_9sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/contact_us"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_9sdp" />-->
 
 
         </LinearLayout>

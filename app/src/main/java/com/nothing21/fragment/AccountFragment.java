@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nothing21.AboutAct;
+import com.nothing21.Account2Act;
 import com.nothing21.BuildConfig;
 import com.nothing21.ContactUsAct;
 import com.nothing21.HomeAct;
@@ -27,6 +28,7 @@ import com.nothing21.HomeAct;
 import com.nothing21.Login2Act;
 import com.nothing21.OrderHistoryAct;
 import com.nothing21.OrderStatusAct;
+import com.nothing21.OurPolicyAct;
 import com.nothing21.ProfileAct;
 import com.nothing21.R;
 import com.nothing21.ReturnListAct;
@@ -63,7 +65,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
     MyOrderAdapter adapter;
     MyOrderAdapterTwo adapterTwo;
 
-    String refreshedToken = "",userId="";
+    String refreshedToken = "", userId = "";
 
     @Nullable
     @Override
@@ -78,11 +80,6 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
 
 
-
-
-
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.viewScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
@@ -90,11 +87,11 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                     int x = scrollY - oldScrollY;
                     if (x > 0) {
                         //scroll up
-                       // HomeAct.cardTabs.animate().alpha(1.0f);
+                        // HomeAct.cardTabs.animate().alpha(1.0f);
                         HomeAct.cardTabs.setVisibility(View.VISIBLE);
                     } else if (x < 0) {
                         //scroll down
-                      //  HomeAct.cardTabs.animate().alpha(0.0f);
+                        //  HomeAct.cardTabs.animate().alpha(0.0f);
                         HomeAct.cardTabs.setVisibility(View.VISIBLE);
                     } else {
                         HomeAct.cardTabs.setVisibility(View.VISIBLE);
@@ -106,51 +103,47 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         }
 
         binding.tvLogout.setOnClickListener(v -> {
-            if(SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            if (SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
                 startActivity(new Intent(getActivity(), Login2Act.class));
-            }
-            else {
+            } else {
                 LogOutAlert();
             }
         });
 
 
-      binding.layoutProcessing.setOnClickListener(v -> {
-            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
-              startActivity(new Intent(getActivity(), OrderStatusAct.class));
+        binding.layoutProcessing.setOnClickListener(v -> {
+            if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
+                startActivity(new Intent(getActivity(), OrderStatusAct.class));
             }
         });
 
 
         binding.layoutHistory.setOnClickListener(v -> {
-            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
                 startActivity(new Intent(getActivity(), OrderHistoryAct.class));
             }
         });
 
 
-
-
-      binding.layoutProfile.setOnClickListener(v ->
-      {
-          if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
-              startActivity(new Intent(getActivity(), ProfileAct.class));
-          }
-      });
+        binding.layoutProfile.setOnClickListener(v ->
+        {
+            if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
+                startActivity(new Intent(getActivity(), ProfileAct.class));
+            }
+        });
 
 
         binding.layoutSupport.setOnClickListener(v ->
         {
-            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
                 startActivity(new Intent(getActivity(), SupportAct.class));
             }
         });
 
 
-
         binding.layoutReturn.setOnClickListener(v ->
         {
-            if(!SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+            if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
                 startActivity(new Intent(getActivity(), ReturnListAct.class));
             }
         });
@@ -159,27 +152,38 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         binding.layoutShare.setOnClickListener(v -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            String  shareMessage = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID ;
+            String shareMessage = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
             startActivity(Intent.createChooser(shareIntent, "Share link using"));
         });
 
 
         binding.layoutAbout.setOnClickListener(v ->
-            startActivity(new Intent(getActivity(), AboutAct.class)));
+                startActivity(new Intent(getActivity(), AboutAct.class)
+                        .putExtra("url", Constant.ABOUT_US)
+                        .putExtra("title", getString(R.string.about))));
 
 
         binding.layoutContactUs.setOnClickListener(v ->
                 startActivity(new Intent(getActivity(), ContactUsAct.class)));
 
 
+        binding.layoutPolicy.setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), OurPolicyAct.class)));
+
+        binding.layoutAccount.setOnClickListener(v -> {
+                    if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
+                        startActivity(new Intent(getActivity(), Account2Act.class));
+                    }
+                }
+        );
+
 
         arrayList = new ArrayList<>();
         arrayListTwo = new ArrayList<>();
 
 
-
-      //  tabSelect(1);
+        //  tabSelect(1);
 
         binding.tvWishList.setOnClickListener(v -> {
             tabSelect(1);
@@ -193,9 +197,8 @@ public class AccountFragment extends Fragment implements onIconClickListener {
     }
 
 
-
-    public void LogOutAlert(){
-        AlertDialog.Builder  builder1 = new AlertDialog.Builder(getActivity());
+    public void LogOutAlert() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage(getResources().getString(R.string.are_you_sure_you_want_to_logout_this_app));
         builder1.setCancelable(false);
 
@@ -204,7 +207,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        SessionManager.clear(getActivity(), DataManager.getInstance().getUserData(getActivity()).result.id+"");
+                        SessionManager.clear(getActivity(), DataManager.getInstance().getUserData(getActivity()).result.id + "");
                     }
                 });
 
@@ -272,34 +275,33 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         });
     }*/
 
-    public void tabSelect(int i){
-        if(i==1){
+    public void tabSelect(int i) {
+        if (i == 1) {
             binding.tvWishList.setBackgroundColor(getActivity().getResources().getColor(R.color.black));
             binding.tvView.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
             binding.tvWishList.setTextColor(getActivity().getResources().getColor(R.color.white));
             binding.tvView.setTextColor(getActivity().getResources().getColor(R.color.black));
             binding.rvFavList.setVisibility(View.VISIBLE);
             //if(userId.equals("")) userId = refreshedToken;
-            if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
-        }
-        else if(i==2){
+            if (NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+            else
+                Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+        } else if (i == 2) {
             binding.tvWishList.setBackgroundColor(getActivity().getResources().getColor(R.color.white));
             binding.tvView.setBackgroundColor(getActivity().getResources().getColor(R.color.black));
             binding.tvWishList.setTextColor(getActivity().getResources().getColor(R.color.black));
             binding.tvView.setTextColor(getActivity().getResources().getColor(R.color.white));
             binding.rvFavList.setVisibility(View.VISIBLE);
-         //   binding.tvFound.setVisibility(View.VISIBLE);
-            if(NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllWishList();
-            else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+            //   binding.tvFound.setVisibility(View.VISIBLE);
+            if (NetworkAvailablity.checkNetworkStatus(getActivity())) GetAllWishList();
+            else
+                Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
         }
     }
 
 
-
-
-    public void getAllFav(){
+    public void getAllFav() {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
         map.put("user_id", userId);
@@ -311,7 +313,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    FavModel  data11 = response.body();
+                    FavModel data11 = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "get Fav List Response :" + responseString);
                     if (data11.status.equals("1")) {
@@ -320,7 +322,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                         binding.layoutHeader.setVisibility(View.VISIBLE);
                         binding.rvFavList.setVisibility(View.VISIBLE);
                         arrayList.addAll(data11.result);
-                        binding.rvFavList.setAdapter(new MyOrderAdapter(getActivity(), arrayList,AccountFragment.this));
+                        binding.rvFavList.setAdapter(new MyOrderAdapter(getActivity(), arrayList, AccountFragment.this));
                     } else if (data11.status.equals("0")) {
                         arrayList.clear();
                         binding.tvFound.setVisibility(View.VISIBLE);
@@ -352,12 +354,12 @@ public class AccountFragment extends Fragment implements onIconClickListener {
     }
 
 
-    public void GetAllWishList(){
+    public void GetAllWishList() {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Map<String,String> map = new HashMap<>();
-      //  map.put("category_id",catId);
-        map.put("user_id",userId);
-      //  map.put("order_by",sortData);
+        Map<String, String> map = new HashMap<>();
+        //  map.put("category_id",catId);
+        map.put("user_id", userId);
+        //  map.put("order_by",sortData);
         Call<ProductNewModel> loginCall = apiInterface.getRecentView(map);
         loginCall.enqueue(new Callback<ProductNewModel>() {
             @Override
@@ -374,7 +376,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                         binding.rvFavList.setVisibility(View.VISIBLE);
                         arrayListTwo.addAll(data.result);
                         binding.rvFavList.setAdapter(new MyOrderAdapterTwo(getActivity(), arrayListTwo));
-                    } else if (data.status.equals("0")){
+                    } else if (data.status.equals("0")) {
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
                         arrayList.clear();
                         binding.tvFound.setVisibility(View.VISIBLE);
@@ -399,25 +401,26 @@ public class AccountFragment extends Fragment implements onIconClickListener {
     }
 
 
-    public void DeleteProWish1(String wishId){
+    public void DeleteProWish1(String wishId) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Map<String,String> map = new HashMap<>();
-        map.put("wish_id",wishId);
-        map.put("user_id",userId);
-        Call<Map<String,String>> loginCall = apiInterface.deleteWishList(map);
-        loginCall.enqueue(new Callback<Map<String,String>>() {
+        Map<String, String> map = new HashMap<>();
+        map.put("wish_id", wishId);
+        map.put("user_id", userId);
+        Call<Map<String, String>> loginCall = apiInterface.deleteWishList(map);
+        loginCall.enqueue(new Callback<Map<String, String>>() {
             @Override
-            public void onResponse(Call<Map<String,String>> call, Response<Map<String,String>> response) {
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    Map<String,String> data = response.body();
+                    Map<String, String> data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Product List Response :" + responseString);
                     if (data.get("status").equals("1")) {
-                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
-                    } else if (data.get("status").equals("0")){
+                        if (NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else
+                            Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                    } else if (data.get("status").equals("0")) {
                         // Toast.makeText(ProductAct.this, data.message, Toast.LENGTH_SHORT).show();
 
                     }
@@ -429,7 +432,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             }
 
             @Override
-            public void onFailure(Call<Map<String,String>> call, Throwable t) {
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
 
@@ -437,43 +440,37 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         });
 
 
-
-
-
-
-
-
-
     }
 
 
-
-    public void DeleteProWish(String proId){
+    public void DeleteProWish(String proId) {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Map<String,String> map = new HashMap<>();
-        map.put("user_id",userId);
-        map.put("product_id",proId);
-        Log.e(TAG,"Remove Fav Req===" + map.toString());
-        Call<Map<String,String>> loginCall = apiInterface.addFav(map);
-        loginCall.enqueue(new Callback<Map<String,String>>() {
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", userId);
+        map.put("product_id", proId);
+        Log.e(TAG, "Remove Fav Req===" + map.toString());
+        Call<Map<String, String>> loginCall = apiInterface.addFav(map);
+        loginCall.enqueue(new Callback<Map<String, String>>() {
             @Override
-            public void onResponse(Call<Map<String,String>> call, Response<Map<String,String>> response) {
+            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
                 DataManager.getInstance().hideProgressMessage();
 
                 try {
-                    Map<String,String> data = response.body();
+                    Map<String, String> data = response.body();
                     String responseString = new Gson().toJson(response.body());
                     Log.e(TAG, "Remove fav Response :" + responseString);
                     if (data.get("status").equals("1")) {
 
-                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                        if (NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else
+                            Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
 
-                    } else if (data.get("status").equals("0")){
+                    } else if (data.get("status").equals("0")) {
 
-                       if(NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                        if (NetworkAvailablity.checkNetworkStatus(getActivity())) getAllFav();
+                        else
+                            Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                     }
 
                     // serviceAdapter.notifyDataSetChanged();
@@ -484,7 +481,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             }
 
             @Override
-            public void onFailure(Call<Map<String,String>> call, Throwable t) {
+            public void onFailure(Call<Map<String, String>> call, Throwable t) {
                 call.cancel();
                 DataManager.getInstance().hideProgressMessage();
 
@@ -493,19 +490,14 @@ public class AccountFragment extends Fragment implements onIconClickListener {
     }
 
 
-
-
-
-
-
     @Override
     public void onIcon(int position, String type) {
-     DeleteWishListAlert(arrayList.get(position).id);
+        DeleteWishListAlert(arrayList.get(position).id);
     }
 
 
-    public void DeleteWishListAlert(String idss){
-        AlertDialog.Builder  builder1 = new AlertDialog.Builder(getActivity());
+    public void DeleteWishListAlert(String idss) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage(getResources().getString(R.string.are_you_sure_you_want_to_delete_this_product_from_wish_list));
         builder1.setCancelable(false);
 
@@ -514,8 +506,11 @@ public class AccountFragment extends Fragment implements onIconClickListener {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        if(NetworkAvailablity.checkNetworkStatus(getActivity())) DeleteProWish(idss);
-                        else Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();                    }
+                        if (NetworkAvailablity.checkNetworkStatus(getActivity()))
+                            DeleteProWish(idss);
+                        else
+                            Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                    }
                 });
 
         builder1.setNegativeButton(
@@ -535,14 +530,13 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         super.onResume();
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
             try {
-                if(DataManager.getInstance().getUserData(getActivity())!=null) {
+                if (DataManager.getInstance().getUserData(getActivity()) != null) {
                     userId = DataManager.getInstance().getUserData(getActivity()).result.id;
-                }
-                else   userId = instanceIdResult.getToken();     //LogInAlert();
+                } else userId = instanceIdResult.getToken();     //LogInAlert();
 
                 refreshedToken = instanceIdResult.getToken();
 
-                 tabSelect(1);
+                tabSelect(1);
 
                 Log.e("Token===", userId);
                 // Yay.. we have our new token now.
@@ -551,13 +545,12 @@ public class AccountFragment extends Fragment implements onIconClickListener {
             }
         });
 
-        if(SessionManager.readString(getActivity(), Constant.USER_INFO,"").equals("")){
+        if (SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
             binding.tvName.setText("Hi Guest");
             binding.tvLogout.setVisibility(View.VISIBLE);
             binding.tvLogout.setText(getString(R.string.login_signup));
 
-        }
-        else {
+        } else {
             binding.tvName.setText(DataManager.getInstance().getUserData(getActivity()).result.firstName + " " +
                     DataManager.getInstance().getUserData(getActivity()).result.lastName);
             binding.tvLogout.setVisibility(View.VISIBLE);
