@@ -49,14 +49,16 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSize"
-            android:layout_below="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            tools:listitem="@layout/item_color_filter"
             android:layout_above="@+id/btnApply"
+            android:layout_below="@+id/header"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
+            tools:listitem="@layout/item_color_filter" />
 
         <TextView
             android:id="@+id/tvNotFound"

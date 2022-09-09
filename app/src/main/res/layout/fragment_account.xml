@@ -75,12 +75,10 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_user_profile"
-                app:tint="@color/black"
-                android:padding="@dimen/_4sdp"/>
+                android:src="@drawable/ic_user_profile1" />
 
 
           </RelativeLayout>
@@ -95,7 +93,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/profile"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 
@@ -116,12 +114,11 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_300sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/_3sdp"
-                android:src="@drawable/ic_share_earn"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_share_earn1"
+                 />
 
 
           </RelativeLayout>
@@ -136,7 +133,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/share_earn"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 
@@ -154,7 +151,8 @@
               android:layout_width="@dimen/_45sdp"
               android:layout_height="@dimen/_45sdp"
               android:background="@drawable/circle_white_gray_border_bg"
-              android:elevation="@dimen/_5sdp">
+              android:elevation="@dimen/_5sdp"
+              android:visibility="gone">
 
             <ImageView
                 android:layout_width="@dimen/_25sdp"
@@ -177,6 +175,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/account"
+              android:visibility="gone"
               android:textColor="@color/black"
               android:textSize="@dimen/_9sdp" />
 
@@ -231,11 +230,10 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_processing"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_processing1" />
 
 
           </RelativeLayout>
@@ -250,7 +248,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/processing"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 
@@ -271,12 +269,11 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/_4sdp"
-                android:src="@drawable/ic_order_history"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_order_history1"
+                />
 
 
           </RelativeLayout>
@@ -291,7 +288,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/order_history"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 
@@ -312,12 +309,11 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/_4sdp"
-                android:src="@drawable/ic_return"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_return1"
+               />
 
 
           </RelativeLayout>
@@ -332,7 +328,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/returns"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 
@@ -385,11 +381,10 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_support"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_support1"/>
 
 
           </RelativeLayout>
@@ -404,7 +399,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/support"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 
@@ -425,12 +420,10 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/_4sdp"
-                android:src="@drawable/ic_about"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_about1" />
 
 
           </RelativeLayout>
@@ -445,7 +438,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/about"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 
@@ -466,12 +459,10 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:padding="@dimen/_3sdp"
-                android:src="@drawable/ic_contact_us"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_contact1" />
 
 
           </RelativeLayout>
@@ -486,7 +477,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/contact_us"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 
@@ -523,11 +514,11 @@
               android:elevation="@dimen/_5sdp">
 
             <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_support"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_policy1"
+                 />
 
 
           </RelativeLayout>
@@ -542,7 +533,7 @@
               android:fontFamily="@font/poppins_regular"
               android:gravity="center"
               android:text="@string/our_policy"
-              android:textColor="@color/black"
+              android:textColor="@color/color_grey"
               android:textSize="@dimen/_9sdp" />
 
 

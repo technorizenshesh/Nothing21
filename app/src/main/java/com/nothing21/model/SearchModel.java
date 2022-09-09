@@ -81,6 +81,10 @@ public class SearchModel {
         @Expose
         public String priceCalculated;
 
+        @SerializedName("product_id")
+        @Expose
+        public String productId;
+
 
 
 

@@ -14,7 +14,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.gson.Gson;
 import com.nothing21.adapter.AdapterSearch;
 import com.nothing21.databinding.ActivitySearchBinding;
+import com.nothing21.fragment.SearchByCatSubCatBottomSheet;
+import com.nothing21.fragment.SizeFilterBottomSheet;
 import com.nothing21.listener.onItemClickListener;
+import com.nothing21.listener.onSearchListener;
 import com.nothing21.model.SearchModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Nothing21Interface;
@@ -27,13 +30,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchAct extends AppCompatActivity implements onItemClickListener {
+public class SearchAct extends AppCompatActivity implements onItemClickListener , onSearchListener {
     public String TAG = "SearchAct";
     Nothing21Interface apiInterface;
     private ArrayList<SearchModel.Result> arrayList = new ArrayList<>();
     private AdapterSearch adapter;
     private ActivitySearchBinding binding;
-    private String queryString = "";
+    private String queryString = "",subCatId="",catId="";
 
 
     @Override
@@ -76,12 +79,24 @@ public class SearchAct extends AppCompatActivity implements onItemClickListener 
             }
         });
 
+
+
+        binding.tvCatSubCat.setOnClickListener(v -> callCatSubCat() );
+
+
     }
+
+    private void callCatSubCat() {
+        new SearchByCatSubCatBottomSheet().callBack(this::onSearch).show(getSupportFragmentManager(), "");
+    }
+
+
 
     private void getProduct() {
         binding.swiperRefresh.setRefreshing(true);
         Map<String, String> map = new HashMap<>();
         map.put("name", queryString);
+        map.put("subcat_id", subCatId);
         Log.e(TAG, "Search Product Request :" + queryString);
         Call<SearchModel> loginCall = apiInterface.searchProduct(map);
         loginCall.enqueue(new Callback<SearchModel>() {
@@ -130,8 +145,10 @@ public class SearchAct extends AppCompatActivity implements onItemClickListener 
        // FragTrans(new ProductFragment(arrayList.get(position).categoryId+""));
        // finish();
         Intent intent = new Intent();
-        intent.putExtra("id", arrayList.get(position).categoryId+"");
-        setResult(RESULT_OK, intent);
+       // intent.putExtra("id", catId/*arrayList.get(position).categoryId+""*/);
+      //  intent.putExtra("subCat_id", subCatId+"");
+          intent.putExtra("id", arrayList.get(position).productId+"");
+          setResult(RESULT_OK, intent);
         finish();
     }
 
@@ -144,4 +161,11 @@ public class SearchAct extends AppCompatActivity implements onItemClickListener 
         transaction.commit();
     }
 
+    @Override
+    public void onSearch(String catId,String catName, String subCatId,String subCatName) {
+        this.subCatId = subCatId;
+        this.catId = catId;
+        binding.tvCatSubCat.setText(subCatName);
+
+    }
 }

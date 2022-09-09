@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
@@ -30,37 +31,55 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.gson.Gson;
+import com.nothing21.adapter.AddressAdapter;
+import com.nothing21.adapter.OrderStatusAdapter;
 import com.nothing21.databinding.ActivityAddressBinding;
+import com.nothing21.listener.onItemClickListener;
+import com.nothing21.model.AddressModel;
+import com.nothing21.model.OrderStatusModel;
+import com.nothing21.retrofit.ApiClient;
+import com.nothing21.retrofit.Nothing21Interface;
 import com.nothing21.utils.DataManager;
 import com.nothing21.utils.GPSTracker;
+import com.nothing21.utils.NetworkAvailablity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddressAct extends AppCompatActivity {
+public class AddressAct extends AppCompatActivity  implements onItemClickListener {
     public String TAG = "UpdateAddressAct";
     ActivityAddressBinding binding;
     double latitude = 0.0, longitude = 0.0;
     int AUTOCOMPLETE_REQUEST_CODE_ADDRESS = 101;
-    String address="",city="";
+    String address="",city="",select="0";
     GPSTracker gpsTracker;
     GoogleMap mMap;
     int PERMISSION_ID = 44;
     private Animation myAnim;
     String product_id="",cart_id="";
+    Nothing21Interface apiInterface;
+    AddressAdapter adapter;
+    ArrayList<AddressModel.Result>arrayList;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        apiInterface = ApiClient.getClient().create(Nothing21Interface.class);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_address);
         initViews();
-        bindMap();
+       // bindMap();
 
     }
 
@@ -73,7 +92,12 @@ public class AddressAct extends AppCompatActivity {
             Log.e("cart_id",cart_id);
         }
 
-        initLocation();
+        arrayList = new ArrayList<>();
+
+        adapter = new AddressAdapter(AddressAct.this,arrayList,AddressAct.this);
+        binding.rvAddress.setAdapter(adapter);
+
+        //initLocation();
 
        /* if(DataManager.getInstance().getUserData(UpdateAddressAct.this).user.address==null){
 
@@ -81,6 +105,9 @@ public class AddressAct extends AppCompatActivity {
         else { if(DataManager.getInstance().getUserData(UpdateAddressAct.this).user.address!=null||!DataManager.getInstance().getUserData(UpdateAddressAct.this).user.address.equals(""))
             binding.tvAddress.setText(DataManager.getInstance().getUserData(UpdateAddressAct.this).user.address);
         }*/
+        if (NetworkAvailablity.checkNetworkStatus(AddressAct.this)) getAddressssss();
+        else
+            Toast.makeText(AddressAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
 
 
@@ -93,16 +120,21 @@ public class AddressAct extends AppCompatActivity {
             if(!address.equals("")) {
                // Intent returnIntent = new Intent().putExtra("lat", latitude + "").putExtra("lon", longitude + "").putExtra("address", address);
              //   setResult(Activity.RESULT_OK, returnIntent);
-
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("lat", latitude + "");
-                returnIntent.putExtra("lon", longitude + "");
-                returnIntent.putExtra("address", address);
-                returnIntent.putExtra("product_id",product_id);
-                returnIntent.putExtra("cart_id",cart_id);
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
-
+             if(select.equals("0")) {
+                 if (NetworkAvailablity.checkNetworkStatus(AddressAct.this)) addAddresssssss();
+                 else
+                     Toast.makeText(AddressAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+             }
+             else {
+                 Intent returnIntent = new Intent();
+                 returnIntent.putExtra("lat", latitude + "");
+                 returnIntent.putExtra("lon", longitude + "");
+                 returnIntent.putExtra("address", address);
+                 returnIntent.putExtra("product_id",product_id);
+                 returnIntent.putExtra("cart_id",cart_id);
+                 setResult(Activity.RESULT_OK,returnIntent);
+                 finish();
+             }
               //  finish();
             }
 
@@ -166,6 +198,119 @@ public class AddressAct extends AppCompatActivity {
 
 
 
+    private void addAddresssssss() {
+        HashMap<String, String> paramHash = new HashMap<>();
+        paramHash.put("name", address);
+        paramHash.put("user_id", DataManager.getInstance().getUserData(AddressAct.this).result.id);
+        paramHash.put("lat", latitude+"");
+        paramHash.put("lon", longitude+"");
+        Log.e("add address===", "paramHash = " + paramHash);
+        Call<ResponseBody> call = apiInterface.addAddress(paramHash);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                DataManager.getInstance().hideProgressMessage();
+                try {
+
+                    String stringResponse = response.body().string();
+
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+                        Log.e(TAG, "add address Response = " + stringResponse);
+                        if (jsonObject.getString("status").equals("1")) {
+                            //  Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("lat", latitude + "");
+                            returnIntent.putExtra("lon", longitude + "");
+                            returnIntent.putExtra("address", address);
+                            returnIntent.putExtra("product_id",product_id);
+                            returnIntent.putExtra("cart_id",cart_id);
+                            setResult(Activity.RESULT_OK,returnIntent);
+                            finish();
+                        } else {
+
+
+
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("JSONException", "JSONException = " + e.getMessage());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                DataManager.getInstance().hideProgressMessage();
+                call.cancel();
+            }
+
+        });
+    }
+
+
+    private void getAddressssss() {
+        HashMap<String, String> paramHash = new HashMap<>();
+        paramHash.put("user_id", DataManager.getInstance().getUserData(AddressAct.this).result.id);
+        Log.e("get address===", "paramHash = " + paramHash);
+        Call<ResponseBody> call = apiInterface.getAddress(paramHash);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                DataManager.getInstance().hideProgressMessage();
+                try {
+
+                    String stringResponse = response.body().string();
+
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+                        Log.e(TAG, "get address Response = " + stringResponse);
+                        if (jsonObject.getString("status").equals("1")) {
+                            //  Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
+                          AddressModel model = new Gson().fromJson(stringResponse,AddressModel.class);
+                          arrayList.clear();
+                          arrayList.addAll(model.getResult());
+                          adapter.notifyDataSetChanged();
+                          binding.tvSave.setVisibility(View.VISIBLE);
+
+                        } else {
+                            binding.tvSave.setVisibility(View.GONE);
+                            arrayList.clear();
+                            adapter.notifyDataSetChanged();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("JSONException", "JSONException = " + e.getMessage());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                DataManager.getInstance().hideProgressMessage();
+                call.cancel();
+            }
+
+        });
+    }
+
+
+
+
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -176,16 +321,17 @@ public class AddressAct extends AppCompatActivity {
                 try {
                     Log.e("addressStreet====", place.getAddress());
                     address = place.getAddress();
+                    select = "0";
                     latitude = place.getLatLng().latitude;
                     longitude = place.getLatLng().longitude;
                     city = DataManager.getInstance().getAddress(AddressAct.this,latitude,longitude);
                     //  binding.tvCity.setVisibility(View.VISIBLE);
                     // binding.tvCity.setText(city);
                     binding.tvAddress.setText(place.getAddress());
-                    latitude = place.getLatLng().latitude;
-                    longitude = place.getLatLng().longitude;
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 17.0f));
-                    binding.imgMarker.startAnimation(myAnim);
+                 //   latitude = place.getLatLng().latitude;
+                 //   longitude = place.getLatLng().longitude;
+                  //  mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 17.0f));
+                 //   binding.imgMarker.startAnimation(myAnim);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -250,4 +396,13 @@ public class AddressAct extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItem(int position) {
+        select = "1";
+        latitude = Double.parseDouble(arrayList.get(position).getLat());
+        latitude = Double.parseDouble(arrayList.get(position).getLon());
+        address = arrayList.get(position).getName();
+        binding.tvAddress.setText(address);
+
+    }
 }

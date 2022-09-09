@@ -136,7 +136,7 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         binding.layoutSupport.setOnClickListener(v ->
         {
             if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
-                startActivity(new Intent(getActivity(), SupportAct.class));
+                startActivity(new Intent(getActivity(), Account2Act.class));
             }
         });
 
@@ -171,12 +171,12 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         binding.layoutPolicy.setOnClickListener(v ->
                 startActivity(new Intent(getActivity(), OurPolicyAct.class)));
 
-        binding.layoutAccount.setOnClickListener(v -> {
+      /*  binding.layoutAccount.setOnClickListener(v -> {
                     if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
                         startActivity(new Intent(getActivity(), Account2Act.class));
                     }
                 }
-        );
+        );*/
 
 
         arrayList = new ArrayList<>();

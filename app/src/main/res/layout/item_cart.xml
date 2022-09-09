@@ -99,7 +99,8 @@
                     android:textSize="@dimen/_9sdp"
                     android:textColor="@color/black"
 
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:visibility="gone"/>
 
                <!-- <TextView
                     android:id="@+id/tvProductPrice"

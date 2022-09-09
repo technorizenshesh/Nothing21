@@ -24,6 +24,10 @@ public class Account2Act extends AppCompatActivity {
         binding.ivBack.setOnClickListener(v -> finish());
 
 
+
+
+
+
         binding.tvOrderIssue.setOnClickListener(v ->
                 startActivity(new Intent(Account2Act.this, SupportAct.class)));
 
@@ -36,6 +40,15 @@ public class Account2Act extends AppCompatActivity {
 
         binding.tvPaymentPromos.setOnClickListener(v ->
                 startActivity(new Intent(Account2Act.this, SupportAct.class)));
+
+        binding.tvAddProduct.setOnClickListener(v ->
+                startActivity(new Intent(Account2Act.this, SupportAct.class)));
+
+        binding.tvStockAccount.setOnClickListener(v ->
+                startActivity(new Intent(Account2Act.this, SupportAct.class)));
+
+        binding.tvHelp.setOnClickListener(v ->
+                startActivity(new Intent(Account2Act.this, SupportAct2.class)));
     }
 
 }

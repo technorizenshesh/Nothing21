@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp">
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/_10sdp">
+    android:orientation="vertical">
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_address"
-        android:fontFamily="@font/poppins_regular"
-        android:textSize="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:textColor="@color/black"/>
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/add_address"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp" />
 
 
     <TextView
@@ -23,27 +28,137 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
         android:textSize="@dimen/_11sdp"
+        android:padding="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
         android:textColor="@color/black"
-        android:hint="@string/please_select_address"
-        android:maxLines="2"/>
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:hint="@string/delivery_address"
+        android:background="@drawable/rounded_unselect_white_bg"
+        android:maxLines="2"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:elevation="@dimen/_7sdp"/>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+       >
+
+
+        <TextView
+            android:id="@+id/tvOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:text="Order Value"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp" />
+
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@font/poppins_regular"
+            android:text="AED 63"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+
+        >
+
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:text="@string/delivery_charge"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp" />
+
+
+        <TextView
+            android:id="@+id/tvDeliveryPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@font/poppins_regular"
+            android:text="AED 63"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:text="@string/total"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp" />
+
+
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@font/poppins_regular"
+            android:text="AED 63"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp" />
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
 
 
     <TextView
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:background="@drawable/rounded_black_bg"
         android:layout_marginTop="@dimen/_20sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_black_bg"
         android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
         android:text="@string/next"
         android:textColor="@color/white"
-        android:gravity="center"
-        android:textSize="@dimen/_13sdp"/>
+        android:textSize="@dimen/_13sdp" />
 
 
-</LinearLayout>
+</RelativeLayout>
 </layout>

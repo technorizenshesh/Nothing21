@@ -46,15 +46,15 @@
 
 
                 <TextView
-                    android:layout_toRightOf="@+id/tvOrder"
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" (Excluding Delivery) "
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="@dimen/_10sdp"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/color_grey"/>
+                    android:layout_toRightOf="@+id/tvOrder"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:text=" (Excluding Delivery) "
+                    android:textColor="@color/color_grey"
+                    android:textSize="@dimen/_10sdp" />
 
 
                 <TextView

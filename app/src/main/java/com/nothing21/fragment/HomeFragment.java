@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.nothing21.HomeAct;
+import com.nothing21.ProductSingalCopyAct;
 import com.nothing21.R;
 import com.nothing21.SearchAct;
 import com.nothing21.adapter.CartAdapter;
@@ -223,8 +224,9 @@ public class HomeFragment extends Fragment  implements onItemClickListener {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 //FragTrans(new ProductFragment(data.getStringExtra("id")));    ;
-                FragTrans(new SubCatFragment(data.getStringExtra("id")));    ;
-
+              //  FragTrans(new ProductNewFragment(data.getStringExtra("id"),data.getStringExtra("subCat_id")));    ;
+             startActivity(new Intent(getActivity(), ProductSingalCopyAct.class)
+             .putExtra("id",data.getStringExtra("id")));
             }
         }
 

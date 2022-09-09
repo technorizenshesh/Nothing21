@@ -160,11 +160,11 @@ public class CartFragment extends Fragment implements onIconClickListener, InfoL
                         for (int i=0;i<arrayList.size();i++){
                             stringArrayList.add(arrayList.get(i).productId);
                             stringArrayListCartId.add(arrayList.get(i).cartId);
-                            if(!arrayList.get(i).discount.equals("")){
-                                totalCountAmt =   totalCountAmt + ( Double.parseDouble(arrayList.get(i).price) - (Double.parseDouble(arrayList.get(i).discount) /100) )  * Double.parseDouble(arrayList.get(i).quantity) ;
-                            }else {
-                                totalCountAmt = totalCountAmt + Double.parseDouble(arrayList.get(i).price);
-                            }
+                          //  if(!arrayList.get(i).discount.equals("")){
+                                totalCountAmt =   totalCountAmt + ( Double.parseDouble(arrayList.get(i).price) /*- (Double.parseDouble(arrayList.get(i).discount) /100)*/ )  * Double.parseDouble(arrayList.get(i).quantity) ;
+                          //  }else {
+                            //    totalCountAmt = totalCountAmt + Double.parseDouble(arrayList.get(i).price);
+                          //  }
 
                         }
                         Log.e("prolist_size===",stringArrayList.size()+"");

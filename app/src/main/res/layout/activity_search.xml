@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activity.SearchActivity">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,17 +14,37 @@
 
 
 
+
+          <TextView
+              android:id="@+id/tvCatSubCat"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/_40sdp"
+              android:layout_margin="@dimen/_5sdp"
+              android:text="@string/please_select_category_and_sub_cat"
+              android:layoutDirection="rtl"
+              android:textSize="@dimen/_13sdp"
+              android:background="@drawable/border_primary"
+              android:gravity="center_vertical"
+              android:fontFamily="@font/poppins_regular"
+              android:padding="@dimen/_5sdp"
+              />
+
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:queryHint="Search Here"
-            app:defaultQueryHint="Search Here"
-            android:layout_margin="@dimen/_5sdp"
-            android:padding="@dimen/_5sdp"
-            android:layoutDirection="rtl"
+            android:layout_below="@+id/tvCatSubCat"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
             android:background="@drawable/border_primary"
-            android:iconifiedByDefault="false" />
+            android:iconifiedByDefault="false"
+            android:layoutDirection="rtl"
+            android:padding="@dimen/_5sdp"
+            android:queryHint="Search Here"
+            app:defaultQueryHint="Search Here" />
 
 
 

@@ -292,7 +292,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvSize"
-                        android:layout_width="@dimen/_50sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginStart="@dimen/_20sdp"

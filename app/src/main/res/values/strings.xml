@@ -121,5 +121,14 @@
     <string name="return_refund">Return and refund</string>
     <string name="payment_promos">Payment and promos</string>
     <string name="please_check_your_email">Please check your email</string>
+    <string name="customer_care">Customer care</string>
+    <string name="please_select_category_and_sub_cat">Please select category and sub category</string>
+    <string name="delivery_address">Delivery address</string>
+    <string name="delivery_charge">Delivery charge</string>
+    <string name="total">Total</string>
+    <string name="save_address">Save Address</string>
+    <string name="add_product">Add product</string>
+    <string name="stock_account">Stock account</string>
+    <string name="help">Help</string>
 
 </resources>

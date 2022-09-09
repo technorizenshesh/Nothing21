@@ -47,7 +47,7 @@ public class RegisterAct extends AppCompatActivity {
     }
 
     private void initViews() {
-
+    binding.ccp.setCountryForPhoneCode(971);
 
         if(getIntent()!=null){
             product_id = getIntent().getStringExtra("product_id");
@@ -124,9 +124,9 @@ public class RegisterAct extends AppCompatActivity {
             binding.etRegion.setFocusable(true);
         }*/
 
-        else if (binding.etNumber.getText().toString().equals("")){
-            binding.etNumber.setError(getString(R.string.required));
-            binding.etNumber.setFocusable(true);
+        else if (binding.etMobile.getText().toString().equals("")){
+            binding.etMobile.setError(getString(R.string.required));
+            binding.etMobile.setFocusable(true);
         }
         else {
             if(NetworkAvailablity.checkNetworkStatus(RegisterAct.this)) userRegister();
@@ -143,7 +143,7 @@ public class RegisterAct extends AppCompatActivity {
         map.put("last_name",binding.etSurname.getText().toString());
         map.put("email", binding.etEmail.getText().toString());
         map.put("password",binding.etPasswoprd.getText().toString());
-        map.put("mobile",binding.etNumber.getText().toString());
+        map.put("mobile",binding.etMobile.getText().toString());
         map.put("country_code",binding.ccp.getSelectedCountryCode());
         map.put("emirate",binding.etEmirate.getText().toString());
         map.put("address",binding.etAddress.getText().toString());

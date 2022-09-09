@@ -264,6 +264,20 @@ public interface Nothing21Interface {
     Call<ResponseBody> getContact();
 
 
+    @GET("get_category_mob_filter")
+    Call<ResponseBody> getCatSubCatApi();
+
+
+    @FormUrlEncoded
+    @POST("add_address")
+    Call<ResponseBody> addAddress(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("get_address")
+    Call<ResponseBody> getAddress(@FieldMap Map<String, String> params);
+
+
+
 }
 
 

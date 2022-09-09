@@ -352,7 +352,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvSize"
-                            android:layout_width="@dimen/_70sdp"
+                            android:layout_width="@dimen/_150sdp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:orientation="horizontal"

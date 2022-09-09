@@ -68,7 +68,7 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
 
 
     SizeAdapter sizeAdapter;
-
+    ColorCartAdapter colorCartAdapter;
 
     public CartFragmentBootomSheet(ProductNewModel.Result productData) {
         this.productData = productData;
@@ -136,8 +136,8 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
         sizeAdapter = new SizeAdapter(getActivity(), sizeArrayList,CartFragmentBootomSheet.this);
         binding.rvSize.setAdapter(sizeAdapter);
 
-
-        binding.rvColor.setAdapter(new ColorCartAdapter(getActivity(), colorArrayList, CartFragmentBootomSheet.this));
+        colorCartAdapter = new ColorCartAdapter(getActivity(), colorArrayList, CartFragmentBootomSheet.this);
+        binding.rvColor.setAdapter(colorCartAdapter);
 
         binding.tvMinus.setOnClickListener(v -> {
             if (count > 1) {
@@ -182,8 +182,26 @@ public class CartFragmentBootomSheet extends BottomSheetDialogFragment implement
                         AddProductToCart11(userId);
                     else
                         Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
-                } else
+                } else{
                     Toast.makeText(getActivity(), getString(R.string.product__out_of_stock), Toast.LENGTH_SHORT).show();
+                    for (int i = 0; i < colorArrayList.size(); i++) {
+                colorArrayList.get(i).setChkColor(false);
+                    }
+                    for (int i = 0; i < sizeArrayList.size(); i++) {
+                        sizeArrayList.get(i).setChkColor(false);
+                    }
+                    sizeAdapter.notifyDataSetChanged();
+                    colorCartAdapter.notifyDataSetChanged();
+
+                    chkColor = false;
+                    chkSize = false;
+                    SessionManager.writeString(getActivity(), "selectImage", "");
+                    SessionManager.writeString(getActivity(), "selectColor", "");
+                    SessionManager.writeString(getActivity(), "colorDetailsId", "");
+                    SessionManager.writeString(getActivity(),"avaQuantity","");
+                    SessionManager.writeString(getActivity(), "selectSize", "");
+                    SessionManager.writeString(getActivity(), "selectVariationId", "");
+                }
 
             }
         });

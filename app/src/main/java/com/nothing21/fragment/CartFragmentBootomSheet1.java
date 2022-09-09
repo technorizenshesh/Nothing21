@@ -62,6 +62,7 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
     ArrayList<ProductModelCopyNew.Result.ColorDetail> colorArrayList;
     ArrayList<ProductModelCopyNew.Result.ColorDetail.ColorVariation> sizeArrayList;
     SizeAdapter1 sizeAdapter;
+    ColorAdapter colorAdapter;
 
     public CartFragmentBootomSheet1(ProductModelCopyNew.Result productData,String img) {
         this.productData = productData;
@@ -126,7 +127,8 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
         sizeAdapter = new SizeAdapter1(getActivity(), sizeArrayList,CartFragmentBootomSheet1.this);
         binding.rvSize.setAdapter(sizeAdapter);
 
-        binding.rvColor.setAdapter(new ColorAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet1.this));
+        colorAdapter = new ColorAdapter(getActivity(), colorArrayList,CartFragmentBootomSheet1.this);
+        binding.rvColor.setAdapter(colorAdapter);
 
 
 
@@ -167,22 +169,42 @@ public class CartFragmentBootomSheet1 extends BottomSheetDialogFragment implemen
 
 
         binding.tvAddCart.setOnClickListener(v -> {
-            if(chkColor == false) Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
-           else if(chkSize == false) Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
+            if (chkColor == false)
+                Toast.makeText(getActivity(), getString(R.string.please_select_color), Toast.LENGTH_SHORT).show();
+            else if (chkSize == false)
+                Toast.makeText(getActivity(), getString(R.string.please_select_size), Toast.LENGTH_SHORT).show();
 
             else {
+
                 if (Integer.parseInt(avaQnty) >= count) {
 
                     if (NetworkAvailablity.checkNetworkStatus(getActivity()))
                         AddProductToCart11(userId);
                     else
                         Toast.makeText(getActivity(), getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(getActivity(), getString(R.string.product__out_of_stock), Toast.LENGTH_SHORT).show();
+                    for (int i = 0; i < colorArrayList.size(); i++) {
+                        colorArrayList.get(i).setChkColor(false);
+                    }
+                    for (int i = 0; i < sizeArrayList.size(); i++) {
+                        sizeArrayList.get(i).setSelectColor(false);
+                    }
+                    sizeAdapter.notifyDataSetChanged();
+                    colorAdapter.notifyDataSetChanged();
+
+                    chkColor = false;
+                    chkSize = false;
+                    SessionManager.writeString(getActivity(), "selectImage", "");
+                    SessionManager.writeString(getActivity(), "selectColor", "");
+                    SessionManager.writeString(getActivity(), "colorDetailsId", "");
+                    SessionManager.writeString(getActivity(),"avaQuantity","");
+                    SessionManager.writeString(getActivity(), "selectSize", "");
+                    SessionManager.writeString(getActivity(), "selectVariationId", "");
                 }
-                else Toast.makeText(getActivity(),getString(R.string.product__out_of_stock),Toast.LENGTH_SHORT).show();
 
             }
         });
-
 
 
 

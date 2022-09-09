@@ -32,7 +32,8 @@ public class OrderPlaceAct extends AppCompatActivity {
     int LAUNCH_SECOND_ACTIVITY = 1;
     ActivityPlaceOrderBinding binding;
     Nothing21Interface apiInterface;
-    String lat="",lon="",address="",product_id="",cart_id="",amount = "";
+    String lat="",lon="",address="",product_id="",cart_id="",amount = "",deliveryCharge="20";
+    double total=0.0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,13 @@ public class OrderPlaceAct extends AppCompatActivity {
             amount = getIntent().getStringExtra("amount");
             Log.e("Product_id",product_id);
             Log.e("cart_id",cart_id);
+
+            total = Double.parseDouble(amount) + Double.parseDouble(deliveryCharge);
+            binding.tvPrice.setText("AED " + String.format("%.2f", Double.parseDouble(amount) ));
+            binding.tvDeliveryPrice.setText("AED " + String.format("%.2f", Double.parseDouble(deliveryCharge) ));
+            binding.tvTotal.setText("AED " + String.format("%.2f",total ));
+
+
         }
 
 
@@ -78,8 +86,8 @@ public class OrderPlaceAct extends AppCompatActivity {
             map.put("address",address);
             map.put("lat", lat);
             map.put("lon",lon);
-            map.put("payment_type", "Cash");
-            map.put("amount",amount);
+            map.put("payment_type", "Card");
+            map.put("amount",total+"");
             map.put("order_date",DataManager.getCurrent());
             map.put("order_time",DataManager.getCurrentTime());
             map.put("cart_id",cart_id);
@@ -97,7 +105,7 @@ public class OrderPlaceAct extends AppCompatActivity {
                         if (data.get("status").equals("1")) {
                             startActivity(new Intent(OrderPlaceAct.this, PaymentAct.class)
                                     .putExtra("request_id",data.get("request_id"))
-                                    .putExtra("amount",amount+""));
+                                    .putExtra("amount",total+""));
 
                         } else if (data.get("status").equals("0"))
                             Toast.makeText(OrderPlaceAct.this, data.get("message"), Toast.LENGTH_SHORT).show();

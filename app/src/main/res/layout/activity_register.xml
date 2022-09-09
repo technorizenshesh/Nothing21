@@ -264,7 +264,6 @@
             android:maxLength="12"
             android:padding="@dimen/_7sdp"
             android:singleLine="true"
-            android:text="sddsds"
             android:textColor="@color/black"
             android:textSize="@dimen/_11sdp"
             android:visibility="gone"/>
@@ -288,7 +287,7 @@
               app:ccp_countryPreference="BE,BG,CZ,DK,DE,EE,IE,EL,ES,FR,HR,IT,CY,LV,LT,LU,HU,MT,NL,PL,PT,SI,SK,FI,SE,IS,NO,CH,ME,MK,AL,RS,TR"
               app:ccp_defaultPhoneCode="91"
               app:ccp_textSize="@dimen/_12sdp"
-              app:ccp_clickable="false"/>
+              app:ccp_clickable="true"/>
 
           <EditText
               android:id="@+id/etMobile"
@@ -297,7 +296,7 @@
               android:layout_weight="0.7"
               android:backgroundTint="@color/white"
               android:drawablePadding="@dimen/_10sdp"
-              android:focusable="false"
+              android:focusable="true"
               android:inputType="number"
               android:maxLength="12"
               android:background="@null"
