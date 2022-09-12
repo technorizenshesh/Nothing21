@@ -31,6 +31,8 @@ import com.nothing21.utils.DataManager;
 import com.nothing21.utils.NetworkAvailablity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,9 +50,10 @@ public class SizeFilterBottomSheet  extends BottomSheetDialogFragment implements
     SizeListModel.Result colorListModel;
     double total = 0.00;
     ArrayList<String> addItemList;
-    String sizeFilter="";
+    String sizeFilter="",subCatId="";
 
-    public SizeFilterBottomSheet() {
+    public SizeFilterBottomSheet(String subCatId) {
+        this.subCatId = subCatId;
     }
 
 
@@ -101,7 +104,10 @@ public class SizeFilterBottomSheet  extends BottomSheetDialogFragment implements
 
     private void getAllServices() {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Call<SizeListModel> chatCount = apiInterface.getSize();
+        Map<String,String> map = new HashMap<>();
+        map.put("sub_catid",subCatId);
+        Log.e(TAG,map.toString());
+        Call<SizeListModel> chatCount = apiInterface.getSize(map);
         chatCount.enqueue(new Callback<SizeListModel>() {
             @Override
             public void onResponse(Call<SizeListModel> call, Response<SizeListModel> response) {

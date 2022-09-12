@@ -72,6 +72,9 @@ public class EditProfileAct extends AppCompatActivity {
 
     private void initViews() {
 
+        if(NetworkAvailablity.checkNetworkStatus(EditProfileAct.this)) getUserProfile();
+        else Toast.makeText(EditProfileAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+
         binding.ivBack.setOnClickListener(v -> finish());
 
         binding.ivProfile.setOnClickListener(v -> {
@@ -183,8 +186,7 @@ public class EditProfileAct extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(NetworkAvailablity.checkNetworkStatus(EditProfileAct.this)) getUserProfile();
-        else Toast.makeText(EditProfileAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+
     }
 
     public void showImageSelection() {

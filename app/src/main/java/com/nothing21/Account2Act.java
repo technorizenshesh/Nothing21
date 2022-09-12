@@ -29,23 +29,29 @@ public class Account2Act extends AppCompatActivity {
 
 
         binding.tvOrderIssue.setOnClickListener(v ->
-                startActivity(new Intent(Account2Act.this, SupportAct.class)));
+                startActivity(new Intent(Account2Act.this, SupportAct.class)
+                        .putExtra("title",getString(R.string.order_issues))));
 
         binding.tvDelivery.setOnClickListener(v ->
-                startActivity(new Intent(Account2Act.this, SupportAct.class)));
+                startActivity(new Intent(Account2Act.this, SupportAct.class)
+                        .putExtra("title",getString(R.string.delivery))));
 
 
         binding.tvReturnRefund.setOnClickListener(v ->
-                startActivity(new Intent(Account2Act.this, SupportAct.class)));
+                startActivity(new Intent(Account2Act.this, SupportAct.class)
+                        .putExtra("title",getString(R.string.return_refund))));
 
         binding.tvPaymentPromos.setOnClickListener(v ->
-                startActivity(new Intent(Account2Act.this, SupportAct.class)));
+                startActivity(new Intent(Account2Act.this, SupportAct.class)
+                        .putExtra("title",getString(R.string.payment_promos))));
 
         binding.tvAddProduct.setOnClickListener(v ->
-                startActivity(new Intent(Account2Act.this, SupportAct.class)));
+                startActivity(new Intent(Account2Act.this, SupportAct.class)
+                        .putExtra("title",getString(R.string.add_product))));
 
         binding.tvStockAccount.setOnClickListener(v ->
-                startActivity(new Intent(Account2Act.this, SupportAct.class)));
+                startActivity(new Intent(Account2Act.this, SupportAct.class)
+                        .putExtra("title",getString(R.string.stock_account))));
 
         binding.tvHelp.setOnClickListener(v ->
                 startActivity(new Intent(Account2Act.this, SupportAct2.class)));

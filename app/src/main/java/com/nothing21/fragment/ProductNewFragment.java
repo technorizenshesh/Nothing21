@@ -302,11 +302,11 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
     }
 
     private void callColor() {
-        new ColorFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
+        new ColorFilterBottomSheet(subCatId).callBack(this::onFilter).show(getChildFragmentManager(), "");
     }
 
     private void callSize() {
-        new SizeFilterBottomSheet().callBack(this::onFilter).show(getChildFragmentManager(), "");
+        new SizeFilterBottomSheet(subCatId).callBack(this::onFilter).show(getChildFragmentManager(), "");
     }
 
     private void callCategory() {
@@ -568,7 +568,10 @@ public class ProductNewFragment extends Fragment implements onIconClickListener,
             map.put("size", value);
             //  map.put("category_id", value);
         } else if (type.equals("category")) map.put("category_id", value);
-        else if (type.equals("sub category")) map.put("sub_category_id", value);
+        else if (type.equals("sub category")) {
+            subCatId = value;
+            map.put("sub_category_id", value);
+        }
         Log.e(TAG, "Apply Filter Request :" + type + "  " + map);
         Call<ProductNewModel> loginCall;
         if (type.equals("sub category")) loginCall = apiInterface.getApplyFilterBySubCat(map);

@@ -120,7 +120,8 @@
     <string name="delivery">Delivery</string>
     <string name="return_refund">Return and refund</string>
     <string name="payment_promos">Payment and promos</string>
-    <string name="please_check_your_email">Please check your email</string>
+    <string name="please_check_your_email">Email is sent check inbox/Junk</string>
+    <string name="email_not_register">Email is not registered with Nothing21.</string>
     <string name="customer_care">Customer care</string>
     <string name="please_select_category_and_sub_cat">Please select category and sub category</string>
     <string name="delivery_address">Delivery address</string>
@@ -130,5 +131,14 @@
     <string name="add_product">Add product</string>
     <string name="stock_account">Stock account</string>
     <string name="help">Help</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="password_updated_successfully">Password upadated successfully</string>
+    <string name="pass_not_matched">"password doesn't matched "</string>
+    <string name="area">Area</string>
+    <string name="building_name">Building name</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="apartment">Apartment</string>
 
 </resources>

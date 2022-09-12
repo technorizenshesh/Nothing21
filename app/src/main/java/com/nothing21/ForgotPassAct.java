@@ -83,7 +83,7 @@ public class ForgotPassAct extends AppCompatActivity {
                             Toast.makeText(ForgotPassAct.this, getString(R.string.please_check_your_email), Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                            //  Toast.makeText(OrderStatusAct.this, jsonObject.getString("result"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotPassAct.this, getString(R.string.email_not_register), Toast.LENGTH_SHORT).show();
                         }
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();

@@ -49,8 +49,10 @@ public class SupportAct extends AppCompatActivity {
     }
 
     private void initViews() {
+        if(getIntent()!=null) binding.tvTitle.setText(getIntent().getStringExtra("title"));
        // Log.e("url===","https://nothing21.com/nothing21/contact-us?web_user_id="+DataManager.getInstance().getUserData(SupportAct.this).result.id);
-        binding.webView.loadUrl("https://nothing21.com/nothing21/contact-us?web_user_id="+DataManager.getInstance().getUserData(SupportAct.this).result.id);
+      //  binding.webView.loadUrl("https://nothing21.com/nothing21/contact-us?web_user_id="+DataManager.getInstance().getUserData(SupportAct.this).result.id);
+        binding.webView.loadUrl(Constant.ORDER_ISSUES);
         binding.webView.getSettings().setJavaScriptEnabled(true);
         binding.webView.setWebViewClient(new WebViewClient());
 

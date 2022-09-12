@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -21,6 +22,7 @@ import com.nothing21.listener.onSearchListener;
 import com.nothing21.model.SearchModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Nothing21Interface;
+import com.nothing21.utils.NetworkAvailablity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -166,6 +168,8 @@ public class SearchAct extends AppCompatActivity implements onItemClickListener 
         this.subCatId = subCatId;
         this.catId = catId;
         binding.tvCatSubCat.setText(subCatName);
+        if(NetworkAvailablity.checkNetworkStatus(SearchAct.this)) getProduct();
+        else Toast.makeText(SearchAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
     }
 }

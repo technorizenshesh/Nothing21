@@ -136,7 +136,7 @@ public interface Nothing21Interface {
 
     @FormUrlEncoded
     @POST("place_order")
-    Call<Map<String,String>> orderBooking (@FieldMap Map<String, String> params);
+    Call<ResponseBody> orderBooking (@FieldMap Map<String, String> params);
 
 
     @FormUrlEncoded
@@ -185,13 +185,13 @@ public interface Nothing21Interface {
     @POST("get_order_history")
     Call<ResponseBody> getOrderStatus(@FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST("get_color_list")
+    Call<ColorListModel> getColors(@FieldMap Map<String,String> params);
 
-    @GET("get_color_list")
-    Call<ColorListModel> getColors();
-
-
-    @GET("get_size_list")
-    Call<SizeListModel> getSize();
+    @FormUrlEncoded
+    @POST("get_size_list")
+    Call<SizeListModel> getSize(@FieldMap Map<String,String> params);
 
     @GET("get_category")
     Call<CategoryListModel> getAllCategory11();
@@ -276,6 +276,10 @@ public interface Nothing21Interface {
     @POST("get_address")
     Call<ResponseBody> getAddress(@FieldMap Map<String, String> params);
 
+
+    @FormUrlEncoded
+    @POST("change_password")
+    Call<ResponseBody> passwordChangeApi(@FieldMap Map<String, String> params);
 
 
 }

@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.nothing21.AboutAct;
 import com.nothing21.Account2Act;
 import com.nothing21.BuildConfig;
+import com.nothing21.ChangePassAct;
 import com.nothing21.ContactUsAct;
 import com.nothing21.HomeAct;
 
@@ -137,6 +138,15 @@ public class AccountFragment extends Fragment implements onIconClickListener {
         {
             if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
                 startActivity(new Intent(getActivity(), Account2Act.class));
+            }
+        });
+
+
+
+        binding.layoutChangePass.setOnClickListener(v ->
+        {
+            if (!SessionManager.readString(getActivity(), Constant.USER_INFO, "").equals("")) {
+                startActivity(new Intent(getActivity(), ChangePassAct.class));
             }
         });
 

@@ -44,15 +44,15 @@ public class SizeListModel {
 
     public class Result {
 
-        @SerializedName("id")
+      /*  @SerializedName("id")
         @Expose
-        private String id;
-        @SerializedName("size_name")
+        private String id;*/
+        @SerializedName("size")
         @Expose
         private String sizeName;
-        @SerializedName("date_time")
+      /*  @SerializedName("date_time")
         @Expose
-        private String dateTime;
+        private String dateTime;*/
 
         @SerializedName("chk")
         @Expose
@@ -60,13 +60,13 @@ public class SizeListModel {
 
 
 
-        public String getId() {
+      /*  public String getId() {
             return id;
         }
 
         public void setId(String id) {
             this.id = id;
-        }
+        }*/
 
         public String getSizeName() {
             return sizeName;
@@ -76,13 +76,13 @@ public class SizeListModel {
             this.sizeName = sizeName;
         }
 
-        public String getDateTime() {
+      /*  public String getDateTime() {
             return dateTime;
         }
 
         public void setDateTime(String dateTime) {
             this.dateTime = dateTime;
-        }
+        }*/
 
         public boolean isChk() {
             return chk;

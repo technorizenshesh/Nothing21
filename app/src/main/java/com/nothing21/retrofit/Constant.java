@@ -36,7 +36,7 @@ public class Constant {
 
     public static String RETURN_POLICY = "https://nothing21.com/nothing21/webservice/get_policy?returns_policy";
 
-
+    public static String ORDER_ISSUES = "https://nothing21.com/nothing21/webservice/get_policy?order_issues";
 
 
 

@@ -27,6 +27,8 @@ import com.nothing21.utils.DataManager;
 import com.nothing21.utils.NetworkAvailablity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,10 +46,11 @@ public class ColorFilterBottomSheet extends BottomSheetDialogFragment implements
     ColorListModel.Result colorListModel;
     double total = 0.00;
     ArrayList<String> addItemList;
-    String colorFilter ="";
+    String colorFilter ="",subCatId="";
 
 
-    public ColorFilterBottomSheet() {
+    public ColorFilterBottomSheet(String subCatId) {
+        this.subCatId = subCatId;
     }
 
 
@@ -98,7 +101,10 @@ public class ColorFilterBottomSheet extends BottomSheetDialogFragment implements
 
     private void getAllServices() {
         DataManager.getInstance().showProgressMessage(getActivity(), getString(R.string.please_wait));
-        Call<ColorListModel> chatCount = apiInterface.getColors();
+        Map<String,String> map = new HashMap<>();
+        map.put("sub_catid",subCatId);
+        Log.e(TAG,map.toString());
+        Call<ColorListModel> chatCount = apiInterface.getColors(map);
         chatCount.enqueue(new Callback<ColorListModel>() {
             @Override
             public void onResponse(Call<ColorListModel> call, Response<ColorListModel> response) {

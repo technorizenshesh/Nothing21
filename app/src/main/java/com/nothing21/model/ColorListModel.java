@@ -185,13 +185,13 @@ public class ColorListModel {
 
     public class Result {
 
-        @SerializedName("id")
+      /*  @SerializedName("id")
         @Expose
-        private String id;
-        @SerializedName("color_name")
+        private String id;*/
+        @SerializedName("color_color")
         @Expose
         private String colorName;
-        @SerializedName("color_link")
+        @SerializedName("color_code")
         @Expose
         private String colorLink;
 
@@ -199,13 +199,13 @@ public class ColorListModel {
         @Expose
         private boolean chk = false;
 
-        public String getId() {
+      /*  public String getId() {
             return id;
         }
 
         public void setId(String id) {
             this.id = id;
-        }
+        }*/
 
         public String getColorName() {
             return colorName;

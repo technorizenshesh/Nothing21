@@ -37,7 +37,10 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.binding.tvColor.setText(arrayList.get(position).size);
+        if(arrayList.get(position).remainingQuantity > 0)  {
+            holder.binding.tvColor.setText(arrayList.get(position).size);
+        } else holder.binding.tvColor.setText(arrayList.get(position).size + "/");
+
         if(arrayList.get(position).chkColor == false)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.black));
         else if(arrayList.get(position).chkColor == true)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.color_red));    }
 
