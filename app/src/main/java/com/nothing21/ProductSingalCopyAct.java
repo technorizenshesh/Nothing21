@@ -153,7 +153,7 @@ public class ProductSingalCopyAct  extends AppCompatActivity implements InfoList
         });
 
         binding.layoutRatting.setOnClickListener(v -> {
-            if(!data.result.description.equals("")) {
+            if(!data.result.ratingByAdmin.equals("0")) {
                 if (imgg.equals("")) imgg = colorArrayList.get(0).image;
                 new RateBottomsheet(data.result, imgg).callBack(this::info).show(getSupportFragmentManager(), "");
             }

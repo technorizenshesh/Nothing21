@@ -20,7 +20,6 @@ import com.nothing21.databinding.ActivityOrderStatusBinding;
 import com.nothing21.databinding.FragmentCartBinding;
 import com.nothing21.fragment.CartFragment;
 import com.nothing21.fragment.GiveReviewBottomSheet;
-import com.nothing21.fragment.RateBottomsheet;
 import com.nothing21.listener.InfoListener;
 import com.nothing21.model.GetCartModel;
 import com.nothing21.model.OrderStatusModel;

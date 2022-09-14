@@ -151,6 +151,7 @@ public class EditProfileAct extends AppCompatActivity {
 
                         if(!DataManager.getInstance().getUserData(EditProfileAct.this).result.mobile.equals(""))   binding.etMobile.setText(DataManager.getInstance().getUserData(EditProfileAct.this).result.mobile);
                         if(!DataManager.getInstance().getUserData(EditProfileAct.this).result.countryCode.equals("")) binding.ccp.setCountryForPhoneCode(Integer.parseInt(DataManager.getInstance().getUserData(EditProfileAct.this).result.countryCode));
+                        binding.ccp.setCountryForPhoneCode(971);
 
                         if(!data11.result.image.equals("")){
                             Glide.with(EditProfileAct.this)

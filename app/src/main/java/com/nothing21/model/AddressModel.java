@@ -51,33 +51,38 @@ public class AddressModel {
         @SerializedName("user_id")
         @Expose
         private String userId;
-        @SerializedName("appartment")
+
+        @SerializedName("city")
         @Expose
-        private String appartment;
-        @SerializedName("lat")
-        @Expose
-        private String lat;
-        @SerializedName("lon")
-        @Expose
-        private String lon;
+        private String city;
         @SerializedName("area")
         @Expose
         private String area;
-        @SerializedName("block")
+        @SerializedName("nearest_landmark")
         @Expose
-        private String block;
-        @SerializedName("street")
+        private String nearestLandmark;
+
+        @SerializedName("building_name")
         @Expose
-        private String street;
-        @SerializedName("avenue")
+        private String building_name;
+        @SerializedName("flate_no")
         @Expose
-        private String avenue;
-        @SerializedName("house")
+        private String flate_no;
+        @SerializedName("zip_code")
         @Expose
-        private String house;
-        @SerializedName("floor")
+        private String zipCode;
+
+        @SerializedName("mobile")
         @Expose
-        private String floor;
+        private String mobile;
+
+        public String getMobile() {
+            return mobile;
+        }
+
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
 
         public String getId() {
             return id;
@@ -103,28 +108,12 @@ public class AddressModel {
             this.userId = userId;
         }
 
-        public String getAppartment() {
-            return appartment;
+        public String getCity() {
+            return city;
         }
 
-        public void setAppartment(String appartment) {
-            this.appartment = appartment;
-        }
-
-        public String getLat() {
-            return lat;
-        }
-
-        public void setLat(String lat) {
-            this.lat = lat;
-        }
-
-        public String getLon() {
-            return lon;
-        }
-
-        public void setLon(String lon) {
-            this.lon = lon;
+        public void setCity(String city) {
+            this.city = city;
         }
 
         public String getArea() {
@@ -135,46 +124,37 @@ public class AddressModel {
             this.area = area;
         }
 
-        public String getBlock() {
-            return block;
+        public String getNearestLandmark() {
+            return nearestLandmark;
         }
 
-        public void setBlock(String block) {
-            this.block = block;
+        public void setNearestLandmark(String nearestLandmark) {
+            this.nearestLandmark = nearestLandmark;
         }
 
-        public String getStreet() {
-            return street;
+        public String getBuilding_name() {
+            return building_name;
         }
 
-        public void setStreet(String street) {
-            this.street = street;
+        public void setBuilding_name(String building_name) {
+            this.building_name = building_name;
         }
 
-        public String getAvenue() {
-            return avenue;
+        public String getFlate_no() {
+            return flate_no;
         }
 
-        public void setAvenue(String avenue) {
-            this.avenue = avenue;
+        public void setFlate_no(String flate_no) {
+            this.flate_no = flate_no;
         }
 
-        public String getHouse() {
-            return house;
+        public String getZipCode() {
+            return zipCode;
         }
 
-        public void setHouse(String house) {
-            this.house = house;
+        public void setZipCode(String zipCode) {
+            this.zipCode = zipCode;
         }
-
-        public String getFloor() {
-            return floor;
-        }
-
-        public void setFloor(String floor) {
-            this.floor = floor;
-        }
-
     }
 
 }

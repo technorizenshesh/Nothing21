@@ -135,7 +135,7 @@ public class Login2Act extends AppCompatActivity {
 
 
                     } else if (data.status.equals("0"))
-                        Toast.makeText(Login2Act.this, data.message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login2Act.this, getString(R.string.enter_wrong_password), Toast.LENGTH_SHORT).show();
 
                 } catch (Exception e) {
                     e.printStackTrace();

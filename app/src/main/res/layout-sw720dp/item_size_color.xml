@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout
-    android:id="@+id/layMain"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/_5sdp">
-
-    <TextView
-        android:id="@+id/tvColor"
+    <RelativeLayout
+        android:id="@+id/layMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/poppins_bold"
-        android:gravity="center_horizontal"
-        android:text="black"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_11sdp" />
+        android:padding="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/tvColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center_horizontal"
+            android:text="black"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp" />
 
 
 
-    <TextView
-        android:id="@+id/tvSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="21"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="@dimen/_13sdp"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/tvSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="@dimen/_13sdp"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            />
 
-</RelativeLayout>
+    </RelativeLayout>
 </layout>

@@ -56,14 +56,14 @@
                 android:fontFamily="@font/poppins_semibold"
                 android:text="sdsdddsd"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
-
+                android:textSize="@dimen/_12sdp"
+                android:visibility="visible"/>
 
 
             <RelativeLayout
                 android:id="@+id/layoutClick"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
 
         </RelativeLayout>

@@ -37,7 +37,13 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.binding.tvAddress.setText(arrayList.get(position).getName());
+      //  holder.binding.tvAddress.setText(arrayList.get(position).getName());
+
+        holder.binding.tvAddress.setText(arrayList.get(position).getFlate_no() + " " +
+                arrayList.get(position).getBuilding_name() + " " + arrayList.get(position).getNearestLandmark() +
+                " " + arrayList.get(position).getArea() + " " + arrayList.get(position).getCity() + " "
+        + arrayList.get(position).getZipCode());
+
     }
 
     @Override

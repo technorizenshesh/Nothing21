@@ -62,7 +62,7 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
     ActivityAddressBinding binding;
     double latitude = 0.0, longitude = 0.0;
     int AUTOCOMPLETE_REQUEST_CODE_ADDRESS = 101;
-    String address="",city="",select="0";
+    String address="",city="",select="0",area="",landMark="",buildingName="",flatNo="",zipCode="",addressId="";
     GPSTracker gpsTracker;
     GoogleMap mMap;
     int PERMISSION_ID = 44;
@@ -88,6 +88,8 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
         if(getIntent()!=null){
             product_id = getIntent().getStringExtra("product_id");
             cart_id = getIntent().getStringExtra("cart_id");
+            addressId = getIntent().getStringExtra("address_id");
+
             Log.e("Product_id",product_id);
             Log.e("cart_id",cart_id);
         }
@@ -96,6 +98,7 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
 
         adapter = new AddressAdapter(AddressAct.this,arrayList,AddressAct.this);
         binding.rvAddress.setAdapter(adapter);
+        binding.ccp.setCountryForPhoneCode(971);
 
         //initLocation();
 
@@ -117,7 +120,7 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
 
 
         binding.btnUpdate.setOnClickListener(v -> {
-            if(!address.equals("")) {
+           /* if(!address.equals("")) {
                // Intent returnIntent = new Intent().putExtra("lat", latitude + "").putExtra("lon", longitude + "").putExtra("address", address);
              //   setResult(Activity.RESULT_OK, returnIntent);
              if(select.equals("0")) {
@@ -127,20 +130,20 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
              }
              else {
                  Intent returnIntent = new Intent();
-                 returnIntent.putExtra("lat", latitude + "");
-                 returnIntent.putExtra("lon", longitude + "");
-                 returnIntent.putExtra("address", address);
+                 returnIntent.putExtra("address_id", addressId);
                  returnIntent.putExtra("product_id",product_id);
                  returnIntent.putExtra("cart_id",cart_id);
                  setResult(Activity.RESULT_OK,returnIntent);
                  finish();
              }
               //  finish();
-            }
+            }*/
+
+            validation();
 
         });
 
-        binding.tvAddress.setOnClickListener(v -> {
+      /*  binding.tvAddress.setOnClickListener(v -> {
             List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS);
 
             // Start the autocomplete intent.
@@ -150,60 +153,60 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
                     .build(AddressAct.this);
 
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE_ADDRESS);
-        });
+        });*/
     }
 
 
-    private void initLocation() {
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        gpsTracker = new GPSTracker(AddressAct.this);
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-                setCurrentLoc();
-            } else {
-                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
+    private void validation() {
 
-            }
-        } else {
-            requestPermissions();
+        if (binding.edCity.getText().toString().equals("")) {
+            binding.edCity.setError(getString(R.string.required));
+            binding.edCity.setFocusable(true);
         }
-    }
-
-    private void bindMap() {
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.frg);
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap map) {
-                mMap = map;
-                mMap.clear();
-                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                if (gpsTracker != null) {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude()), 17.0f));
-                }
-                mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
-                    @Override
-                    public void onCameraIdle() {
-                        latitude = mMap.getCameraPosition().target.latitude;
-                        longitude = mMap.getCameraPosition().target.longitude;
-                        address =  DataManager.getInstance().getAddress(AddressAct.this, latitude, longitude);
-                        binding.tvAddress.setText(DataManager.getInstance().getAddress(AddressAct.this, latitude, longitude));
-                        binding.imgMarker.startAnimation(myAnim);
-                    }
-                });
-            }
-        });
+        else if (binding.edArea.getText().toString().equals("")) {
+            binding.edArea.setError(getString(R.string.required));
+            binding.edArea.setFocusable(true);
+        }
+        else if (binding.edLandmark.getText().toString().equals("")) {
+            binding.edLandmark.setError(getString(R.string.required));
+            binding.edLandmark.setFocusable(true);
+        }
+        else if (binding.edBuildingName.getText().toString().equals("")) {
+            binding.edBuildingName.setError(getString(R.string.required));
+            binding.edBuildingName.setFocusable(true);
+        }
+        else if (binding.edApartment.getText().toString().equals("")) {
+            binding.edApartment.setError(getString(R.string.required));
+            binding.edApartment.setFocusable(true);
+        }
+        else if (binding.edZipcode.getText().toString().equals("")) {
+            binding.edZipcode.setError(getString(R.string.required));
+            binding.edZipcode.setFocusable(true);
+        }
+        else if (binding.edContact.getText().toString().equals("")) {
+            binding.edContact.setError(getString(R.string.required));
+            binding.edContact.setFocusable(true);
+        } else {
+            if (NetworkAvailablity.checkNetworkStatus(AddressAct.this)) addAddresssssss();
+            else
+                Toast.makeText(AddressAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
 
     private void addAddresssssss() {
+        DataManager.getInstance().showProgressMessage(AddressAct.this, getString(R.string.please_wait));
         HashMap<String, String> paramHash = new HashMap<>();
-        paramHash.put("name", address);
+        paramHash.put("city", binding.edCity.getText().toString());
+        paramHash.put("area", binding.edArea.getText().toString());
+        paramHash.put("landmark", binding.edLandmark.getText().toString());
+        paramHash.put("building", binding.edBuildingName.getText().toString());
+        paramHash.put("flat", binding.edApartment.getText().toString());
+        paramHash.put("zip_code", binding.edZipcode.getText().toString());
+        paramHash.put("country_code", binding.ccp.getSelectedCountryCode()+"");
+        paramHash.put("mobile", binding.edContact.getText().toString());
         paramHash.put("user_id", DataManager.getInstance().getUserData(AddressAct.this).result.id);
-        paramHash.put("lat", latitude+"");
-        paramHash.put("lon", longitude+"");
         Log.e("add address===", "paramHash = " + paramHash);
         Call<ResponseBody> call = apiInterface.addAddress(paramHash);
         call.enqueue(new Callback<ResponseBody>() {
@@ -219,13 +222,24 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
                         JSONObject jsonObject = new JSONObject(stringResponse);
                         Log.e(TAG, "add address Response = " + stringResponse);
                         if (jsonObject.getString("status").equals("1")) {
+                            JSONObject object = jsonObject.getJSONObject("result");
                             //  Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
+                            addressId = object.getString("id");
                             Intent returnIntent = new Intent();
-                            returnIntent.putExtra("lat", latitude + "");
-                            returnIntent.putExtra("lon", longitude + "");
-                            returnIntent.putExtra("address", address);
+                          //  returnIntent.putExtra("lat", latitude + "");
+                            returnIntent.putExtra("address_id", addressId);
                             returnIntent.putExtra("product_id",product_id);
                             returnIntent.putExtra("cart_id",cart_id);
+                            returnIntent.putExtra("city",binding.edCity.getText().toString());
+                            returnIntent.putExtra("area",binding.edArea.getText().toString());
+                            returnIntent.putExtra("landmark",binding.edLandmark.getText().toString());
+                            returnIntent.putExtra("building",binding.edBuildingName.getText().toString());
+                            returnIntent.putExtra("flat",binding.edApartment.getText().toString());
+                            returnIntent.putExtra("mobile",binding.edContact.getText().toString());
+                            returnIntent.putExtra("zipCode",binding.edZipcode.getText().toString());
+                            returnIntent.putExtra("chkAddress","1");
+
+
                             setResult(Activity.RESULT_OK,returnIntent);
                             finish();
                         } else {
@@ -399,10 +413,35 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
     @Override
     public void onItem(int position) {
         select = "1";
-        latitude = Double.parseDouble(arrayList.get(position).getLat());
-        latitude = Double.parseDouble(arrayList.get(position).getLon());
-        address = arrayList.get(position).getName();
-        binding.tvAddress.setText(address);
+        city = arrayList.get(position).getCity();
+        area = arrayList.get(position).getArea();
+        landMark = arrayList.get(position).getNearestLandmark();
+        buildingName = arrayList.get(position).getBuilding_name();
+        flatNo = arrayList.get(position).getFlate_no();
+        zipCode = arrayList.get(position).getZipCode();
+     //   binding.edCity.setText(city);
+     //   binding.edCity.setText(area);
+     //   binding.edCity.setText(landMark);
+      //  binding.edCity.setText(buildingName);
+     //   binding.edCity.setText(flatNo);
+     //   binding.edCity.setText(zipCode);
+
+        addressId = arrayList.get(position).getId();
+        Intent returnIntent = new Intent();
+        //  returnIntent.putExtra("lat", latitude + "");
+        returnIntent.putExtra("address_id", addressId);
+        returnIntent.putExtra("product_id",product_id);
+        returnIntent.putExtra("cart_id",cart_id);
+        returnIntent.putExtra("city",arrayList.get(position).getCity());
+        returnIntent.putExtra("area",arrayList.get(position).getArea());
+        returnIntent.putExtra("landmark",arrayList.get(position).getNearestLandmark());
+        returnIntent.putExtra("building",arrayList.get(position).getBuilding_name());
+        returnIntent.putExtra("flat",arrayList.get(position).getFlate_no());
+        returnIntent.putExtra("mobile",arrayList.get(position).getMobile());
+        returnIntent.putExtra("zipCode",arrayList.get(position).getZipCode());
+        returnIntent.putExtra("chkAddress","1");
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
 
     }
 }

@@ -147,7 +147,7 @@ public class LoginAct extends AppCompatActivity {
                             finish();
                         }
                     } else if (data.status.equals("0"))
-                        Toast.makeText(LoginAct.this, data.message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginAct.this, getString(R.string.enter_wrong_password), Toast.LENGTH_SHORT).show();
 
                 } catch (Exception e) {
                     e.printStackTrace();

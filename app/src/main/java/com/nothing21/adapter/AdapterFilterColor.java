@@ -3,6 +3,7 @@ package com.nothing21.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class AdapterFilterColor extends RecyclerView.Adapter<AdapterFilterColor.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.binding.tvColorName.setVisibility(View.GONE);
         holder.binding.tvColorName.setText(arrayList.get(position).getColorName());
         holder.binding.viewShade.setBackgroundColor(Color.parseColor(arrayList.get(position).getColorLink()));
 

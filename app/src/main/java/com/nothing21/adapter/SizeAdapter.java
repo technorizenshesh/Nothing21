@@ -1,8 +1,10 @@
 package com.nothing21.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -37,12 +39,23 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if(arrayList.get(position).remainingQuantity > 0)  {
-            holder.binding.tvColor.setText(arrayList.get(position).size);
-        } else holder.binding.tvColor.setText(arrayList.get(position).size + "/");
 
         if(arrayList.get(position).chkColor == false)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.black));
-        else if(arrayList.get(position).chkColor == true)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.color_red));    }
+        else if(arrayList.get(position).chkColor == true)  holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.color_red));
+
+        if(arrayList.get(position).remainingQuantity > 0)  {
+            holder.binding.tvColor.setText(arrayList.get(position).size);
+        } else {
+
+            holder.binding.tvColor.setTextColor(context.getResources().getColor(R.color.color_grey));
+            holder.binding.tvColor.setText(arrayList.get(position).size);
+            holder.binding.tvColor.setPaintFlags(holder.binding.tvColor.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
+
+
+
+    }
 
     @Override
     public int getItemCount() {
@@ -57,12 +70,20 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> 
             binding = itemView;
 
             binding.layMain.setOnClickListener(v -> {
-                for(int i =0;i<arrayList.size();i++){
-                    arrayList.get(i).setChkColor(false);
+                if(arrayList.get(getAdapterPosition()).remainingQuantity>0) {
+
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        arrayList.get(i).setChkColor(false);
+                    }
+                    arrayList.get(getLayoutPosition()).setChkColor(true);
+                    listener.onIcon(getAdapterPosition(), "size");
+                    notifyDataSetChanged();
                 }
-                arrayList.get(getLayoutPosition()).setChkColor(true);
-                listener.onIcon(getAdapterPosition(),"size");
-                notifyDataSetChanged();
+                else {
+                    Toast.makeText(context, context.getString(R.string.size_out_of_stock), Toast.LENGTH_SHORT).show();
+                }
+
+
             });
 
         }

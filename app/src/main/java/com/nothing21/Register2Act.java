@@ -107,20 +107,30 @@ public class Register2Act extends AppCompatActivity {
             binding.etSurname.setFocusable(true);
         }
 
-        else if (binding.etEmirate.getText().toString().equals("")){
-            binding.etEmirate.setError(getString(R.string.required));
-            binding.etEmirate.setFocusable(true);
+        else if (binding.etCity.getText().toString().equals("")){
+            binding.etCity.setError(getString(R.string.required));
+            binding.etCity.setFocusable(true);
         }
 
-        else if (binding.etAddress.getText().toString().equals("")){
-            binding.etAddress.setError(getString(R.string.required));
-            binding.etAddress.setFocusable(true);
+        else if (binding.etArea.getText().toString().equals("")){
+            binding.etArea.setError(getString(R.string.required));
+            binding.etArea.setFocusable(true);
         }
 
-     /*   else if (binding.etRegion.getText().toString().equals("")){
-            binding.etRegion.setError(getString(R.string.required));
-            binding.etRegion.setFocusable(true);
-        }*/
+        else if (binding.etLandmark.getText().toString().equals("")){
+            binding.etLandmark.setError(getString(R.string.required));
+            binding.etLandmark.setFocusable(true);
+        }
+
+        else if (binding.etBuildingName.getText().toString().equals("")){
+            binding.etBuildingName.setError(getString(R.string.required));
+            binding.etBuildingName.setFocusable(true);
+        }
+
+        else if (binding.etFlat.getText().toString().equals("")){
+            binding.etFlat.setError(getString(R.string.required));
+            binding.etFlat.setFocusable(true);
+        }
 
         else if (binding.etMobile.getText().toString().equals("")){
             binding.etMobile.setError(getString(R.string.required));
@@ -143,10 +153,11 @@ public class Register2Act extends AppCompatActivity {
         map.put("password",binding.etPasswoprd.getText().toString());
         map.put("mobile",binding.etMobile.getText().toString());
         map.put("country_code",binding.ccp.getSelectedCountryCode());
-        map.put("emirate",binding.etEmirate.getText().toString());
-        map.put("address",binding.etAddress.getText().toString());
-        map.put("lat", "");
-        map.put("lon", "");
+        map.put("city",binding.etCity.getText().toString());
+        map.put("area",binding.etArea.getText().toString());
+        map.put("landmark", binding.etLandmark.getText().toString());
+        map.put("building", binding.etBuildingName.getText().toString());
+        map.put("flat", binding.etFlat.getText().toString());
         map.put("register_id",refreshedToken);
         Log.e(TAG, "Signup Request " + map);
 

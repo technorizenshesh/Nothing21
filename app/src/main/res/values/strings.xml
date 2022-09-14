@@ -128,8 +128,8 @@
     <string name="delivery_charge">Delivery charge</string>
     <string name="total">Total</string>
     <string name="save_address">Save Address</string>
-    <string name="add_product">Add product</string>
-    <string name="stock_account">Stock account</string>
+    <string name="add_product">Product and stock</string>
+    <string name="stock_account">Account</string>
     <string name="help">Help</string>
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -140,5 +140,12 @@
     <string name="building_name">Building name</string>
     <string name="contact_number">Contact Number</string>
     <string name="apartment">Apartment</string>
+    <string name="enter_wrong_password">You have entered wrong Email or password</string>
+    <string name="size_out_of_stock">out of stock size</string>
+    <string name="city">City</string>
+    <string name="nearest_landmark">Nearest landmark</string>
+    <string name="flat_villa">Flat/villa number</string>
+    <string name="add_another_address">Add another address</string>
+    <string name="zipcode">Zipcode</string>
 
 </resources>
