@@ -281,7 +281,7 @@
                     android:textAlignment="viewStart"
                     android:textDirection="locale"
                     android:textColor="@color/black"
-
+                    android:visibility="gone"
                     android:textSize="@dimen/_12sdp" />
 
 
@@ -301,7 +301,7 @@
                     android:textAlignment="viewStart"
                     android:textDirection="locale"
                     android:textColor="@color/black"
-
+                    android:visibility="gone"
                     android:textSize="@dimen/_12sdp" />
 
 
@@ -325,6 +325,53 @@
                      android:visibility="gone"
                     android:textDirection="locale"
                     android:textSize="@dimen/_12sdp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/address"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textDirection="locale"
+                        android:textSize="@dimen/_14sdp" />
+
+
+                    <TextView
+                        android:id="@+id/tvAnotherAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/add_another_address"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textDirection="locale"
+                        android:visibility="gone"
+                        android:textSize="@dimen/_12sdp" />
+
+                </RelativeLayout>
+
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvSave"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
 
 
 

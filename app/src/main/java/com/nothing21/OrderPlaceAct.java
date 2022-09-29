@@ -227,12 +227,15 @@ public class OrderPlaceAct extends AppCompatActivity {
                 cart_id = data.getStringExtra("cart_id");
                 binding.tvCompleteadd.setText(address);
                 binding.edCity.setText(data.getStringExtra("city"));
-                binding.edArea.setText(data.getStringExtra("area"));
+               // binding.edArea.setText(data.getStringExtra("area"));
+                binding.edArea.setText(data.getStringExtra("city"));
                 binding.edLandmark.setText(data.getStringExtra("landmark"));
                 binding.edBuildingName.setText(data.getStringExtra("building"));
                 binding.edApartment.setText(data.getStringExtra("flat"));
                 binding.edContact.setText(data.getStringExtra("mobile"));
                 binding.edZipcode.setText(data.getStringExtra("zipCode"));
+                binding.edCountryCode.setText("+971");
+
                 binding.ccp.setCountryForPhoneCode(971);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -251,7 +254,8 @@ public class OrderPlaceAct extends AppCompatActivity {
         paramHash.put("building", binding.edBuildingName.getText().toString());
         paramHash.put("flat", binding.edApartment.getText().toString());
         paramHash.put("zip_code", binding.edZipcode.getText().toString());
-        paramHash.put("country_code", binding.ccp.getSelectedCountryCode()+"");
+       // paramHash.put("country_code", binding.ccp.getSelectedCountryCode()+"");
+        paramHash.put("country_code",binding.edCountryCode.getText().toString() );
         paramHash.put("mobile", binding.edCity.getText().toString());
         paramHash.put("user_id", DataManager.getInstance().getUserData(OrderPlaceAct.this).result.id);
         Log.e("add address===", "paramHash = " + paramHash);
@@ -337,6 +341,8 @@ public class OrderPlaceAct extends AppCompatActivity {
                                binding.edApartment.setText(model.getResult().get(0).getFlate_no());
                                binding.edContact.setText(model.getResult().get(0).getMobile());
                             binding.edZipcode.setText(model.getResult().get(0).getZipCode());
+                            binding.edCountryCode.setText("+971");
+
                             binding.ccp.setCountryForPhoneCode(971);
 
                         } else {

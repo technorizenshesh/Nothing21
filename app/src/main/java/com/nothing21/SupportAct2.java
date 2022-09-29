@@ -1,6 +1,8 @@
 package com.nothing21;
 
 import android.os.Bundle;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
@@ -28,12 +30,21 @@ public class SupportAct2 extends AppCompatActivity {
         initViews();
 
     }
+  //  https://nothing21.com/nothing21/contact-us?web_user_id=77
 
     private void initViews() {
         // Log.e("url===","https://nothing21.com/nothing21/contact-us?web_user_id="+DataManager.getInstance().getUserData(SupportAct.this).result.id);
-        binding.webView.loadUrl("https://nothing21.com/nothing21/contact-us?web_user_id="+ DataManager.getInstance().getUserData(SupportAct2.this).result.id);
         binding.webView.getSettings().setJavaScriptEnabled(true);
-        binding.webView.setWebViewClient(new WebViewClient());
+        binding.webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+              //  super.onPageFinished(view, url);
+              //  binding.webView.loadUrl("https://nothing21.com/nothing21/contact-us?web_user_id="+ DataManager.getInstance().getUserData(SupportAct2.this).result.id);
+
+            }
+        });
+        binding.webView.loadUrl("https://nothing21.com/nothing21/contact-us?web_user_id="+ DataManager.getInstance().getUserData(SupportAct2.this).result.id);
+
 
         binding.ivBack.setOnClickListener(v -> finish());
 

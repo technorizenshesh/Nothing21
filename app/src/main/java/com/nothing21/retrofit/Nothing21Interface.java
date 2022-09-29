@@ -282,6 +282,12 @@ public interface Nothing21Interface {
     Call<ResponseBody> passwordChangeApi(@FieldMap Map<String, String> params);
 
 
+    @FormUrlEncoded
+    @POST("update_address")
+    Call<ResponseBody> updateAddress(@FieldMap Map<String, String> params);
+
+
+
 }
 
 

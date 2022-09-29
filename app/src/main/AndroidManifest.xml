@@ -210,6 +210,20 @@
 
 
         <activity
+            android:name=".AddUserAddress"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
+            android:name=".EditAddessAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+
+        <activity
             android:name=".ProductSingalCopyAct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

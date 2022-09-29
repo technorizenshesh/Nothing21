@@ -147,5 +147,8 @@
     <string name="flat_villa">Flat/villa number</string>
     <string name="add_another_address">Add another address</string>
     <string name="zipcode">Zipcode</string>
+    <string name="add_address_successfully">address added successfully</string>
+    <string name="edit_address">Edit Address</string>
+    <string name="country_code">Country code</string>
 
 </resources>

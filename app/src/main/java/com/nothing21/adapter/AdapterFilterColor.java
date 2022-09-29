@@ -37,7 +37,7 @@ public class AdapterFilterColor extends RecyclerView.Adapter<AdapterFilterColor.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.binding.tvColorName.setVisibility(View.GONE);
+       // holder.binding.tvColorName.setVisibility(View.GONE);
         holder.binding.tvColorName.setText(arrayList.get(position).getColorName());
         holder.binding.viewShade.setBackgroundColor(Color.parseColor(arrayList.get(position).getColorLink()));
 

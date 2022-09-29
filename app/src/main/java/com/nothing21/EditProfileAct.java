@@ -27,8 +27,12 @@ import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.nothing21.adapter.AddressAdapter;
+import com.nothing21.adapter.EditAddressAdapter;
 import com.nothing21.databinding.ActivityEditProfileBinding;
 import com.nothing21.databinding.ActivityProfileBinding;
+import com.nothing21.listener.onItemClickListener;
+import com.nothing21.model.AddressModel;
 import com.nothing21.model.LoginModel;
 import com.nothing21.retrofit.ApiClient;
 import com.nothing21.retrofit.Constant;
@@ -37,9 +41,13 @@ import com.nothing21.utils.DataManager;
 import com.nothing21.utils.NetworkAvailablity;
 import com.nothing21.utils.SessionManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,11 +56,12 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditProfileAct extends AppCompatActivity {
+public class EditProfileAct extends AppCompatActivity implements onItemClickListener {
     public String TAG = "EditProfileAct";
     ActivityEditProfileBinding binding;
     Nothing21Interface apiInterface;
@@ -61,6 +70,9 @@ public class EditProfileAct extends AppCompatActivity {
     private static final int SELECT_FILE = 2;
     private static final int MY_PERMISSION_CONSTANT = 5;
     private Uri uriSavedImage;
+    EditAddressAdapter adapter;
+    ArrayList<AddressModel.Result> arrayList;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +98,11 @@ public class EditProfileAct extends AppCompatActivity {
           validation();
         });
 
+
+        arrayList = new ArrayList<>();
+
+        adapter = new EditAddressAdapter(EditProfileAct.this,arrayList,EditProfileAct.this);
+        binding.rvAddress.setAdapter(adapter);
 
     }
 
@@ -187,6 +204,8 @@ public class EditProfileAct extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(NetworkAvailablity.checkNetworkStatus(EditProfileAct.this)) getAddressssss();
+        else Toast.makeText(this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -458,4 +477,70 @@ public class EditProfileAct extends AppCompatActivity {
     }
 
 
+    private void getAddressssss() {
+        HashMap<String, String> paramHash = new HashMap<>();
+        paramHash.put("user_id", DataManager.getInstance().getUserData(EditProfileAct.this).result.id);
+        Log.e("get address===", "paramHash = " + paramHash);
+        Call<ResponseBody> call = apiInterface.getAddress(paramHash);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                DataManager.getInstance().hideProgressMessage();
+                try {
+
+                    String stringResponse = response.body().string();
+
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+                        Log.e(TAG, "get address Response = " + stringResponse);
+                        if (jsonObject.getString("status").equals("1")) {
+                            //  Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
+                            AddressModel model = new Gson().fromJson(stringResponse,AddressModel.class);
+                            arrayList.clear();
+                            arrayList.addAll(model.getResult());
+                            adapter.notifyDataSetChanged();
+                            //binding.tvSave.setVisibility(View.VISIBLE);
+
+                        } else {
+                            // binding.tvSave.setVisibility(View.GONE);
+                            arrayList.clear();
+                            adapter.notifyDataSetChanged();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("JSONException", "JSONException = " + e.getMessage());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                DataManager.getInstance().hideProgressMessage();
+                call.cancel();
+            }
+
+        });
+    }
+
+
+    @Override
+    public void onItem(int position) {
+        startActivity(new Intent(EditProfileAct.this,EditAddessAct.class)
+                .putExtra("address_id",arrayList.get(position).getId())
+                .putExtra("city",arrayList.get(position).getCity())
+                .putExtra("area",arrayList.get(position).getArea())
+                .putExtra("landmark",arrayList.get(position).getNearestLandmark())
+                .putExtra("building",arrayList.get(position).getBuilding_name())
+                .putExtra("flat",arrayList.get(position).getFlate_no())
+                .putExtra("mobile",arrayList.get(position).getMobile())
+                .putExtra("zipCode",arrayList.get(position).getZipCode())
+        );
+
+    }
 }

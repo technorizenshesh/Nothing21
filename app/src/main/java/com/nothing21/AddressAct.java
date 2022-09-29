@@ -204,7 +204,9 @@ public class AddressAct extends AppCompatActivity  implements onItemClickListene
         paramHash.put("building", binding.edBuildingName.getText().toString());
         paramHash.put("flat", binding.edApartment.getText().toString());
         paramHash.put("zip_code", binding.edZipcode.getText().toString());
-        paramHash.put("country_code", binding.ccp.getSelectedCountryCode()+"");
+      //  paramHash.put("country_code", binding.ccp.getSelectedCountryCode()+"");
+        paramHash.put("country_code",binding.edCountryCode.getText().toString()+"");
+
         paramHash.put("mobile", binding.edContact.getText().toString());
         paramHash.put("user_id", DataManager.getInstance().getUserData(AddressAct.this).result.id);
         Log.e("add address===", "paramHash = " + paramHash);
