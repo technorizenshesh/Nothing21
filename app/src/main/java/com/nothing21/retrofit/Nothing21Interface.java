@@ -288,6 +288,11 @@ public interface Nothing21Interface {
 
 
 
+    @FormUrlEncoded
+    @POST("coupon_code")
+    Call<ResponseBody> couponCode(@FieldMap Map<String, String> params);
+
+
 }
 
 

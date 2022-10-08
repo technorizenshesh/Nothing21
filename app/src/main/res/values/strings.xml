@@ -150,5 +150,9 @@
     <string name="add_address_successfully">address added successfully</string>
     <string name="edit_address">Edit Address</string>
     <string name="country_code">Country code</string>
+    <string name="have_you_promo_code">Have you promocode?</string>
+    <string name="promo_code_applied_successfully">Promocode applied successfully</string>
+    <string name="remove">Remove</string>
+    <string name="please_enter_promo_code">Please enter promo code</string>
 
 </resources>

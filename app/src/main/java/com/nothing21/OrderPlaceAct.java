@@ -39,8 +39,8 @@ public class OrderPlaceAct extends AppCompatActivity {
     int LAUNCH_SECOND_ACTIVITY = 1;
     ActivityPlaceOrderBinding binding;
     Nothing21Interface apiInterface;
-    String lat = "", lon = "", address = "", product_id = "", cart_id = "", amount = "", deliveryCharge = "20",addressId="";
-    double total = 0.0;
+    String lat = "", lon = "",percent="0",couponId="", address = "", product_id = "", cart_id = "", amount = "", deliveryCharge = "20",addressId="";
+    double total = 0.0,percentAmount=0.0;
     String chkAddress="0";
 
 
@@ -66,7 +66,7 @@ public class OrderPlaceAct extends AppCompatActivity {
             binding.tvPrice.setText("AED " + String.format("%.2f", Double.parseDouble(amount)));
             binding.tvDeliveryPrice.setText("AED " + String.format("%.2f", Double.parseDouble(deliveryCharge)));
             binding.tvTotal.setText("AED " + String.format("%.2f", total));
-            binding.ccp.setCountryForPhoneCode(971);
+         //   binding.ccp.setCountryForPhoneCode(971);
 
             if(NetworkAvailablity.checkNetworkStatus(OrderPlaceAct.this)) getAddressssss();
             else Toast.makeText(OrderPlaceAct.this,getString(R.string.network_failure),Toast.LENGTH_SHORT).show();
@@ -92,10 +92,33 @@ public class OrderPlaceAct extends AppCompatActivity {
                             Toast.makeText(OrderPlaceAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                     }
 
+                });
+
+
+        binding.btnApply.setOnClickListener(v -> {
+            if(binding.btnApply.getText().toString().equals("Apply")){
+                if(binding.edPromoCode.getText().toString().equals("")) {
+                    Toast.makeText(OrderPlaceAct.this, getString(R.string.please_enter_promo_code), Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    if (NetworkAvailablity.checkNetworkStatus(OrderPlaceAct.this))
+                        ApplyCode(binding.edPromoCode.getText().toString());
+                    else
+                        Toast.makeText(OrderPlaceAct.this, getString(R.string.network_failure), Toast.LENGTH_SHORT).show();
                 }
 
+            }
+            else {
+                total = total + percentAmount;
+                binding.tvTotal.setText("AED " + String.format("%.2f", total));
+                binding.edPromoCode.setText("");
+                binding.edPromoCode.setFocusable(true);
+               // binding.edPromoCode.setClickable(true);
 
-        );
+                binding.btnApply.setText(getString(R.string.apply));
+            }
+        });
 
 
     }
@@ -138,7 +161,7 @@ public class OrderPlaceAct extends AppCompatActivity {
     }
 
 
-    private void placeOrder() {
+   private void placeOrder() {
         DataManager.getInstance().showProgressMessage(OrderPlaceAct.this, getString(R.string.please_wait));
         Map<String, String> map = new HashMap<>();
         map.put("user_id", DataManager.getInstance().getUserData(OrderPlaceAct.this).result.id + "");
@@ -149,6 +172,10 @@ public class OrderPlaceAct extends AppCompatActivity {
         map.put("order_time", DataManager.getCurrentTime());
         map.put("cart_id", cart_id);
         map.put("address_id", addressId);
+        map.put("promo_code", binding.edPromoCode.getText().toString());
+        map.put("category_order_id", percent);
+        map.put("promo_code_id",couponId);
+
 
        // map.put("address", address);
       //  map.put("lat", lat);
@@ -189,7 +216,10 @@ public class OrderPlaceAct extends AppCompatActivity {
                     if (jsonObject.getString("status").equals("1")) {
                         startActivity(new Intent(OrderPlaceAct.this, PaymentAct.class)
                                 .putExtra("request_id", jsonObject.getString("request_id"))
-                                .putExtra("amount", total + ""));
+                                .putExtra("amount", total + "")
+                                .putExtra("promo_code",binding.edPromoCode.getText().toString())
+                                .putExtra("category_order_id",percent)
+                                .putExtra("couponId",couponId));
                     } else  if (jsonObject.getString("status").equals("0")){
                         Toast.makeText(OrderPlaceAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
@@ -212,6 +242,58 @@ public class OrderPlaceAct extends AppCompatActivity {
 
 
     }
+
+    private void ApplyCode(String code) {
+        DataManager.getInstance().showProgressMessage(OrderPlaceAct.this, getString(R.string.please_wait));
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", DataManager.getInstance().getUserData(OrderPlaceAct.this).result.id + "");
+        map.put("promo_code",code);
+        Log.e(TAG, "Apply PromoCode Request " + map);
+        Call<ResponseBody> loginCall = apiInterface.couponCode(map);
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                DataManager.getInstance().hideProgressMessage();
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "Apply PromoCode Response :" + stringResponse);
+                    if (jsonObject.getString("status").equals("1")) {
+                         JSONObject result = jsonObject.getJSONObject("result");
+                           percent = result.getString("category_order_id");
+                           couponId = result.getString("id");
+                           percentAmount = (total * Integer.parseInt(percent))/100;
+                          total = total - percentAmount;
+                          binding.tvTotal.setText("AED " + String.format("%.2f", total));
+                        //  binding.edPromoCode.setFocusable(false);
+                          binding.btnApply.setText(getString(R.string.remove));
+                          Toast.makeText(OrderPlaceAct.this,getString(R.string.promo_code_applied_successfully), Toast.LENGTH_SHORT).show();
+
+                    } else  if (jsonObject.getString("status").equals("0")){
+                        Toast.makeText(OrderPlaceAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                    Log.e("JSONException", "JSONException = " + e.getMessage());
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                DataManager.getInstance().hideProgressMessage();
+            }
+        });
+
+
+    }
+
+
+
 
 
     @Override
@@ -341,9 +423,9 @@ public class OrderPlaceAct extends AppCompatActivity {
                                binding.edApartment.setText(model.getResult().get(0).getFlate_no());
                                binding.edContact.setText(model.getResult().get(0).getMobile());
                             binding.edZipcode.setText(model.getResult().get(0).getZipCode());
-                            binding.edCountryCode.setText("+971");
+                           // binding.edCountryCode.setText("+971");
 
-                            binding.ccp.setCountryForPhoneCode(971);
+                          //  binding.ccp.setCountryForPhoneCode(971);
 
                         } else {
                         }

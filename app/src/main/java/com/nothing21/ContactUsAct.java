@@ -1,5 +1,6 @@
 package com.nothing21;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +37,7 @@ public class ContactUsAct extends AppCompatActivity {
 
     ActivityContactUsBinding binding;
     Nothing21Interface apiInterface;
+    String email="",mobile="";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +55,17 @@ public class ContactUsAct extends AppCompatActivity {
         binding.ivBack.setOnClickListener(v -> finish());
         if(NetworkAvailablity.checkNetworkStatus(ContactUsAct.this)) GetAllWishList();
         else Toast.makeText(ContactUsAct.this,getString(R.string.network_failure),Toast.LENGTH_SHORT).show();
+
+
+        binding.ivEmail.setOnClickListener(v -> {
+            setClipboard(ContactUsAct.this,email,"Email copied");
+        });
+
+        binding.ivMobile.setOnClickListener(v -> {
+            setClipboard(ContactUsAct.this,mobile,"Mobile Number copied");
+        });
+
+
     }
 
 
@@ -75,6 +88,8 @@ public class ContactUsAct extends AppCompatActivity {
                     if (jsonObject.getString("status").equals("1")) {
                         //  Log.e("sendMoneyAPiCall", "sendMoneyAPiCall = " + stringResponse);
                         ContactUseModel modelTransactions = new Gson().fromJson(stringResponse, ContactUseModel.class);
+                        email = modelTransactions.getResult().get(0).getEmail();
+                        mobile = modelTransactions.getResult().get(0).getMobile();
                          binding.tvNumber.setText("Contact Number : " + modelTransactions.getResult().get(0).getMobile());
                         binding.tvEmail.setText("Email : " + modelTransactions.getResult().get(0).getEmail());
 
@@ -96,6 +111,20 @@ public class ContactUsAct extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setClipboard(Context context, String text,String msg) {
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 }

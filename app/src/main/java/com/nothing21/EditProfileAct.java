@@ -167,8 +167,8 @@ public class EditProfileAct extends AppCompatActivity implements onItemClickList
 
 
                         if(!DataManager.getInstance().getUserData(EditProfileAct.this).result.mobile.equals(""))   binding.etMobile.setText(DataManager.getInstance().getUserData(EditProfileAct.this).result.mobile);
-                        if(!DataManager.getInstance().getUserData(EditProfileAct.this).result.countryCode.equals("")) binding.ccp.setCountryForPhoneCode(Integer.parseInt(DataManager.getInstance().getUserData(EditProfileAct.this).result.countryCode));
-                        binding.ccp.setCountryForPhoneCode(971);
+                        if(!DataManager.getInstance().getUserData(EditProfileAct.this).result.countryCode.equals("")) binding.edCountryCode.setText("+"+DataManager.getInstance().getUserData(EditProfileAct.this).result.countryCode);//binding.ccp.setCountryForPhoneCode(Integer.parseInt(DataManager.getInstance().getUserData(EditProfileAct.this).result.countryCode));
+                       // binding.ccp.setCountryForPhoneCode(971);
 
                         if(!data11.result.image.equals("")){
                             Glide.with(EditProfileAct.this)
@@ -436,7 +436,7 @@ public class EditProfileAct extends AppCompatActivity implements onItemClickList
         RequestBody l_name = RequestBody.create(MediaType.parse("text/plain"), binding.etSurName.getText().toString());
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), binding.etEmail.getText().toString());
         RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), binding.etMobile.getText().toString());
-        RequestBody country_code = RequestBody.create(MediaType.parse("text/plain"), binding.ccp.getSelectedCountryCode());
+        RequestBody country_code = RequestBody.create(MediaType.parse("text/plain"), binding.edCountryCode.getText().toString() /*binding.ccp.getSelectedCountryCode()*/);
         RequestBody emirate = RequestBody.create(MediaType.parse("text/plain"),binding.etEmirate.getText().toString());
         RequestBody address = RequestBody.create(MediaType.parse("text/plain"), binding.etAddress.getText().toString());
        // RequestBody GEN = RequestBody.create(MediaType.parse("text/plain"),DataManager.getInstance().getUserData(EditProfileAct.this).result.gender );

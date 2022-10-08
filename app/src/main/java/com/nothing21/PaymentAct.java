@@ -35,7 +35,7 @@ public class PaymentAct extends AppCompatActivity {
     public String TAG = "PaymentAct";
     ActivityPaymentBinding binding;
     Nothing21Interface apiInterface;
-    String amount = "", requestId = "", cardNumber = "", expiryMonth = "", expiryDate = "", cvvv = "";
+    String amount = "", requestId = "",category_order_id="",couponId="", cardNumber = "", expiryMonth = "", expiryDate = "", cvvv = "",promo_code="";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +52,9 @@ public class PaymentAct extends AppCompatActivity {
         if (getIntent() != null) {
             requestId = getIntent().getStringExtra("request_id");
             amount = getIntent().getStringExtra("amount");
+            promo_code = getIntent().getStringExtra("promo_code");
+            category_order_id = getIntent().getStringExtra("category_order_id");
+            couponId = getIntent().getStringExtra("couponId");
 
             // DecimalFormat df = new DecimalFormat("0.00");
             // binding.btMakePayment.setText("€" + String.format("%.2f", Double.parseDouble(amount1)) + " " + getString(R.string.pay));
@@ -141,6 +144,9 @@ public class PaymentAct extends AppCompatActivity {
         map.put("total_amount", amount);
         map.put("token", token);
         map.put("currency", "EUR");
+        map.put("promo_code",promo_code);
+        map.put("category_order_id", category_order_id);
+        map.put("promo_code_id",couponId);
         Log.e("MapMap", "PAYMENT REQUEST" + map);
         Call<Map<String,String>> payCall = apiInterface.payment(map);
         payCall.enqueue(new Callback<Map<String,String>>() {

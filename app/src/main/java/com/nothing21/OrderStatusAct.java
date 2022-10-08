@@ -123,6 +123,14 @@ public class OrderStatusAct extends AppCompatActivity implements InfoListener {
                              adapter = new OrderStatusAdapter(OrderStatusAct.this,arrayList);
                             binding.rvCart.setAdapter(adapter);
 
+                            for(int i = 0; i<arrayList.size();i++){
+                                if(arrayList.get(i).getOrderStatus().equals("")) {
+                                    callRate(arrayList.get(i).getId());
+                                    break;
+                                }
+                            }
+
+
                         } else {
                            // Toast.makeText(OrderStatusAct.this, jsonObject.getString("result"), Toast.LENGTH_SHORT).show();
                             arrayList.clear();

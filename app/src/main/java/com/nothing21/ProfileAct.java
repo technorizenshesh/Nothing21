@@ -92,8 +92,8 @@ public class ProfileAct extends AppCompatActivity implements onItemClickListener
 
 
                         if(!DataManager.getInstance().getUserData(ProfileAct.this).result.mobile.equals(""))   binding.etMobile.setText(DataManager.getInstance().getUserData(ProfileAct.this).result.mobile);
-                        if(!DataManager.getInstance().getUserData(ProfileAct.this).result.countryCode.equals("")) binding.ccp.setCountryForPhoneCode(Integer.parseInt(DataManager.getInstance().getUserData(ProfileAct.this).result.countryCode));
-                        binding.ccp.setCountryForPhoneCode(971);
+                        if(!DataManager.getInstance().getUserData(ProfileAct.this).result.countryCode.equals("")) binding.edCountryCode.setText("+"+DataManager.getInstance().getUserData(ProfileAct.this).result.countryCode);//binding.ccp.setCountryForPhoneCode(Integer.parseInt(DataManager.getInstance().getUserData(ProfileAct.this).result.countryCode));
+                       // binding.ccp.setCountryForPhoneCode(971);
 
                         if(!data11.result.image.equals("")){
                             Glide.with(ProfileAct.this)

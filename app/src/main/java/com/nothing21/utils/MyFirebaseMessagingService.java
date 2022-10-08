@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.nothing21.HomeAct;
+import com.nothing21.OrderStatusAct;
 import com.nothing21.R;
 import com.nothing21.retrofit.Constant;
 
@@ -132,8 +133,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder builder;
             Intent intent = null;
-            intent = new Intent(this, HomeAct.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            if(status.equals("Delivered"))  intent = new Intent(this, OrderStatusAct.class);
+            else   intent = new Intent(this, HomeAct.class);            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent;
             AudioAttributes attributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_NOTIFICATION)
@@ -164,7 +165,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notifManager.notify(0, notification);
         } else {
             Intent intent = null;
-            intent = new Intent(this, HomeAct.class);
+            if(status.equals("Delivered"))  intent = new Intent(this, OrderStatusAct.class);
+            else   intent = new Intent(this, HomeAct.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
                     Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 1251, intent, PendingIntent.FLAG_ONE_SHOT);

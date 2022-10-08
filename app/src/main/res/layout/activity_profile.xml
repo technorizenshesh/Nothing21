@@ -248,13 +248,35 @@
                         app:ccp_countryPreference="BE,BG,CZ,DK,DE,EE,IE,EL,ES,FR,HR,IT,CY,LV,LT,LU,HU,MT,NL,PL,PT,SI,SK,FI,SE,IS,NO,CH,ME,MK,AL,RS,TR"
                         app:ccp_defaultPhoneCode="91"
                         app:ccp_textSize="@dimen/_12sdp"
-                        app:ccp_clickable="false"/>
+                        app:ccp_clickable="false"
+                        android:visibility="gone"/>
+
+
+                    <EditText
+                        android:id="@+id/edCountryCode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:background="@null"
+                        android:backgroundTint="@color/white"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:hint="@string/country_code"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:focusable="false"
+                        android:padding="@dimen/_10sdp"
+                        android:singleLine="true"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textDirection="locale"
+                        android:textSize="@dimen/_12sdp" />
+
 
                     <EditText
                         android:id="@+id/etMobile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
+                        android:layout_weight="0.65"
                         android:backgroundTint="@color/white"
                         android:drawablePadding="@dimen/_10sdp"
                         android:focusable="false"
