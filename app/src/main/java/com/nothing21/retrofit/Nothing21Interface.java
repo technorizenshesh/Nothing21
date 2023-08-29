@@ -293,6 +293,22 @@ public interface Nothing21Interface {
     Call<ResponseBody> couponCode(@FieldMap Map<String, String> params);
 
 
+    @FormUrlEncoded
+    @POST("get_delivery_chages")
+    Call<ResponseBody> getDelivery(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("get_card_by_user_id")
+    Call<ResponseBody> getCardList(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("save_card_by_user_id")
+    Call<ResponseBody> addCardss(@FieldMap Map<String, String> params);
+
+    @FormUrlEncoded
+    @POST("update_card_by_user_id")
+    Call<ResponseBody> editCard(@FieldMap Map<String, String> params);
+
 }
 
 

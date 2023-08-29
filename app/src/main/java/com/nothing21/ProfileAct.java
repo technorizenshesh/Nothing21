@@ -57,6 +57,10 @@ public class ProfileAct extends AppCompatActivity implements onItemClickListener
 
         binding.tvAnotherAddress.setOnClickListener(v -> startActivity(new Intent(ProfileAct.this, AddUserAddress.class)));
 
+        binding.tvSaveCard.setOnClickListener(v -> {
+            startActivity(new Intent(ProfileAct.this, CardLitAct.class));
+        });
+
 
         binding.ivBack.setOnClickListener(v -> finish());
 

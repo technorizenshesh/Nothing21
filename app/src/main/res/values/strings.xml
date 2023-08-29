@@ -154,5 +154,15 @@
     <string name="promo_code_applied_successfully">Promocode applied successfully</string>
     <string name="remove">Remove</string>
     <string name="please_enter_promo_code">Please enter promo code</string>
+    <string name="discount">Discount</string>
+    <string name="valid_upto">Valid upto</string>
+    <string name="please_select_card">Please select card</string>
+    <string name="edit">Edit</string>
+    <string name="add_card_">Add  card</string>
+    <string name="card_not_available">card not available</string>
+    <string name="purchase">purchase</string>
+    <string name="payment_info">Card List</string>
+    <string name="edit_card">Edit Card</string>
+    <string name="save_cards">Save Cards</string>
 
 </resources>

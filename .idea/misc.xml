@@ -9,6 +9,8 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/circle_blue.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/circle_white_bg.xml" value="0.2203125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/circle_white_gray_border_bg.xml" value="0.17314814814814813" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/ic_blue_plus.xml" value="0.1675" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/rounded_border_black_bg.xml" value="0.1675" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/rounded_select_yellow_bg.xml" value="0.19895833333333332" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/rounded_unselect_white_bg.xml" value="0.19895833333333332" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/drawable/rounded_white15_bg.xml" value="0.20364583333333333" />
@@ -71,10 +73,12 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_add_address.xml" value="0.114453125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_add_address1.xml" value="0.15234375" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_address.xml" value="0.16302083333333334" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_card_list.xml" value="0.16673792218896966" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_change_pass.xml" value="0.104296875" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_contact_us.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_edit_address.xml" value="0.15234375" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_edit_address1.xml" value="0.15234375" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_edit_card.xml" value="0.153125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_edit_profile.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_forgot_pass.xml" value="0.115234375" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_home.xml" value="0.11684782608695653" />
@@ -95,6 +99,7 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_support.xml" value="0.103515625" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_support2.xml" value="0.140625" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/activity_support_two.xml" value="0.140625" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/actvity_add_card.xml" value="0.17192982456140352" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/dialog_fullscreen_image.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/dialog_loading.xml" value="0.1" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/dialog_show_image_selection.xml" value="0.1" />
@@ -117,6 +122,8 @@
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/fragment_sub_cat.xml" value="0.120703125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_address.xml" value="0.109375" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_address1.xml" value="0.1" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_card.xml" value="0.13100634632819583" />
+        <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_card2.xml" value="0.153125" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_cart.xml" value="0.22" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_color.xml" value="0.18854166666666666" />
         <entry key="..\:/MyProjects/Nothing21/app/src/main/res/layout/item_color_filter.xml" value="0.1828125" />
@@ -147,7 +154,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

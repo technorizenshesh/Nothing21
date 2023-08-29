@@ -238,18 +238,6 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/_3sdp">
 
-                    <com.hbb20.CountryCodePicker
-                        android:id="@+id/ccp"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:layout_weight="0.3"
-                        android:gravity="center"
-                        app:ccp_countryPreference="BE,BG,CZ,DK,DE,EE,IE,EL,ES,FR,HR,IT,CY,LV,LT,LU,HU,MT,NL,PL,PT,SI,SK,FI,SE,IS,NO,CH,ME,MK,AL,RS,TR"
-                        app:ccp_defaultPhoneCode="91"
-                        app:ccp_textSize="@dimen/_12sdp"
-                        app:ccp_clickable="false"
-                        android:visibility="gone"/>
 
 
                     <EditText
@@ -292,6 +280,36 @@
 
 
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounder_bg_white1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_3sdp">
+
+
+                    <TextView
+                        android:id="@+id/tvSaveCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:inputType="text"
+                        android:padding="@dimen/_10sdp"
+                        android:singleLine="true"
+                        android:text="@string/save_cards"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textDirection="locale"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+
 
 
                 <RelativeLayout

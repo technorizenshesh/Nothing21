@@ -1,11 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/reservation_toolbar"
+        layout="@layout/toolbar" />
+
+
+    <RelativeLayout
+        android:id="@+id/layoutRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reservation_toolbar"
+        android:layout_margin="@dimen/_10sdp"
+        android:visibility="visible">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/payment"
+            android:layout_margin="@dimen/_5sdp"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+        <RelativeLayout
+            android:id="@+id/payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/rounded_black_bg"
+            android:paddingHorizontal="@dimen/_20sdp"
+
+            android:paddingVertical="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/pay"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
     <ScrollView
         android:id="@+id/ViewScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"
-        android:visibility="visible">
+        android:layout_below="@+id/reservation_toolbar"
+        android:visibility="gone">
 
 
         <RelativeLayout
@@ -13,16 +68,13 @@
             android:layout_height="match_parent">
 
 
-            <include
-                android:id="@+id/reservation_toolbar"
-                layout="@layout/toolbar" />
+
 
             <LinearLayout
                 android:id="@+id/layoutCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@+id/reservation_toolbar"
                 android:layout_marginTop="90dp">
 
                 <ImageView
@@ -89,12 +141,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/pay"
-                    android:layout_centerInParent="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sdp" />
-
 
 
             </RelativeLayout>
@@ -102,7 +153,9 @@
 
         </RelativeLayout>
 
-
-
     </ScrollView>
+
+
+</RelativeLayout>
+
 </layout>

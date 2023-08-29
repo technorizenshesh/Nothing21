@@ -55,7 +55,8 @@ import java.util.Locale;
 import ir.alirezabdn.wp7progress.WP10ProgressBar;
 
 
-public class DataManager {
+public class
+DataManager {
 
 
     private static final DataManager ourInstance = new DataManager();

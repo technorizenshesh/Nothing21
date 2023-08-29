@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.vinaygaba.creditcardview.CreditCardView
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:brandLogo="@drawable/brandlogo"
+            app:cardFrontBackground="@drawable/card_bg1"
+            app:cardName="Neil Woods"
+            app:cardNameTextColor="@color/white"
+
+            app:cardNumber="5500005555555559"
+            app:cardNumberFormat="masked_all_but_last_four"
+            app:cardNumberTextColor="@color/white"
+            app:expiryDate="02/22"
+            app:expiryDateTextColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:isEditable="false"
+            app:isFlippable="true"
+            app:putChip="true"
+            app:type="mastercard"
+            app:validTillTextColor="@color/white" />
+
+
+
+
+        <!--  <ImageView
+              android:id="@+id/ivDelete"
+              android:layout_width="@dimen/_25sdp"
+              android:layout_height="@dimen/_25sdp"
+              android:src="@drawable/ic_cancel_red"
+              android:layout_alignParentRight="true"
+              android:layout_marginRight="@dimen/_3sdp"
+              android:layout_marginTop="@dimen/_5sdp"/>-->
+
+        <TextView
+            android:id="@+id/tvEdit"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/edit"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_centerInParent="true"/>
+
+
+    </RelativeLayout>
+
+</layout>
